@@ -1,0 +1,68 @@
+[
+  {
+    "id": "exp-01",
+    "cargo": "Consultor Senior en TI y Analítica de Datos",
+    "empresa": "Soluciones Estratégicas en Tecnología",
+    "ubicacion": "Bogotá, Colombia",
+    "modalidad": "Híbrido",
+    "periodoInicio": "01/2023",
+    "periodoFin": "Presente",
+    "estaVigente": true,
+    "descripcion": "Liderazgo técnico en la consultoría e implementación de plataformas de análisis de datos y arquitecturas de software para clientes corporativos.",
+    "responsabilidades": [
+      "Diseño e implementación de pipelines ETL automatizados para ingesta y procesamiento de telemetría corporativa.",
+      "Desarrollo de cuadros de mando e indicadores clave (KPIs) en tiempo real para toma de decisiones ejecutivas.",
+      "Auditoría técnica de infraestructura, seguridad de la información y cumplimiento normativo."
+    ],
+    "logrosCuantificables": [
+      "Optimización del tiempo de generación de reportes gerenciales en un 65% mediante pipelines automatizados.",
+      "Implementación de arquitectura con 99.95% de uptime en servicios analíticos críticos.",
+      "Reducción de un 40% en costos de procesamiento mediante reestructuración de consultas e indexación."
+    ],
+    "tecnologias": ["Python", "SQL", "JavaScript", "Docker", "Power BI", "REST APIs"]
+  },
+  {
+    "id": "exp-02",
+    "cargo": "Coordinador de Monitoreo y Sistemas de Seguridad",
+    "empresa": "Corporación de Seguridad y Control Integral",
+    "ubicacion": "Bogotá, Colombia",
+    "modalidad": "Presencial",
+    "periodoInicio": "06/2019",
+    "periodoFin": "12/2022",
+    "estaVigente": false,
+    "descripcion": "Gestión operativa y tecnológica del centro de control centralizado, administración de plataformas de CCTV IP, control de acceso y protocolos de respuesta.",
+    "responsabilidades": [
+      "Supervisión del ecosistema tecnológico de seguridad electrónica y plataformas de telemetría.",
+      "Estandarización de protocolos de contingencia, gestión de incidentes y análisis forense de datos de seguridad.",
+      "Capacitación continua del equipo operativo en herramientas de análisis y reporte de novedades."
+    ],
+    "logrosCuantificables": [
+      "Disminución del tiempo de respuesta ante eventos críticos de seguridad de 12 a menos de 3 minutos.",
+      "Automatización del registro de bitácoras digitales eliminando el 100% del uso de papel y errores de digitación.",
+      "Gestión sin incidentes de seguridad mayor en más de 30 instalaciones protegidas simultáneamente."
+    ],
+    "tecnologias": ["Sistemas VMS", "Redes IP", "CCTV Avanzado", "Control de Accesos", "SQL", "Excel Avanzado"]
+  },
+  {
+    "id": "exp-03",
+    "cargo": "Ingeniero de Desarrollo y Soporte Técnico",
+    "empresa": "Innovación Digital & Sistemas",
+    "ubicacion": "Medellín, Colombia",
+    "modalidad": "Remoto",
+    "periodoInicio": "02/2016",
+    "periodoFin": "05/2019",
+    "estaVigente": false,
+    "descripcion": "Desarrollo de módulos web, soporte a bases de datos relacionales y optimización de flujos de trabajo de clientes corporativos.",
+    "responsabilidades": [
+      "Construcción y mantenimiento de aplicaciones web con interfaces dinámicas e interactivas.",
+      "Creación de scripts de automatización para respaldos y monitoreo de integridad de bases de datos.",
+      "Atención a requerimientos técnicos de segundo nivel y resolución de incidencias en producción."
+    ],
+    "logrosCuantificables": [
+      "Desarrollo de más de 15 módulos personalizados entregados a tiempo y con cero defectos críticos.",
+      "Reducción del 50% en tickets de soporte recurrente tras la implementación de scripts de autorrecuperación.",
+      "Reconocimiento al mejor desempeño técnico por dos años consecutivos."
+    ],
+    "tecnologias": ["HTML5", "CSS3", "JavaScript", "PHP", "MySQL", "Git"]
+  }
+]

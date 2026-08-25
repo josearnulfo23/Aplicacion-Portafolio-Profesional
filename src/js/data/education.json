@@ -1,0 +1,48 @@
+{
+  "titulosAcademicos": [
+    {
+      "tituloAcademico": "Ingeniería de Sistemas y Computación",
+      "institucion": "Universidad Nacional",
+      "anio": "2015",
+      "estado": "Graduado",
+      "descripcion": "Formación integral en ciencias de la computación, arquitectura de software, bases de datos y gestión de proyectos tecnológicos."
+    },
+    {
+      "tituloAcademico": "Especialización en Gestión de Seguridad Integral y Riesgos",
+      "institucion": "Universidad de los Andes / Escuela de Postgrados",
+      "anio": "2020",
+      "estado": "Graduado",
+      "descripcion": "Especialización enfocada en gestión de riesgos corporativos, seguridad de la información, continuidad del negocio y centros de control."
+    }
+  ],
+  "certificaciones": [
+    {
+      "nombre": "Microsoft Certified: Power BI Data Analyst Associate",
+      "entidadCertificadora": "Microsoft",
+      "anio": "2023",
+      "credencialUrl": "https://learn.microsoft.com/credentials",
+      "badgeDigital": "public/images/icons/badge-microsoft.svg"
+    },
+    {
+      "nombre": "Python Data Engineering & Analytics Professional",
+      "entidadCertificadora": "DataCamp / IBM",
+      "anio": "2022",
+      "credencialUrl": "https://datacamp.com/certificate",
+      "badgeDigital": "public/images/icons/badge-datacamp.svg"
+    },
+    {
+      "nombre": "Certified Information Systems Auditor & Risk Management (CISA Foundations)",
+      "entidadCertificadora": "ISACA",
+      "anio": "2021",
+      "credencialUrl": "https://isaca.org/verify",
+      "badgeDigital": "public/images/icons/badge-isaca.svg"
+    },
+    {
+      "nombre": "IP Video Surveillance & Physical Security Specialist (CCTV/VMS)",
+      "entidadCertificadora": "Axis Communications / Milestone Systems",
+      "anio": "2020",
+      "credencialUrl": "https://milestonesys.com",
+      "badgeDigital": "public/images/icons/badge-security.svg"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "test-01",
+    "textoTestimonio": "El trabajo de José en la implementación de nuestros dashboards analíticos transformó completamente la toma de decisiones directiva. Su capacidad para traducir requerimientos complejos de negocio en herramientas visuales intuitivas y precisas es insuperable.",
+    "nombreRecomendador": "Ing. Carlos Mendoza",
+    "cargo": "Director de Operaciones y Tecnología",
+    "empresa": "Grupo Empresarial Andino",
+    "foto": "public/images/profile/testimonial-1.svg",
+    "valoracion": 5,
+    "relacionProfesional": "Cliente de Consultoría Analítica"
+  },
+  {
+    "id": "test-02",
+    "textoTestimonio": "José demostró un profesionalismo y un rigor técnico excepcional durante la reestructuración y modernización de nuestro centro de monitoreo. Redujo los tiempos de respuesta ante incidentes en más de un 70%, garantizando un estándar de seguridad de primer nivel.",
+    "nombreRecomendador": "Dra. Marcela Rincón",
+    "cargo": "Gerente de Seguridad Corporativa",
+    "empresa": "Logística & Seguridad Nacional",
+    "foto": "public/images/profile/testimonial-2.svg",
+    "valoracion": 5,
+    "relacionProfesional": "Supervisora en Proyecto de Seguridad"
+  },
+  {
+    "id": "test-03",
+    "textoTestimonio": "Pocos profesionales poseen la versatilidad de José para conectar el desarrollo de software moderno con la rigurosidad analítica y la gestión de infraestructura. Es metódico, transparente y un líder técnico sumamente confiable.",
+    "nombreRecomendador": "Lic. Fernando Gómez",
+    "cargo": "Líder de Arquitectura de Software",
+    "empresa": "TechInnovate Solutions",
+    "foto": "public/images/profile/testimonial-3.svg",
+    "valoracion": 5,
+    "relacionProfesional": "Colega en Desarrollo de Proyectos TI"
+  }
+]

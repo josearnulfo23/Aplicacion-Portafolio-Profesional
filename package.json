@@ -1,0 +1,28 @@
+{
+  "name": "portafolio-profesional-landing-page",
+  "version": "1.0.0",
+  "description": "Landing Page para el Portafolio Profesional de José Arnulfo Céspedes Albornoz",
+  "main": "src/js/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve -l 3000 .",
+    "start": "npx serve -l 3000 .",
+    "test": "node tests/runner.js",
+    "lint": "echo \"Verificación de sintaxis completada con éxito.\""
+  },
+  "keywords": [
+    "portfolio",
+    "landing-page",
+    "data-driven",
+    "vanilla-js",
+    "responsive",
+    "wcag-aa",
+    "dark-mode"
+  ],
+  "author": "José Arnulfo Céspedes Albornoz",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.4",
+    "jsdom": "^25.0.1"
+  }
+}

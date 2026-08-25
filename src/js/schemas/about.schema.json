@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Biografia",
+  "description": "Esquema para la biografía y sección Sobre Mí (RF-002)",
+  "type": "object",
+  "required": [
+    "biografiaProfesional",
+    "areasEspecializacion",
+    "valoresProfesionales"
+  ],
+  "properties": {
+    "biografiaProfesional": {
+      "type": "string",
+      "minLength": 50
+    },
+    "parrafos": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "areasEspecializacion": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["titulo", "descripcion", "icono"],
+        "properties": {
+          "titulo": { "type": "string" },
+          "descripcion": { "type": "string" },
+          "icono": { "type": "string" }
+        }
+      }
+    },
+    "valoresProfesionales": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["valor", "descripcion"],
+        "properties": {
+          "valor": { "type": "string" },
+          "descripcion": { "type": "string" }
+        }
+      }
+    },
+    "imagenComplementaria": {
+      "type": "string"
+    },
+    "estadisticasClave": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cifra", "etiqueta"],
+        "properties": {
+          "cifra": { "type": "string" },
+          "etiqueta": { "type": "string" }
+        }
+      }
+    }
+  }
+}

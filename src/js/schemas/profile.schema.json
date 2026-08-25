@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PerfilProfesional",
+  "description": "Esquema de datos para la presentación del profesional en la sección Hero",
+  "type": "object",
+  "required": [
+    "nombreCompleto",
+    "tituloProfesional",
+    "tagline",
+    "descripcionBreve",
+    "fotoProfesional",
+    "ctaPrimario",
+    "redesSociales"
+  ],
+  "properties": {
+    "nombreCompleto": {
+      "type": "string",
+      "minLength": 3
+    },
+    "tituloProfesional": {
+      "type": "string",
+      "minLength": 5
+    },
+    "tagline": {
+      "type": "string",
+      "minLength": 10
+    },
+    "descripcionBreve": {
+      "type": "string",
+      "minLength": 20
+    },
+    "fotoProfesional": {
+      "type": "string"
+    },
+    "ctaPrimario": {
+      "type": "object",
+      "required": ["texto", "destino"],
+      "properties": {
+        "texto": { "type": "string" },
+        "destino": { "type": "string" }
+      }
+    },
+    "ctaSecundario": {
+      "type": "object",
+      "required": ["texto", "destino"],
+      "properties": {
+        "texto": { "type": "string" },
+        "destino": { "type": "string" }
+      }
+    },
+    "redesSociales": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["nombreRed", "urlPerfil", "icono"],
+        "properties": {
+          "nombreRed": {
+            "type": "string",
+            "enum": ["LinkedIn", "GitHub", "Twitter/X", "Medium/Blog", "Email", "WhatsApp"]
+          },
+          "urlPerfil": {
+            "type": "string"
+          },
+          "icono": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

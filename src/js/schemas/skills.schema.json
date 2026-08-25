@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CategoriasHabilidades",
+  "description": "Categorías de habilidades y competencias técnicas (HU-003, RF-004)",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "nombreCategoria", "descripcion", "icono", "tecnologias"],
+    "properties": {
+      "id": { "type": "string" },
+      "nombreCategoria": { "type": "string" },
+      "descripcion": { "type": "string" },
+      "icono": { "type": "string" },
+      "tecnologias": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "object",
+          "required": ["nombre", "nivelDominio"],
+          "properties": {
+            "nombre": { "type": "string" },
+            "icono": { "type": "string" },
+            "nivelDominio": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "aniosExperiencia": { "type": "number" },
+            "certificacionesAsociadas": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

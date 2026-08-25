@@ -1,0 +1,138 @@
+[
+  {
+    "id": "cat-ti",
+    "nombreCategoria": "Tecnologías de la Información",
+    "descripcion": "Desarrollo frontend, backend, ingeniería de software, arquitectura de sistemas y gestión de infraestructura moderna.",
+    "icono": "public/images/icons/code.svg",
+    "tecnologias": [
+      {
+        "nombre": "JavaScript (ES6+) & TypeScript",
+        "icono": "public/images/icons/skills/javascript.svg",
+        "nivelDominio": 90,
+        "aniosExperiencia": 6,
+        "certificacionesAsociadas": ["Modern JavaScript Specialist", "TypeScript Pro"]
+      },
+      {
+        "nombre": "HTML5 Semántico & CSS3 / Modern Layouts",
+        "icono": "public/images/icons/skills/html5.svg",
+        "nivelDominio": 95,
+        "aniosExperiencia": 8,
+        "certificacionesAsociadas": ["W3C Semantic Web Standards", "Responsive Web Design"]
+      },
+      {
+        "nombre": "Python & Automatización",
+        "icono": "public/images/icons/skills/python.svg",
+        "nivelDominio": 88,
+        "aniosExperiencia": 5,
+        "certificacionesAsociadas": ["Python for Automation & Data"]
+      },
+      {
+        "nombre": "Arquitectura de Software & APIs REST",
+        "icono": "public/images/icons/skills/api.svg",
+        "nivelDominio": 85,
+        "aniosExperiencia": 6,
+        "certificacionesAsociadas": ["RESTful API Design & Integration"]
+      },
+      {
+        "nombre": "Git, GitHub & CI/CD Pipelines",
+        "icono": "public/images/icons/skills/git.svg",
+        "nivelDominio": 90,
+        "aniosExperiencia": 7,
+        "certificacionesAsociadas": ["Git Professional Certified"]
+      },
+      {
+        "nombre": "Docker & Contenedores",
+        "icono": "public/images/icons/skills/docker.svg",
+        "nivelDominio": 80,
+        "aniosExperiencia": 4,
+        "certificacionesAsociadas": ["Containerization Fundamentals"]
+      }
+    ]
+  },
+  {
+    "id": "cat-datos",
+    "nombreCategoria": "Análisis de Datos",
+    "descripcion": "Modelado de datos, bases de datos relacionales/NoSQL, herramientas analíticas, visualización y Business Intelligence.",
+    "icono": "public/images/icons/chart.svg",
+    "tecnologias": [
+      {
+        "nombre": "SQL Avanzado (PostgreSQL, MySQL, SQL Server)",
+        "icono": "public/images/icons/skills/database.svg",
+        "nivelDominio": 92,
+        "aniosExperiencia": 7,
+        "certificacionesAsociadas": ["Advanced SQL Query Optimization"]
+      },
+      {
+        "nombre": "Power BI & Dashboards Interactivos",
+        "icono": "public/images/icons/skills/powerbi.svg",
+        "nivelDominio": 88,
+        "aniosExperiencia": 5,
+        "certificacionesAsociadas": ["Microsoft Power BI Certified"]
+      },
+      {
+        "nombre": "Pandas, NumPy & Análisis Exploratorio (EDA)",
+        "icono": "public/images/icons/skills/data-analysis.svg",
+        "nivelDominio": 85,
+        "aniosExperiencia": 4,
+        "certificacionesAsociadas": ["Data Analysis with Python"]
+      },
+      {
+        "nombre": "Modelado de Datos & Arquitectura ETL",
+        "icono": "public/images/icons/skills/etl.svg",
+        "nivelDominio": 84,
+        "aniosExperiencia": 5,
+        "certificacionesAsociadas": ["Data Engineering Fundamentals"]
+      },
+      {
+        "nombre": "Excel Avanzado, Power Query & VBA",
+        "icono": "public/images/icons/skills/excel.svg",
+        "nivelDominio": 95,
+        "aniosExperiencia": 8,
+        "certificacionesAsociadas": ["Excel Expert Certification"]
+      }
+    ]
+  },
+  {
+    "id": "cat-seguridad",
+    "nombreCategoria": "Seguridad y Monitoreo",
+    "descripcion": "Gestión de seguridad integral, centros de control, análisis de riesgos, auditorías técnicas y plataformas de monitoreo.",
+    "icono": "public/images/icons/shield.svg",
+    "tecnologias": [
+      {
+        "nombre": "Sistemas de Gestión de Video (VMS / CCTV IP)",
+        "icono": "public/images/icons/skills/cctv.svg",
+        "nivelDominio": 92,
+        "aniosExperiencia": 6,
+        "certificacionesAsociadas": ["IP Video Surveillance & Analytics Specialist"]
+      },
+      {
+        "nombre": "Control de Accesos & Biometría",
+        "icono": "public/images/icons/skills/access-control.svg",
+        "nivelDominio": 90,
+        "aniosExperiencia": 5,
+        "certificacionesAsociadas": ["Access Control Systems Certification"]
+      },
+      {
+        "nombre": "Análisis Forense & Gestión de Incidentes",
+        "icono": "public/images/icons/skills/forensic.svg",
+        "nivelDominio": 86,
+        "aniosExperiencia": 5,
+        "certificacionesAsociadas": ["Incident Response & Forensic Analysis"]
+      },
+      {
+        "nombre": "Auditorías de Seguridad & Matriz de Riesgos",
+        "icono": "public/images/icons/skills/audit.svg",
+        "nivelDominio": 88,
+        "aniosExperiencia": 6,
+        "certificacionesAsociadas": ["Security Risk Assessment"]
+      },
+      {
+        "nombre": "Protocolos de Redes Seguras & Telemetría",
+        "icono": "public/images/icons/skills/network.svg",
+        "nivelDominio": 82,
+        "aniosExperiencia": 5,
+        "certificacionesAsociadas": ["Secure Networking Fundamentals"]
+      }
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+/* ==========================================================================
+   VARIABLES Y TOKENS DE DISEÑO (CSS Variables / Design System)
+   Paleta: Deep Midnight Navy, Cyan Eléctrico, Azure Glow, Glassmorphism
+   Tipografía: Google Fonts 'Outfit' (Headings) e 'Inter' (Body)
+   ========================================================================== */
+
+:root {
+  /* --- Paleta de Colores Primaria & Acentos (HSL & HEX) --- */
+  --bg-dark-900: #060B18;
+  --bg-dark-800: #0B132B;
+  --bg-dark-700: #131D38;
+  --bg-dark-600: #1C2541;
+  --bg-card: rgba(28, 37, 65, 0.65);
+  --bg-card-hover: rgba(41, 53, 90, 0.85);
+  --bg-glass: rgba(19, 29, 56, 0.75);
+
+  --accent-cyan: #00FFC2;
+  --accent-cyan-glow: rgba(0, 255, 194, 0.35);
+  --accent-blue: #00B4D8;
+  --accent-blue-deep: #0077B6;
+  --accent-azure: #48CAE4;
+  --accent-gradient: linear-gradient(135deg, #00FFC2 0%, #00B4D8 50%, #0077B6 100%);
+  --accent-gradient-text: linear-gradient(135deg, #FFFFFF 20%, #48CAE4 60%, #00FFC2 100%);
+  --hero-glow-gradient: radial-gradient(circle at 50% 50%, rgba(0, 180, 216, 0.15) 0%, rgba(11, 19, 43, 0) 70%);
+
+  /* --- Textos y Contraste WCAG 2.1 AA --- */
+  --text-primary: #FFFFFF;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-accent: #00FFC2;
+
+  /* --- Bordes y Sombras de Elevación --- */
+  --border-subtle: rgba(72, 202, 228, 0.15);
+  --border-active: rgba(0, 255, 194, 0.5);
+  --border-card: rgba(255, 255, 255, 0.08);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 25px rgba(0, 180, 216, 0.25);
+  --shadow-glow-accent: 0 0 30px rgba(0, 255, 194, 0.3);
+
+  /* --- Tipografía --- */
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  /* --- Tamaños de Fuente Jerárquicos --- */
+  --fs-xs: 0.75rem;    /* 12px */
+  --fs-sm: 0.875rem;   /* 14px */
+  --fs-base: 1rem;     /* 16px */
+  --fs-md: 1.125rem;   /* 18px */
+  --fs-lg: 1.25rem;    /* 20px */
+  --fs-xl: 1.5rem;     /* 24px */
+  --fs-2xl: 2rem;      /* 32px */
+  --fs-3xl: 2.75rem;   /* 44px */
+  --fs-4xl: 3.5rem;    /* 56px */
+
+  /* --- Espaciados y Layout --- */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2.5rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 6rem;
+
+  --container-max-width: 1280px;
+  --header-height: 76px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  /* --- Transiciones --- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Z-index Jerárquico --- */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-modal-backdrop: 900;
+  --z-modal: 1000;
+  --z-toast: 1100;
+}

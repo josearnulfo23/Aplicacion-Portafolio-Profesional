@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Testimonios",
+  "description": "Testimonios y recomendaciones de clientes o colegas (HU-009, RF-007)",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "textoTestimonio",
+      "nombreRecomendador",
+      "cargo",
+      "empresa"
+    ],
+    "properties": {
+      "id": { "type": "string" },
+      "textoTestimonio": { "type": "string" },
+      "nombreRecomendador": { "type": "string" },
+      "cargo": { "type": "string" },
+      "empresa": { "type": "string" },
+      "foto": { "type": "string" },
+      "valoracion": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5
+      },
+      "relacionProfesional": { "type": "string" }
+    }
+  }
+}

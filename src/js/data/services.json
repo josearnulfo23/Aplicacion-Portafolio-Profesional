@@ -1,0 +1,62 @@
+[
+  {
+    "id": "srv-01",
+    "nombreServicio": "Consultoría en Tecnologías de la Información",
+    "categoria": "Desarrollo y Arquitectura",
+    "descripcion": "Asesoramiento estratégico para el diseño, modernización y desarrollo de arquitecturas de software web escalables, integración de APIs y buenas prácticas de ingeniería.",
+    "icono": "public/images/icons/code.svg",
+    "entregables": [
+      "Diagnóstico arquitectónico y plan de modernización tecnológica",
+      "Desarrollo de aplicaciones web a medida (Frontend/Backend)",
+      "Estrategias de integración de sistemas y APIs RESTful",
+      "Documentación técnica y transferencia de conocimiento"
+    ],
+    "ctaTexto": "Solicitar Consultoría TI",
+    "ctaDestino": "#contacto"
+  },
+  {
+    "id": "srv-02",
+    "nombreServicio": "Análisis de Datos y Business Intelligence",
+    "categoria": "Analítica y Datos",
+    "descripcion": "Transformación de datos brutos en activos estratégicos accionables mediante canalizaciones ETL robustas, modelado avanzado y dashboards visuales interactivos.",
+    "icono": "public/images/icons/chart.svg",
+    "entregables": [
+      "Diseño y construcción de pipelines de datos automatizados (ETL)",
+      "Creación de tableros de control ejecutivos en Power BI",
+      "Análisis exploratorio de datos (EDA) e identificación de anomalías",
+      "Definición y seguimiento de métricas clave (KPIs) del negocio"
+    ],
+    "ctaTexto": "Solicitar Análisis de Datos",
+    "ctaDestino": "#contacto"
+  },
+  {
+    "id": "srv-03",
+    "nombreServicio": "Implementación de Sistemas de Seguridad y Control",
+    "categoria": "Seguridad y Monitoreo",
+    "descripcion": "Diseño, estructuración y puesta en marcha de centros de monitoreo, plataformas de CCTV IP, control de accesos biométrico y protocolos de respuesta a incidentes.",
+    "icono": "public/images/icons/shield.svg",
+    "entregables": [
+      "Diseño de arquitectura para centros de control y videovigilancia",
+      "Integración de plataformas VMS, analítica de video y telemetría",
+      "Estandarización de protocolos de contingencia y procedimientos de control",
+      "Capacitación especializada para operadores de seguridad"
+    ],
+    "ctaTexto": "Solicitar Solución de Seguridad",
+    "ctaDestino": "#contacto"
+  },
+  {
+    "id": "srv-04",
+    "nombreServicio": "Auditorías Técnicas y Evaluación de Riesgos",
+    "categoria": "Auditoría y Diagnóstico",
+    "descripcion": "Evaluación exhaustiva de infraestructura, vulnerabilidades de sistemas, integridad de procesos y matrices de riesgo físico-lógico para garantizar continuidad operativa.",
+    "icono": "public/images/icons/audit.svg",
+    "entregables": [
+      "Informe detallado de vulnerabilidades y brechas de seguridad",
+      "Matriz cuantitativa de riesgos con priorización por criticidad",
+      "Plan de acción correctivo y recomendaciones de mitigación",
+      "Verificación de cumplimiento de estándares y normativas"
+    ],
+    "ctaTexto": "Solicitar Auditoría Técnica",
+    "ctaDestino": "#contacto"
+  }
+]

@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Profesional — José Arnulfo Céspedes Albornoz</title>
+    <meta name="description" content="Portafolio profesional interactivo y moderno de José Arnulfo Céspedes Albornoz, especialista en TI, Análisis de Datos y Seguridad">
+    <meta name="keywords" content="portafolio, profesional, José Arnulfo Céspedes Albornoz, TI, Análisis de Datos, Seguridad, desarrollo web">
+    <meta property="og:title" content="Portafolio Profesional — José Arnulfo Céspedes Albornoz">
+    <meta property="og:description" content="Portafolio profesional interactivo y moderno de José Arnulfo Céspedes Albornoz, especialista en TI, Análisis de Datos y Seguridad">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://josearnolfo.com/">
+    <meta property="og:image" content="public/images/profile/hero-photo.webp">
+    <meta property="og:site_name" content="Portafolio Profesional">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Portafolio Profesional — José Arnulfo Céspedes Albornoz">
+    <meta name="twitter:description" content="Portafolio profesional interactivo y moderno de José Arnulfo Céspedes Albornoz, especialista en TI, Análisis de Datos y Seguridad">
+    <link rel="icon" href="public/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="src/css/variables.css">
+    <link rel="stylesheet" href="src/css/base.css">
+    <link rel="stylesheet" href="src/css/layout.css">
+    <link rel="stylesheet" href="src/css/components.css">
+    <link rel="stylesheet" href="src/css/sections.css">
+    <link rel="stylesheet" href="src/css/animations.css">
+</head>
+<body>
+    <div id="app">
+  
+      <header class="site-header" role="banner">
+        <div class="container header-container">
+          <!-- Logo & Marca -->
+          <a href="#inicio" class="brand-logo" aria-label="Ir al inicio del portafolio">
+            <div class="brand-icon">JC</div>
+            <div class="brand-title">
+              <span class="brand-name">José Céspedes</span>
+              <span class="brand-role">TI · Datos · Seguridad</span>
+            </div>
+          </a>
+
+          <!-- Menú de Navegación Desktop -->
+          <nav class="nav-menu" role="navigation" aria-label="Navegación principal">
+            
+      <a href="#inicio" class="nav-link active" data-nav-id="inicio">
+        Inicio
+      </a>
+    
+      <a href="#sobre-mi" class="nav-link " data-nav-id="sobre-mi">
+        Sobre Mí
+      </a>
+    
+      <a href="#experiencia" class="nav-link " data-nav-id="experiencia">
+        Experiencia
+      </a>
+    
+      <a href="#habilidades" class="nav-link " data-nav-id="habilidades">
+        Habilidades
+      </a>
+    
+      <a href="#proyectos" class="nav-link " data-nav-id="proyectos">
+        Proyectos
+      </a>
+    
+      <a href="#servicios" class="nav-link " data-nav-id="servicios">
+        Servicios
+      </a>
+    
+      <a href="#educacion" class="nav-link " data-nav-id="educacion">
+        Educación
+      </a>
+    
+      <a href="#testimonios" class="nav-link " data-nav-id="testimonios">
+        Testimonios
+      </a>
+    
+      <a href="#contacto" class="nav-link " data-nav-id="contacto">
+        Contacto
+      </a>
+    
+          </nav>
+
+          <!-- Acciones del Header (CTA CV y Contacto) -->
+          <div class="header-actions">
+            <a href="public/documents/CV_Jose_Cespedes_2024.pdf" class="btn btn-outline btn-sm desktop-only js-cv-download" download aria-label="Descargar currículum vitae en PDF">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Descargar CV
+            </a>
+            
+            <a href="#contacto" class="btn btn-primary btn-sm desktop-only">
+              Contacto
+            </a>
+
+            <!-- Botón Hamburguesa Móvil -->
+            <button type="button" class="mobile-menu-toggle" aria-label="Abrir menú de navegación móvil" aria-expanded="false" aria-controls="mobile-drawer-menu">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Drawer Menú Móvil -->
+        <div class="mobile-drawer" id="mobile-drawer-menu" role="navigation" aria-label="Navegación móvil">
+          
+      <a href="#inicio" class="nav-link " data-nav-id="inicio">
+        Inicio
+      </a>
+    
+      <a href="#sobre-mi" class="nav-link " data-nav-id="sobre-mi">
+        Sobre Mí
+      </a>
+    
+      <a href="#experiencia" class="nav-link " data-nav-id="experiencia">
+        Experiencia
+      </a>
+    
+      <a href="#habilidades" class="nav-link " data-nav-id="habilidades">
+        Habilidades
+      </a>
+    
+      <a href="#proyectos" class="nav-link " data-nav-id="proyectos">
+        Proyectos
+      </a>
+    
+      <a href="#servicios" class="nav-link " data-nav-id="servicios">
+        Servicios
+      </a>
+    
+      <a href="#educacion" class="nav-link " data-nav-id="educacion">
+        Educación
+      </a>
+    
+      <a href="#testimonios" class="nav-link " data-nav-id="testimonios">
+        Testimonios
+      </a>
+    
+      <a href="#contacto" class="nav-link " data-nav-id="contacto">
+        Contacto
+      </a>
+    
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px;">
+            <a href="public/documents/CV_Jose_Cespedes_2024.pdf" class="btn btn-outline js-cv-download" download>
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Descargar Currículum (PDF)
+            </a>
+            <a href="#contacto" class="btn btn-primary">
+              Contáctame Ahora
+            </a>
+          </div>
+        </div>
+      </header>
+    
+  <main id="main-content">
+    
+      <section id="inicio" class="hero-section" aria-label="Presentación principal">
+        <div class="hero-glow-bg"></div>
+        <div class="container hero-grid">
+          <!-- Columna Izquierda: Información de Presentación -->
+          <div class="hero-content reveal-on-scroll">
+            <div class="hero-greeting">
+              <span>●</span> Bienvenido a mi portafolio profesional
+            </div>
+            
+            <h1 class="hero-title">
+              Hola, soy <span class="gradient-text">José Arnulfo Céspedes Albornoz</span>
+            </h1>
+
+            <div class="hero-role">
+              Especialista en Tecnologías de la Información, Análisis de Datos y Seguridad
+            </div>
+
+            <div class="hero-tagline">
+              "Convergencia estratégica entre ingeniería de software, analítica avanzada de datos y gestión de seguridad integral."
+            </div>
+
+            <p class="hero-description">
+              Profesional multidisciplinario con sólida trayectoria transformando datos complejos en decisiones estratégicas, desarrollando soluciones tecnológicas robustas y diseñando protocolos de seguridad y monitoreo de alta disponibilidad.
+            </p>
+
+            <!-- Acciones Principales (CTAs) -->
+            <div class="hero-actions">
+              <a href="#proyectos" class="btn btn-primary btn-lg">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                Ver Proyectos
+              </a>
+
+              <a href="#contacto" class="btn btn-secondary btn-lg">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                Contáctame
+              </a>
+
+              <a href="public/documents/CV_Jose_Cespedes_2024.pdf" class="btn btn-outline btn-lg js-cv-download" download aria-label="Descargar currículum vitae en PDF">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Descargar CV
+              </a>
+            </div>
+
+            <!-- Enlaces a Redes Sociales en el Hero -->
+            <div class="hero-socials">
+              <span style="font-size:var(--fs-xs); color:var(--text-muted); margin-right:8px; font-weight:600; text-transform:uppercase;">Conectar:</span>
+              
+      <a href="https://linkedin.com/in/jose-arnulfo-cespedes" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Perfil de LinkedIn">
+        <img src="public/images/icons/linkedin.svg" alt="LinkedIn" width="20" height="20">
+      </a>
+    
+      <a href="https://github.com/jose-cespedes" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Repositorios en GitHub">
+        <img src="public/images/icons/github.svg" alt="GitHub" width="20" height="20">
+      </a>
+    
+      <a href="https://twitter.com/josecespedes" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Cuenta de X/Twitter">
+        <img src="public/images/icons/twitter.svg" alt="Twitter/X" width="20" height="20">
+      </a>
+    
+      <a href="https://medium.com/@josecespedes" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Artículos técnicos en Medium">
+        <img src="public/images/icons/medium.svg" alt="Medium/Blog" width="20" height="20">
+      </a>
+    
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Imagen Profesional Vectorial de Alto Impacto -->
+          <div class="hero-image-wrap reveal-on-scroll stagger-2">
+            <img src="public/images/profile/hero-photo.svg" alt="Fotografía Profesional de José Arnulfo Céspedes Albornoz" width="380" height="380" loading="eager">
+          </div>
+        </div>
+      </section>
+    
+    
+      <section id="sobre-mi" class="about-section" aria-labelledby="about-title">
+        <div class="container">
+          <div class="section-header reveal-on-scroll">
+            <span class="section-tag">Trayectoria &amp; Visión</span>
+            <h2 id="about-title">Sobre <span class="gradient-text">Mí</span></h2>
+            <p class="section-subtitle">Conoce mi enfoque profesional, valores de trabajo y las estadísticas que respaldan mi experiencia.</p>
+          </div>
+
+          <div class="about-grid">
+            <!-- Columna Izquierda: Biografía y Valores -->
+            <div class="about-content reveal-on-scroll">
+              <div class="card" style="margin-bottom: var(--spacing-xl);">
+                <h3 style="color:var(--accent-cyan); margin-bottom:1rem; font-size:var(--fs-xl);">Perfil Multidisciplinario</h3>
+                
+      <p style="color:var(--text-secondary); line-height:1.75; margin-bottom:1rem;">Con más de 8 años de experiencia transversal, he liderado iniciativas tecnológicas que abarcan desde el desarrollo de plataformas web empresariales y canalizaciones de datos para inteligencia de negocios, hasta la implementación de centros de control y protocolos de seguridad física y lógica.</p>
+    
+      <p style="color:var(--text-secondary); line-height:1.75; margin-bottom:1rem;">Mi propuesta de valor radica en la capacidad única de armonizar tres pilares críticos: la precisión técnica del desarrollo de software, la visión prospectiva que otorgan los datos analizados y la rigurosidad preventiva de la seguridad integral. Esto me permite entregar soluciones holísticas, escalables y orientadas a la maximización del retorno de inversión tecnológica.</p>
+    
+      <p style="color:var(--text-secondary); line-height:1.75; margin-bottom:1rem;">Comprometido con las mejores prácticas de la industria, promuevo la arquitectura limpia, la automatización de procesos, la accesibilidad universal y la gobernanza estricta de datos en cada proyecto que asumo.</p>
+    
+              </div>
+
+              <h4 style="color:var(--text-primary); margin-bottom:0.75rem;">Valores Profesionales</h4>
+              <div class="values-grid">
+                
+      <div class="value-card">
+        <div class="value-title">Excelencia Técnica</div>
+        <div class="value-desc">Compromiso intransigente con estándares de calidad, código limpio, documentación y pruebas exhaustivas.</div>
+      </div>
+    
+      <div class="value-card">
+        <div class="value-title">Integridad y Confidencialidad</div>
+        <div class="value-desc">Manejo ético y seguro de información sensible y activos críticos corporativos.</div>
+      </div>
+    
+      <div class="value-card">
+        <div class="value-title">Orientación a Resultados</div>
+        <div class="value-desc">Enfoque en métricas cuantificables de impacto, optimización de costos y valor tangible para el usuario final.</div>
+      </div>
+    
+      <div class="value-card">
+        <div class="value-title">Aprendizaje Continuo</div>
+        <div class="value-desc">Adaptabilidad y actualización constante ante la evolución tecnológica y nuevas metodologías.</div>
+      </div>
+    
+              </div>
+            </div>
+
+            <!-- Columna Derecha: Ilustración Técnica y Estadísticas -->
+            <div class="about-visual reveal-on-scroll stagger-2">
+              <div style="margin-bottom: var(--spacing-xl); display:flex; justify-content:center;">
+                <img src="public/images/profile/about-illustration.svg" alt="Ecosistema de TI, Analítica y Seguridad" width="480" height="380" loading="lazy">
+              </div>
+
+              <h4 style="color:var(--text-primary); margin-bottom:0.75rem; text-align:center;">Métricas de Impacto Acumuladas</h4>
+              <div class="about-stats">
+                
+      <div class="stat-card">
+        <div class="stat-number">+8</div>
+        <div class="stat-label">Años de Experiencia</div>
+      </div>
+    
+      <div class="stat-card">
+        <div class="stat-number">+25</div>
+        <div class="stat-label">Proyectos Completados</div>
+      </div>
+    
+      <div class="stat-card">
+        <div class="stat-number">99.9%</div>
+        <div class="stat-label">Disponibilidad en Sistemas</div>
+      </div>
+    
+      <div class="stat-card">
+        <div class="stat-number">+15</div>
+        <div class="stat-label">Certificaciones Profesionales</div>
+      </div>
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+    
+      <section id="experiencia" class="experience-section" aria-labelledby="experience-title">
+        <div class="container">
+          <div class="section-header reveal-on-scroll">
+            <span class="section-tag">Historial Laboral</span>
+            <h2 id="experience-title">Experiencia <span class="gradient-text">Profesional</span></h2>
+            <p class="section-subtitle">Trayectoria técnica y de liderazgo presentada en orden cronológico inverso con logros cuantificables.</p>
+          </div>
+
+          <div class="timeline">
+            
+        <div class="timeline-item reveal-on-scroll">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Consultor Senior en TI y Analítica de Datos</h3>
+                <div class="timeline-company">Soluciones Estratégicas en Tecnología</div>
+                <div style="font-size:var(--fs-xs); color:var(--text-muted); margin-top:2px;">
+                  📍 Bogotá, Colombia · <span style="color:var(--accent-azure);">Híbrido</span>
+                </div>
+              </div>
+              <div class="timeline-period">
+                🗓️ 01/2023 — Presente
+              </div>
+            </div>
+
+            <p style="color:var(--text-secondary); font-size:var(--fs-sm); margin-bottom:1rem;">
+              Liderazgo técnico en la consultoría e implementación de plataformas de análisis de datos y arquitecturas de software para clientes corporativos.
+            </p>
+
+            <div style="margin-bottom:0.75rem;">
+              <h4 style="font-size:var(--fs-xs); text-transform:uppercase; color:var(--accent-cyan); letter-spacing:0.05em; margin-bottom:0.4rem;">Responsabilidades Principales:</h4>
+              <ul class="timeline-bullets">
+                <li>Diseño e implementación de pipelines ETL automatizados para ingesta y procesamiento de telemetría corporativa.</li><li>Desarrollo de cuadros de mando e indicadores clave (KPIs) en tiempo real para toma de decisiones ejecutivas.</li><li>Auditoría técnica de infraestructura, seguridad de la información y cumplimiento normativo.</li>
+              </ul>
+            </div>
+
+            <div style="margin-bottom:1rem;">
+              <h4 style="font-size:var(--fs-xs); text-transform:uppercase; color:var(--accent-cyan); letter-spacing:0.05em; margin-bottom:0.4rem;">Resultados Cuantificables:</h4>
+              <ul class="timeline-bullets">
+                <li><strong>Logro:</strong> Optimización del tiempo de generación de reportes gerenciales en un 65% mediante pipelines automatizados.</li><li><strong>Logro:</strong> Implementación de arquitectura con 99.95% de uptime en servicios analíticos críticos.</li><li><strong>Logro:</strong> Reducción de un 40% en costos de procesamiento mediante reestructuración de consultas e indexación.</li>
+              </ul>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:1rem; padding-top:0.75rem; border-top:1px solid rgba(255,255,255,0.06);">
+              <span class="tag">Python</span> <span class="tag">SQL</span> <span class="tag">JavaScript</span> <span class="tag">Docker</span> <span class="tag">Power BI</span> <span class="tag">REST APIs</span>
+            </div>
+          </div>
+        </div>
+      
+        <div class="timeline-item reveal-on-scroll">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Coordinador de Monitoreo y Sistemas de Seguridad</h3>
+                <div class="timeline-company">Corporación de Seguridad y Control Integral</div>
+                <div style="font-size:var(--fs-xs); color:var(--text-muted); margin-top:2px;">
+                  📍 Bogotá, Colombia · <span style="color:var(--accent-azure);">Presencial</span>
+                </div>
+              </div>
+              <div class="timeline-period">
+                🗓️ 06/2019 — 12/2022
+              </div>
+            </div>
+
+            <p style="color:var(--text-secondary); font-size:var(--fs-sm); margin-bottom:1rem;">
+              Gestión operativa y tecnológica del centro de control centralizado, administración de plataformas de CCTV IP, control de acceso y protocolos de respuesta.
+            </p>
+
+            <div style="margin-bottom:0.75rem;">
+              <h4 style="font-size:var(--fs-xs); text-transform:uppercase; color:var(--accent-cyan); letter-spacing:0.05em; margin-bottom:0.4rem;">Responsabilidades Principales:</h4>
+              <ul class="timeline-bullets">
+                <li>Supervisión del ecosistema tecnológico de seguridad electrónica y plataformas de telemetría.</li><li>Estandarización de protocolos de contingencia, gestión de incidentes y análisis forense de datos de seguridad.</li><li>Capacitación continua del equipo operativo en herramientas de análisis y reporte de novedades.</li>
+              </ul>
+            </div>
+
+            <div style="margin-bottom:1rem;">
+              <h4 style="font-size:var(--fs-xs); text-transform:uppercase; color:var(--accent-cyan); letter-spacing:0.05em; margin-bottom:0.4rem;">Resultados Cuantificables:</h4>
+              <ul class="timeline-bullets">
+                <li><strong>Logro:</strong> Disminución del tiempo de respuesta ante eventos críticos de seguridad de 12 a menos de 3 minutos.</li><li><strong>Logro:</strong> Automatización del registro de bitácoras digitales eliminando el 100% del uso de papel y errores de digitación.</li><li><strong>Logro:</strong> Gestión sin incidentes de seguridad mayor en más de 30 instalaciones protegidas simultáneamente.</li>
+              </ul>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:1rem; padding-top:0.75rem; border-top:1px solid rgba(255,255,255,0.06);">
+              <span class="tag">Sistemas VMS</span> <span class="tag">Redes IP</span> <span class="tag">CCTV Avanzado</span> <span class="tag">Control de Accesos</span> <span class="tag">SQL</span> <span class="tag">Excel Avanzado</span>
+            </div>
+          </div>
+        </div>
+      
+        <div class="timeline-item reveal-on-scroll">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Ingeniero de Desarrollo y Soporte Técnico</h3>
+                <div class="timeline-company">Innovación Digital & Sistemas</div>
+                <div style="font-size:var(--fs-xs); color:var(--text-muted); margin-top:2px;">
+                  📍 Medellín, Colombia · <span style="color:var(--accent-azure);">Remoto</span>
+                </div>
+              </div>
+              <div class="timeline-period">
+                🗓️ 02/2016 — 05/2019
+              </div>
+            </div>
+
+            <p style="color:var(--text-secondary); font-size:var(--fs-sm); margin-bottom:1rem;">
+              Desarrollo de módulos web, soporte a bases de datos relacionales y optimización de flujos de trabajo de clientes corporativos.
+            </p>
+
+            <div style="margin-bottom:0.75rem;">
+              <h4 style="font-size:var(--fs-xs); text-transform:uppercase; color:var(--accent-cyan); letter-spacing:0.05em; margin-bottom:0.4rem;">Responsabilidades Principales:</h4>
+              <ul class="timeline-bullets">
+                <li>Construcción y mantenimiento de aplicaciones web con interfaces dinámicas e interactivas.</li><li>Creación de scripts de automatización para respaldos y monitoreo de integridad de bases de datos.</li><li>Atención a requerimientos técnicos de segundo nivel y resolución de incidencias en producción.</li>
+              </ul>
+            </div>
+
+            <div style="margin-bottom:1rem;">
+              <h4 style="font-size:var(--fs-xs); text-transform:uppercase; color:var(--accent-cyan); letter-spacing:0.05em; margin-bottom:0.4rem;">Resultados Cuantificables:</h4>
+              <ul class="timeline-bullets">
+                <li><strong>Logro:</strong> Desarrollo de más de 15 módulos personalizados entregados a tiempo y con cero defectos críticos.</li><li><strong>Logro:</strong> Reducción del 50% en tickets de soporte recurrente tras la implementación de scripts de autorrecuperación.</li><li><strong>Logro:</strong> Reconocimiento al mejor desempeño técnico por dos años consecutivos.</li>
+              </ul>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:1rem; padding-top:0.75rem; border-top:1px solid rgba(255,255,255,0.06);">
+              <span class="tag">HTML5</span> <span class="tag">CSS3</span> <span class="tag">JavaScript</span> <span class="tag">PHP</span> <span class="tag">MySQL</span> <span class="tag">Git</span>
+            </div>
+          </div>
+        </div>
+      
+          </div>
+        </div>
+      </section>
+    
+    
+      <section id="habilidades" class="skills-section" aria-labelledby="skills-title">
+        <div class="container">
+          <div class="section-header reveal-on-scroll">
+            <span class="section-tag">Competencias Clave</span>
+            <h2 id="skills-title">Habilidades <span class="gradient-text">Técnicas</span></h2>
+            <p class="section-subtitle">Dominio clasificado en Tecnologías de la Información, Análisis de Datos y Seguridad Integral.</p>
+          </div>
+
+          <div class="skills-grid">
+            
+        <div class="skills-category-card reveal-on-scroll stagger-1">
+          <div class="skills-category-header">
+            <div class="category-icon">
+              <img src="public/images/icons/code.svg" alt="Tecnologías de la Información" width="24" height="24">
+            </div>
+            <div>
+              <h3 class="category-title">Tecnologías de la Información</h3>
+              <p style="font-size:var(--fs-xs); color:var(--text-muted); margin:0;">Desarrollo frontend, backend, ingeniería de software, arquitectura de sistemas y gestión de infraestructura moderna.</p>
+            </div>
+          </div>
+          
+          <div class="skills-list">
+            
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/javascript.svg" alt="JavaScript (ES6+) & TypeScript" width="20" height="20">
+              </div>
+            
+            <span>JavaScript (ES6+) & TypeScript</span>
+          </div>
+          <span class="skill-percentage">90%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de JavaScript (ES6+) & TypeScript">
+          <div class="skill-progress" data-target-width="90"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/html5.svg" alt="HTML5 Semántico & CSS3 / Modern Layouts" width="20" height="20">
+              </div>
+            
+            <span>HTML5 Semántico & CSS3 / Modern Layouts</span>
+          </div>
+          <span class="skill-percentage">95%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de HTML5 Semántico & CSS3 / Modern Layouts">
+          <div class="skill-progress" data-target-width="95"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/python.svg" alt="Python & Automatización" width="20" height="20">
+              </div>
+            
+            <span>Python & Automatización</span>
+          </div>
+          <span class="skill-percentage">88%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Python & Automatización">
+          <div class="skill-progress" data-target-width="88"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/api.svg" alt="Arquitectura de Software & APIs REST" width="20" height="20">
+              </div>
+            
+            <span>Arquitectura de Software & APIs REST</span>
+          </div>
+          <span class="skill-percentage">85%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Arquitectura de Software & APIs REST">
+          <div class="skill-progress" data-target-width="85"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/git.svg" alt="Git, GitHub & CI/CD Pipelines" width="20" height="20">
+              </div>
+            
+            <span>Git, GitHub & CI/CD Pipelines</span>
+          </div>
+          <span class="skill-percentage">90%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Git, GitHub & CI/CD Pipelines">
+          <div class="skill-progress" data-target-width="90"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/docker.svg" alt="Docker & Contenedores" width="20" height="20">
+              </div>
+            
+            <span>Docker & Contenedores</span>
+          </div>
+          <span class="skill-percentage">80%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Docker & Contenedores">
+          <div class="skill-progress" data-target-width="80"></div>
+        </div>
+      </div>
+    
+          </div>
+        </div>
+      
+        <div class="skills-category-card reveal-on-scroll stagger-2">
+          <div class="skills-category-header">
+            <div class="category-icon">
+              <img src="public/images/icons/chart.svg" alt="Análisis de Datos" width="24" height="24">
+            </div>
+            <div>
+              <h3 class="category-title">Análisis de Datos</h3>
+              <p style="font-size:var(--fs-xs); color:var(--text-muted); margin:0;">Modelado de datos, bases de datos relacionales/NoSQL, herramientas analíticas, visualización y Business Intelligence.</p>
+            </div>
+          </div>
+          
+          <div class="skills-list">
+            
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/database.svg" alt="SQL Avanzado (PostgreSQL, MySQL, SQL Server)" width="20" height="20">
+              </div>
+            
+            <span>SQL Avanzado (PostgreSQL, MySQL, SQL Server)</span>
+          </div>
+          <span class="skill-percentage">92%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de SQL Avanzado (PostgreSQL, MySQL, SQL Server)">
+          <div class="skill-progress" data-target-width="92"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/powerbi.svg" alt="Power BI & Dashboards Interactivos" width="20" height="20">
+              </div>
+            
+            <span>Power BI & Dashboards Interactivos</span>
+          </div>
+          <span class="skill-percentage">88%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Power BI & Dashboards Interactivos">
+          <div class="skill-progress" data-target-width="88"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/data-analysis.svg" alt="Pandas, NumPy & Análisis Exploratorio (EDA)" width="20" height="20">
+              </div>
+            
+            <span>Pandas, NumPy & Análisis Exploratorio (EDA)</span>
+          </div>
+          <span class="skill-percentage">85%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Pandas, NumPy & Análisis Exploratorio (EDA)">
+          <div class="skill-progress" data-target-width="85"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/etl.svg" alt="Modelado de Datos & Arquitectura ETL" width="20" height="20">
+              </div>
+            
+            <span>Modelado de Datos & Arquitectura ETL</span>
+          </div>
+          <span class="skill-percentage">84%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Modelado de Datos & Arquitectura ETL">
+          <div class="skill-progress" data-target-width="84"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/excel.svg" alt="Excel Avanzado, Power Query & VBA" width="20" height="20">
+              </div>
+            
+            <span>Excel Avanzado, Power Query & VBA</span>
+          </div>
+          <span class="skill-percentage">95%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Excel Avanzado, Power Query & VBA">
+          <div class="skill-progress" data-target-width="95"></div>
+        </div>
+      </div>
+    
+          </div>
+        </div>
+      
+        <div class="skills-category-card reveal-on-scroll stagger-3">
+          <div class="skills-category-header">
+            <div class="category-icon">
+              <img src="public/images/icons/shield.svg" alt="Seguridad y Monitoreo" width="24" height="24">
+            </div>
+            <div>
+              <h3 class="category-title">Seguridad y Monitoreo</h3>
+              <p style="font-size:var(--fs-xs); color:var(--text-muted); margin:0;">Gestión de seguridad integral, centros de control, análisis de riesgos, auditorías técnicas y plataformas de monitoreo.</p>
+            </div>
+          </div>
+          
+          <div class="skills-list">
+            
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/cctv.svg" alt="Sistemas de Gestión de Video (VMS / CCTV IP)" width="20" height="20">
+              </div>
+            
+            <span>Sistemas de Gestión de Video (VMS / CCTV IP)</span>
+          </div>
+          <span class="skill-percentage">92%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Sistemas de Gestión de Video (VMS / CCTV IP)">
+          <div class="skill-progress" data-target-width="92"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/access-control.svg" alt="Control de Accesos & Biometría" width="20" height="20">
+              </div>
+            
+            <span>Control de Accesos & Biometría</span>
+          </div>
+          <span class="skill-percentage">90%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Control de Accesos & Biometría">
+          <div class="skill-progress" data-target-width="90"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/forensic.svg" alt="Análisis Forense & Gestión de Incidentes" width="20" height="20">
+              </div>
+            
+            <span>Análisis Forense & Gestión de Incidentes</span>
+          </div>
+          <span class="skill-percentage">86%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Análisis Forense & Gestión de Incidentes">
+          <div class="skill-progress" data-target-width="86"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/audit.svg" alt="Auditorías de Seguridad & Matriz de Riesgos" width="20" height="20">
+              </div>
+            
+            <span>Auditorías de Seguridad & Matriz de Riesgos</span>
+          </div>
+          <span class="skill-percentage">88%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Auditorías de Seguridad & Matriz de Riesgos">
+          <div class="skill-progress" data-target-width="88"></div>
+        </div>
+      </div>
+    
+      <div class="skill-item">
+        <div class="skill-info">
+          <div class="skill-meta">
+            
+              <div class="skill-icon-wrap">
+                <img src="public/images/icons/skills/network.svg" alt="Protocolos de Redes Seguras & Telemetría" width="20" height="20">
+              </div>
+            
+            <span>Protocolos de Redes Seguras & Telemetría</span>
+          </div>
+          <span class="skill-percentage">82%</span>
+        </div>
+        <div class="skill-track" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" aria-label="Dominio de Protocolos de Redes Seguras & Telemetría">
+          <div class="skill-progress" data-target-width="82"></div>
+        </div>
+      </div>
+    
+          </div>
+        </div>
+      
+          </div>
+        </div>
+      </section>
+    
+    
+      <section id="proyectos" class="projects-section" aria-labelledby="projects-title">
+        <div class="container">
+          <div class="section-header reveal-on-scroll">
+            <span class="section-tag">Casos de Éxito</span>
+            <h2 id="projects-title">Portafolio de <span class="gradient-text">Proyectos</span></h2>
+            <p class="section-subtitle">Soluciones implementadas con impacto cuantificable en arquitectura, telemetría y analítica.</p>
+          </div>
+
+          <!-- Filtros por Categoría (RF-005, CU-004) -->
+          <div class="tabs-container reveal-on-scroll">
+            
+      <button type="button" class="tab-btn js-project-filter active" data-filter="Todos">
+        Todos
+      </button>
+    
+      <button type="button" class="tab-btn js-project-filter " data-filter="Seguridad y Control">
+        Seguridad y Control
+      </button>
+    
+      <button type="button" class="tab-btn js-project-filter " data-filter="Análisis de Datos">
+        Análisis de Datos
+      </button>
+    
+      <button type="button" class="tab-btn js-project-filter " data-filter="Desarrollo TI">
+        Desarrollo TI
+      </button>
+    
+          </div>
+
+          <!-- Grid de Proyectos -->
+          <div class="projects-grid" id="projects-grid-container">
+            
+      <article class="card project-card reveal-on-scroll stagger-1" data-category="Seguridad y Control" data-project-id="proy-01">
+        <div class="project-thumbnail">
+          <img src="public/images/projects/project-01.svg" alt="Miniatura de Plataforma Centralizada de Monitoreo y Telemetría" width="600" height="360" loading="lazy">
+          <span class="project-badge-category">Seguridad y Control</span>
+        </div>
+
+        <h3 class="project-title">Plataforma Centralizada de Monitoreo y Telemetría</h3>
+        <p class="project-desc">Sistema web interactivo para la recepción, análisis y visualización en tiempo real de alarmas, telemetría CCTV y estados de dispositivos en múltiples sedes.</p>
+
+        <div class="project-tags">
+          <span class="tag">JavaScript ES6+</span> <span class="tag">Python</span> <span class="tag">WebSockets</span> <span class="tag">CSS Grid</span>
+        </div>
+
+        <div class="project-footer">
+          <button type="button" class="btn btn-outline btn-sm js-open-modal" data-project-id="proy-01" aria-label="Ver detalles completos del proyecto Plataforma Centralizada de Monitoreo y Telemetría">
+            Ver Caso de Estudio ▹
+          </button>
+          
+          
+            <a href="https://github.com/jose-cespedes/monitoring-telemetry-platform" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Código fuente en GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            </a>
+          
+        </div>
+      </article>
+    
+      <article class="card project-card reveal-on-scroll stagger-2" data-category="Análisis de Datos" data-project-id="proy-02">
+        <div class="project-thumbnail">
+          <img src="public/images/projects/project-02.svg" alt="Miniatura de Sistema de Inteligencia de Negocios y Analítica Operativa" width="600" height="360" loading="lazy">
+          <span class="project-badge-category">Análisis de Datos</span>
+        </div>
+
+        <h3 class="project-title">Sistema de Inteligencia de Negocios y Analítica Operativa</h3>
+        <p class="project-desc">Solución integral de Business Intelligence que automatiza la extracción, transformación y carga de datos comerciales y operativos de múltiples fuentes.</p>
+
+        <div class="project-tags">
+          <span class="tag">Python</span> <span class="tag">SQL Server</span> <span class="tag">Power BI</span> <span class="tag">Pandas</span>
+        </div>
+
+        <div class="project-footer">
+          <button type="button" class="btn btn-outline btn-sm js-open-modal" data-project-id="proy-02" aria-label="Ver detalles completos del proyecto Sistema de Inteligencia de Negocios y Analítica Operativa">
+            Ver Caso de Estudio ▹
+          </button>
+          
+          
+            <a href="https://github.com/jose-cespedes/business-intelligence-pipeline" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Código fuente en GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            </a>
+          
+        </div>
+      </article>
+    
+      <article class="card project-card reveal-on-scroll stagger-3" data-category="Desarrollo TI" data-project-id="proy-03">
+        <div class="project-thumbnail">
+          <img src="public/images/projects/project-03.svg" alt="Miniatura de Portal Web de Gestión y Auditoría de Activos TI" width="600" height="360" loading="lazy">
+          <span class="project-badge-category">Desarrollo TI</span>
+        </div>
+
+        <h3 class="project-title">Portal Web de Gestión y Auditoría de Activos TI</h3>
+        <p class="project-desc">Aplicación web moderna y responsive para la administración integral de infraestructura tecnológica, trazabilidad de hardware y gestión de licencias.</p>
+
+        <div class="project-tags">
+          <span class="tag">HTML5</span> <span class="tag">CSS3 / Vanilla</span> <span class="tag">JavaScript ES6+</span> <span class="tag">REST API</span>
+        </div>
+
+        <div class="project-footer">
+          <button type="button" class="btn btn-outline btn-sm js-open-modal" data-project-id="proy-03" aria-label="Ver detalles completos del proyecto Portal Web de Gestión y Auditoría de Activos TI">
+            Ver Caso de Estudio ▹
+          </button>
+          
+          
+            <a href="https://github.com/jose-cespedes/it-asset-management-portal" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Código fuente en GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            </a>
+          
+        </div>
+      </article>
+    
+      <article class="card project-card reveal-on-scroll stagger-4" data-category="Seguridad y Control" data-project-id="proy-04">
+        <div class="project-thumbnail">
+          <img src="public/images/projects/project-04.svg" alt="Miniatura de Framework de Auditoría de Vulnerabilidades y Cumplimiento" width="600" height="360" loading="lazy">
+          <span class="project-badge-category">Seguridad y Control</span>
+        </div>
+
+        <h3 class="project-title">Framework de Auditoría de Vulnerabilidades y Cumplimiento</h3>
+        <p class="project-desc">Suite de scripts y matriz interactiva de riesgos para evaluar el cumplimiento de políticas de seguridad física y lógica bajo estándares internacionales.</p>
+
+        <div class="project-tags">
+          <span class="tag">Python</span> <span class="tag">JavaScript</span> <span class="tag">Markdown Automation</span> <span class="tag">JSON Schema</span>
+        </div>
+
+        <div class="project-footer">
+          <button type="button" class="btn btn-outline btn-sm js-open-modal" data-project-id="proy-04" aria-label="Ver detalles completos del proyecto Framework de Auditoría de Vulnerabilidades y Cumplimiento">
+            Ver Caso de Estudio ▹
+          </button>
+          
+          
+            <a href="https://github.com/jose-cespedes/security-audit-framework" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Código fuente en GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            </a>
+          
+        </div>
+      </article>
+    
+          </div>
+
+          <div style="text-align:center; margin-top:var(--spacing-2xl);" class="reveal-on-scroll">
+            <a href="https://github.com/jose-cespedes" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+              Ver más repositorios en GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+    
+    
+      <section id="servicios" class="services-section" aria-labelledby="services-title">
+        <div class="container">
+          <div class="section-header reveal-on-scroll">
+            <span class="section-tag">Propuesta de Valor</span>
+            <h2 id="services-title">Servicios <span class="gradient-text">Profesionales</span></h2>
+            <p class="section-subtitle">Soluciones de consultoría especializada en ingeniería de software, arquitectura de datos y seguridad.</p>
+          </div>
+
+          <div class="services-grid">
+            
+        <div class="card service-card reveal-on-scroll stagger-1">
+          <div class="service-icon-wrap">
+            <img src="public/images/icons/code.svg" alt="Consultoría en Tecnologías de la Información" width="28" height="28">
+          </div>
+
+          <span class="tag" style="margin-bottom:0.75rem; width:fit-content;">Desarrollo y Arquitectura</span>
+          <h3 class="service-title">Consultoría en Tecnologías de la Información</h3>
+          <p class="service-desc">Asesoramiento estratégico para el diseño, modernización y desarrollo de arquitecturas de software web escalables, integración de APIs y buenas prácticas de ingeniería.</p>
+
+          <h4 style="font-size:var(--fs-xs); color:var(--accent-cyan); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Entregables Clave:</h4>
+          <ul class="service-deliverables">
+            
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Diagnóstico arquitectónico y plan de modernización tecnológica</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Desarrollo de aplicaciones web a medida (Frontend/Backend)</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Estrategias de integración de sistemas y APIs RESTful</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Documentación técnica y transferencia de conocimiento</span>
+        </li>
+      
+          </ul>
+
+          <a href="#contacto" class="btn btn-outline btn-sm" style="margin-top:auto;">
+            Solicitar Consultoría TI ▹
+          </a>
+        </div>
+      
+        <div class="card service-card reveal-on-scroll stagger-2">
+          <div class="service-icon-wrap">
+            <img src="public/images/icons/chart.svg" alt="Análisis de Datos y Business Intelligence" width="28" height="28">
+          </div>
+
+          <span class="tag" style="margin-bottom:0.75rem; width:fit-content;">Analítica y Datos</span>
+          <h3 class="service-title">Análisis de Datos y Business Intelligence</h3>
+          <p class="service-desc">Transformación de datos brutos en activos estratégicos accionables mediante canalizaciones ETL robustas, modelado avanzado y dashboards visuales interactivos.</p>
+
+          <h4 style="font-size:var(--fs-xs); color:var(--accent-cyan); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Entregables Clave:</h4>
+          <ul class="service-deliverables">
+            
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Diseño y construcción de pipelines de datos automatizados (ETL)</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Creación de tableros de control ejecutivos en Power BI</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Análisis exploratorio de datos (EDA) e identificación de anomalías</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Definición y seguimiento de métricas clave (KPIs) del negocio</span>
+        </li>
+      
+          </ul>
+
+          <a href="#contacto" class="btn btn-outline btn-sm" style="margin-top:auto;">
+            Solicitar Análisis de Datos ▹
+          </a>
+        </div>
+      
+        <div class="card service-card reveal-on-scroll stagger-3">
+          <div class="service-icon-wrap">
+            <img src="public/images/icons/shield.svg" alt="Implementación de Sistemas de Seguridad y Control" width="28" height="28">
+          </div>
+
+          <span class="tag" style="margin-bottom:0.75rem; width:fit-content;">Seguridad y Monitoreo</span>
+          <h3 class="service-title">Implementación de Sistemas de Seguridad y Control</h3>
+          <p class="service-desc">Diseño, estructuración y puesta en marcha de centros de monitoreo, plataformas de CCTV IP, control de accesos biométrico y protocolos de respuesta a incidentes.</p>
+
+          <h4 style="font-size:var(--fs-xs); color:var(--accent-cyan); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Entregables Clave:</h4>
+          <ul class="service-deliverables">
+            
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Diseño de arquitectura para centros de control y videovigilancia</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Integración de plataformas VMS, analítica de video y telemetría</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Estandarización de protocolos de contingencia y procedimientos de control</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Capacitación especializada para operadores de seguridad</span>
+        </li>
+      
+          </ul>
+
+          <a href="#contacto" class="btn btn-outline btn-sm" style="margin-top:auto;">
+            Solicitar Solución de Seguridad ▹
+          </a>
+        </div>
+      
+        <div class="card service-card reveal-on-scroll stagger-4">
+          <div class="service-icon-wrap">
+            <img src="public/images/icons/audit.svg" alt="Auditorías Técnicas y Evaluación de Riesgos" width="28" height="28">
+          </div>
+
+          <span class="tag" style="margin-bottom:0.75rem; width:fit-content;">Auditoría y Diagnóstico</span>
+          <h3 class="service-title">Auditorías Técnicas y Evaluación de Riesgos</h3>
+          <p class="service-desc">Evaluación exhaustiva de infraestructura, vulnerabilidades de sistemas, integridad de procesos y matrices de riesgo físico-lógico para garantizar continuidad operativa.</p>
+
+          <h4 style="font-size:var(--fs-xs); color:var(--accent-cyan); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Entregables Clave:</h4>
+          <ul class="service-deliverables">
+            
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Informe detallado de vulnerabilidades y brechas de seguridad</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Matriz cuantitativa de riesgos con priorización por criticidad</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Plan de acción correctivo y recomendaciones de mitigación</span>
+        </li>
+      
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Verificación de cumplimiento de estándares y normativas</span>
+        </li>
+      
+          </ul>
+
+          <a href="#contacto" class="btn btn-outline btn-sm" style="margin-top:auto;">
+            Solicitar Auditoría Técnica ▹
+          </a>
+        </div>
+      
+          </div>
+        </div>
+      </section>
+    
+    
+      <section id="educacion" class="education-section" aria-labelledby="education-title">
+        <div class="container">
+          <div class="section-header reveal-on-scroll">
+            <span class="section-tag">Formación &amp; Credenciales</span>
+            <h2 id="education-title">Educación &amp; <span class="gradient-text">Certificaciones</span></h2>
+            <p class="section-subtitle">Respaldos académicos y credenciales internacionales que certifican mi especialización técnica.</p>
+          </div>
+
+          <div class="education-grid">
+            <!-- Columna Izquierda: Formación Académica -->
+            <div class="reveal-on-scroll">
+              <h3 style="font-size:var(--fs-xl); color:var(--text-primary); margin-bottom:var(--spacing-lg); display:flex; align-items:center; gap:8px;">
+                🎓 Formación Universitaria
+              </h3>
+              
+      <div class="card" style="margin-bottom:var(--spacing-lg);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+          <div>
+            <h3 style="font-size:var(--fs-lg); color:var(--text-primary); font-weight:700;">Ingeniería de Sistemas y Computación</h3>
+            <div style="color:var(--accent-cyan); font-size:var(--fs-sm); font-weight:600;">Universidad Nacional</div>
+          </div>
+          <span class="tag tag-accent">2015</span>
+        </div>
+        <p style="font-size:var(--fs-sm); color:var(--text-muted); line-height:1.6; margin:0;">
+          Formación integral en ciencias de la computación, arquitectura de software, bases de datos y gestión de proyectos tecnológicos.
+        </p>
+      </div>
+    
+      <div class="card" style="margin-bottom:var(--spacing-lg);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+          <div>
+            <h3 style="font-size:var(--fs-lg); color:var(--text-primary); font-weight:700;">Especialización en Gestión de Seguridad Integral y Riesgos</h3>
+            <div style="color:var(--accent-cyan); font-size:var(--fs-sm); font-weight:600;">Universidad de los Andes / Escuela de Postgrados</div>
+          </div>
+          <span class="tag tag-accent">2020</span>
+        </div>
+        <p style="font-size:var(--fs-sm); color:var(--text-muted); line-height:1.6; margin:0;">
+          Especialización enfocada en gestión de riesgos corporativos, seguridad de la información, continuidad del negocio y centros de control.
+        </p>
+      </div>
+    
+            </div>
+
+            <!-- Columna Derecha: Badges de Certificación -->
+            <div class="reveal-on-scroll stagger-2">
+              <h3 style="font-size:var(--fs-xl); color:var(--text-primary); margin-bottom:var(--spacing-lg); display:flex; align-items:center; gap:8px;">
+                📜 Certificaciones Internacionales
+              </h3>
+              <div class="certifications-list">
+                
+      <div class="cert-card reveal-on-scroll stagger-1">
+        <img class="cert-badge" src="public/images/icons/badge-microsoft.svg" alt="Badge de Microsoft Certified: Power BI Data Analyst Associate" width="48" height="48">
+        <div>
+          <div class="cert-name">Microsoft Certified: Power BI Data Analyst Associate</div>
+          <div class="cert-issuer">Microsoft · <span style="color:var(--text-muted);">2023</span></div>
+        </div>
+      </div>
+    
+      <div class="cert-card reveal-on-scroll stagger-2">
+        <img class="cert-badge" src="public/images/icons/badge-datacamp.svg" alt="Badge de Python Data Engineering & Analytics Professional" width="48" height="48">
+        <div>
+          <div class="cert-name">Python Data Engineering & Analytics Professional</div>
+          <div class="cert-issuer">DataCamp / IBM · <span style="color:var(--text-muted);">2022</span></div>
+        </div>
+      </div>
+    
+      <div class="cert-card reveal-on-scroll stagger-3">
+        <img class="cert-badge" src="public/images/icons/badge-isaca.svg" alt="Badge de Certified Information Systems Auditor & Risk Management (CISA Foundations)" width="48" height="48">
+        <div>
+          <div class="cert-name">Certified Information Systems Auditor & Risk Management (CISA Foundations)</div>
+          <div class="cert-issuer">ISACA · <span style="color:var(--text-muted);">2021</span></div>
+        </div>
+      </div>
+    
+      <div class="cert-card reveal-on-scroll stagger-4">
+        <img class="cert-badge" src="public/images/icons/badge-security.svg" alt="Badge de IP Video Surveillance & Physical Security Specialist (CCTV/VMS)" width="48" height="48">
+        <div>
+          <div class="cert-name">IP Video Surveillance & Physical Security Specialist (CCTV/VMS)</div>
+          <div class="cert-issuer">Axis Communications / Milestone Systems · <span style="color:var(--text-muted);">2020</span></div>
+        </div>
+      </div>
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+    
+      <section id="testimonios" class="testimonials-section" aria-labelledby="testimonials-title">
+        <div class="container">
+          <div class="section-header reveal-on-scroll">
+            <span class="section-tag">Validación Profesional</span>
+            <h2 id="testimonials-title">Recomendaciones &amp; <span class="gradient-text">Testimonios</span></h2>
+            <p class="section-subtitle">Lo que líderes técnicos y directores corporativos opinan sobre mi trabajo y colaboración.</p>
+          </div>
+
+          <div class="testimonials-grid">
+            
+      <div class="card testimonial-card reveal-on-scroll stagger-1">
+        <div class="testimonial-quote">
+          El trabajo de José en la implementación de nuestros dashboards analíticos transformó completamente la toma de decisiones directiva. Su capacidad para traducir requerimientos complejos de negocio en herramientas visuales intuitivas y precisas es insuperable.
+        </div>
+
+        <div class="testimonial-author">
+          <img class="author-avatar" src="public/images/profile/testimonial-1.svg" alt="Ing. Carlos Mendoza" width="44" height="44" loading="lazy">
+          <div>
+            <div class="author-name">Ing. Carlos Mendoza</div>
+            <div class="author-role">Director de Operaciones y Tecnología</div>
+            <div style="font-size:var(--fs-xs); color:var(--accent-cyan); font-weight:600;">Grupo Empresarial Andino</div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card testimonial-card reveal-on-scroll stagger-2">
+        <div class="testimonial-quote">
+          José demostró un profesionalismo y un rigor técnico excepcional durante la reestructuración y modernización de nuestro centro de monitoreo. Redujo los tiempos de respuesta ante incidentes en más de un 70%, garantizando un estándar de seguridad de primer nivel.
+        </div>
+
+        <div class="testimonial-author">
+          <img class="author-avatar" src="public/images/profile/testimonial-2.svg" alt="Dra. Marcela Rincón" width="44" height="44" loading="lazy">
+          <div>
+            <div class="author-name">Dra. Marcela Rincón</div>
+            <div class="author-role">Gerente de Seguridad Corporativa</div>
+            <div style="font-size:var(--fs-xs); color:var(--accent-cyan); font-weight:600;">Logística & Seguridad Nacional</div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card testimonial-card reveal-on-scroll stagger-3">
+        <div class="testimonial-quote">
+          Pocos profesionales poseen la versatilidad de José para conectar el desarrollo de software moderno con la rigurosidad analítica y la gestión de infraestructura. Es metódico, transparente y un líder técnico sumamente confiable.
+        </div>
+
+        <div class="testimonial-author">
+          <img class="author-avatar" src="public/images/profile/testimonial-3.svg" alt="Lic. Fernando Gómez" width="44" height="44" loading="lazy">
+          <div>
+            <div class="author-name">Lic. Fernando Gómez</div>
+            <div class="author-role">Líder de Arquitectura de Software</div>
+            <div style="font-size:var(--fs-xs); color:var(--accent-cyan); font-weight:600;">TechInnovate Solutions</div>
+          </div>
+        </div>
+      </div>
+    
+          </div>
+        </div>
+      </section>
+    
+    
+      <section id="contacto" class="contact-section" aria-labelledby="contact-title">
+        <div class="container">
+          <div class="section-header reveal-on-scroll">
+            <span class="section-tag">Canal Directo</span>
+            <h2 id="contact-title">Iniciar <span class="gradient-text">Contacto</span></h2>
+            <p class="section-subtitle">¿Tienes un proyecto en mente o buscas un perfil especializado para tu equipo? Conversemos.</p>
+          </div>
+
+          <div class="contact-grid">
+            <!-- Información de Contacto Directo (HU-006) -->
+            <div class="card contact-info-card reveal-on-scroll">
+              <h3 style="font-size:var(--fs-xl); color:var(--text-primary); margin-bottom:var(--spacing-sm);">
+                Canales de Comunicación
+              </h3>
+              <p style="color:var(--text-muted); font-size:var(--fs-sm);">
+                Disponible para oportunidades de empleo corporativo, consultoría técnica y colaboraciones estratégicas.
+              </p>
+
+              <div class="contact-channel">
+                <div class="channel-icon">
+                  <img src="public/images/icons/email.svg" alt="Email" width="22" height="22">
+                </div>
+                <div>
+                  <div class="channel-label">Correo Electrónico</div>
+                  <a href="mailto:cespedes.albornoz@gmail.com" class="channel-value">cespedes.albornoz@gmail.com</a>
+                </div>
+              </div>
+
+              <div class="contact-channel">
+                <div class="channel-icon">
+                  <img src="public/images/icons/phone.svg" alt="Teléfono" width="22" height="22">
+                </div>
+                <div>
+                  <div class="channel-label">Teléfono / WhatsApp</div>
+                  <a href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer" class="channel-value">+57 (300) 123-4567</a>
+                </div>
+              </div>
+
+              <div class="contact-channel">
+                <div class="channel-icon">
+                  <img src="public/images/icons/location.svg" alt="Ubicación" width="22" height="22">
+                </div>
+                <div>
+                  <div class="channel-label">Ubicación y Disponibilidad</div>
+                  <div class="channel-value">Bogotá, Colombia (Remoto / Presencial)</div>
+                </div>
+              </div>
+
+              <div class="contact-channel">
+                <div class="channel-icon">
+                  <img src="public/images/icons/linkedin.svg" alt="LinkedIn" width="22" height="22">
+                </div>
+                <div>
+                  <div class="channel-label">Red Profesional</div>
+                  <a href="https://linkedin.com/in/jose-arnulfo-cespedes" target="_blank" rel="noopener noreferrer" class="channel-value">linkedin.com/in/jose-arnulfo-cespedes</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Formulario de Contacto (RF-009) -->
+            <div class="card reveal-on-scroll stagger-2">
+              <form id="contact-form" class="contact-form" novalidate aria-label="Formulario de contacto profesional">
+                <input type="hidden" name="csrf_token" id="csrf_token" value="csrf_7jfsr16cwgimt8zkt4z">
+
+                <div class="form-group">
+                  <label for="form-nombre" class="form-label">Nombre Completo *</label>
+                  <input type="text" id="form-nombre" name="nombre" class="form-input" placeholder="Ej. Carlos Mendoza" required autocomplete="name">
+                  <span class="form-error-msg" id="error-nombre"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="form-email" class="form-label">Correo Electrónico *</label>
+                  <input type="email" id="form-email" name="email" class="form-input" placeholder="carlos@empresa.com" required autocomplete="email">
+                  <span class="form-error-msg" id="error-email"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="form-asunto" class="form-label">Asunto / Oportunidad *</label>
+                  <input type="text" id="form-asunto" name="asunto" class="form-input" placeholder="Ej. Consultoría en Analítica de Datos" required>
+                  <span class="form-error-msg" id="error-asunto"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="form-mensaje" class="form-label">Mensaje o Consulta Detallada *</label>
+                  <textarea id="form-mensaje" name="mensaje" class="form-textarea" placeholder="Describe brevemente tus requerimientos o la oportunidad..." required></textarea>
+                  <span class="form-error-msg" id="error-mensaje"></span>
+                </div>
+
+                <button type="submit" id="btn-submit-contact" class="btn btn-primary btn-lg" style="width:100%;">
+                  <span id="btn-text">Enviar Mensaje Ahora ▹</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+  </main>
+  
+      <footer class="site-footer" role="contentinfo">
+        <div class="container">
+          <div class="footer-grid">
+            <!-- Columna 1: Marca & Biografía Corta -->
+            <div class="footer-brand">
+              <a href="#inicio" class="brand-logo" aria-label="Volver al inicio">
+                <div class="brand-icon">JC</div>
+                <div class="brand-title">
+                  <span class="brand-name">José Arnulfo Céspedes Albornoz</span>
+                  <span class="brand-role">TI · Datos · Seguridad</span>
+                </div>
+              </a>
+              <p>
+                Especialista en la integración estratégica de arquitecturas de software, telemetría de centros de control y análisis avanzado de datos.
+              </p>
+              <div style="display:flex; gap:8px; margin-top:16px;">
+                
+      <a href="https://linkedin.com/in/jose-arnulfo-cespedes" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Perfil de LinkedIn">
+        <img src="public/images/icons/linkedin.svg" alt="LinkedIn" width="20" height="20">
+      </a>
+    
+      <a href="https://github.com/jose-cespedes" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Repositorios en GitHub">
+        <img src="public/images/icons/github.svg" alt="GitHub" width="20" height="20">
+      </a>
+    
+      <a href="https://twitter.com/josecespedes" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Cuenta de X/Twitter">
+        <img src="public/images/icons/twitter.svg" alt="Twitter/X" width="20" height="20">
+      </a>
+    
+      <a href="https://medium.com/@josecespedes" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Artículos técnicos en Medium">
+        <img src="public/images/icons/medium.svg" alt="Medium/Blog" width="20" height="20">
+      </a>
+    
+              </div>
+            </div>
+
+            <!-- Columna 2: Navegación Rápida -->
+            <div>
+              <h4 class="footer-heading">Navegación</h4>
+              <div class="footer-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#sobre-mi">Sobre Mí</a>
+                <a href="#experiencia">Experiencia</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#proyectos">Portafolio</a>
+              </div>
+            </div>
+
+            <!-- Columna 3: Especialidades -->
+            <div>
+              <h4 class="footer-heading">Servicios</h4>
+              <div class="footer-links">
+                <a href="#servicios">Consultoría TI</a>
+                <a href="#servicios">Analítica de Datos</a>
+                <a href="#servicios">Sistemas de Seguridad</a>
+                <a href="#servicios">Auditorías Técnicas</a>
+                <a href="#educacion">Certificaciones</a>
+              </div>
+            </div>
+
+            <!-- Columna 4: Descarga de CV & Contacto Directo -->
+            <div>
+              <h4 class="footer-heading">Recursos Profesionales</h4>
+              <p style="font-size:var(--fs-xs); color:var(--text-muted); margin-bottom:12px;">
+                Descarga una copia completa de mi currículum en formato PDF para procesos internos de selección.
+              </p>
+              <a href="public/documents/CV_Jose_Cespedes_2024.pdf" class="btn btn-primary btn-sm js-cv-download" download aria-label="Descargar currículum vitae en PDF">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Descargar CV (PDF)
+              </a>
+              <div style="margin-top:16px; font-size:var(--fs-xs); color:var(--text-muted);">
+                Contacto: <a href="mailto:cespedes.albornoz@gmail.com" style="color:var(--accent-azure);">cespedes.albornoz@gmail.com</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Footer -->
+          <div class="footer-bottom">
+            <div>
+              &copy; 2026 José Arnulfo Céspedes Albornoz. Todos los derechos reservados. Licencia MIT.
+            </div>
+            <div>
+              Diseñado con estándares W3C, HTML5 Semántico, CSS3 &amp; ES6 Modules.
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón Volver Arriba Flotante -->
+        <button type="button" class="scroll-top-btn" aria-label="Volver arriba de la página">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        </button>
+      </footer>
+    
+</div>
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>

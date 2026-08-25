@@ -1,0 +1,93 @@
+[
+  {
+    "idProyecto": "proy-01",
+    "titulo": "Plataforma Centralizada de Monitoreo y Telemetría",
+    "subtitulo": "Dashboard unificado para la supervisión de operaciones de seguridad y control",
+    "categoria": "Seguridad y Control",
+    "descripcionBreve": "Sistema web interactivo para la recepción, análisis y visualización en tiempo real de alarmas, telemetría CCTV y estados de dispositivos en múltiples sedes.",
+    "descripcionDetallada": "Diseño y desarrollo de una plataforma orientada a operadores de centros de control, integrando streams de video IP, alertas automatizadas y registro de bitácoras digitales. La solución permite correlacionar eventos de accesos no autorizados con cámaras específicas en cuestión de segundos.",
+    "tecnologiasUtilizadas": ["JavaScript ES6+", "Python", "WebSockets", "CSS Grid", "PostgreSQL", "Docker"],
+    "imagenRepresentativa": "public/images/projects/project-01.svg",
+    "resultadosObtenidos": [
+      "Reducción del 75% en el tiempo de respuesta ante alertas críticas.",
+      "Integración exitosa de más de 120 canales de telemetría concurrentes con latencia < 200ms.",
+      "Eliminación total del reporte manual en papel, ahorrando más de 20 horas semanales de gestión administrativa."
+    ],
+    "enlaceDemo": "#",
+    "enlaceGitHub": "https://github.com/jose-cespedes/monitoring-telemetry-platform",
+    "destacado": true,
+    "metricasImpacto": [
+      { "indicador": "Reducción de Tiempo de Respuesta", "valor": "-75%" },
+      { "indicador": "Dispositivos Integrados", "valor": "+120" },
+      { "indicador": "Disponibilidad", "valor": "99.9%" }
+    ]
+  },
+  {
+    "idProyecto": "proy-02",
+    "titulo": "Sistema de Inteligencia de Negocios y Analítica Operativa",
+    "subtitulo": "Canalización de datos ETL y dashboards predictivos para toma de decisiones",
+    "categoria": "Análisis de Datos",
+    "descripcionBreve": "Solución integral de Business Intelligence que automatiza la extracción, transformación y carga de datos comerciales y operativos de múltiples fuentes.",
+    "descripcionDetallada": "Implementación de un modelo de datos en estrella con pipelines en Python y SQL que procesan más de 500,000 registros diarios. La plataforma proporciona reportes automatizados de rendimiento comercial, predicción de demanda e identificación de anomalías operativas.",
+    "tecnologiasUtilizadas": ["Python", "SQL Server", "Power BI", "Pandas", "ETL Pipelines", "DAX"],
+    "imagenRepresentativa": "public/images/projects/project-02.svg",
+    "resultadosObtenidos": [
+      "Automatización del 100% de los reportes gerenciales diarios y mensuales.",
+      "Detección temprana de desviaciones operativas con 92% de precisión.",
+      "Optimización de costos operativos estimada en un 18% durante el primer año de uso."
+    ],
+    "enlaceDemo": "#",
+    "enlaceGitHub": "https://github.com/jose-cespedes/business-intelligence-pipeline",
+    "destacado": true,
+    "metricasImpacto": [
+      { "indicador": "Registros Procesados Diarios", "valor": "500K+" },
+      { "indicador": "Automatización Reportes", "valor": "100%" },
+      { "indicador": "Ahorro de Costos", "valor": "18%" }
+    ]
+  },
+  {
+    "idProyecto": "proy-03",
+    "titulo": "Portal Web de Gestión y Auditoría de Activos TI",
+    "subtitulo": "Aplicación web modular para control de inventario, licencias y mantenimientos",
+    "categoria": "Desarrollo TI",
+    "descripcionBreve": "Aplicación web moderna y responsive para la administración integral de infraestructura tecnológica, trazabilidad de hardware y gestión de licencias.",
+    "descripcionDetallada": "Desarrollo de un sistema web ligero y de alto rendimiento utilizando arquitectura modular, autenticación segura y generación de informes exportables en PDF/Excel. Incluye lector de códigos QR para auditorías rápidas en sitio.",
+    "tecnologiasUtilizadas": ["HTML5", "CSS3 / Vanilla", "JavaScript ES6+", "REST API", "MySQL", "Chart.js"],
+    "imagenRepresentativa": "public/images/projects/project-03.svg",
+    "resultadosObtenidos": [
+      "Control y trazabilidad del 100% del parque tecnológico corporativo (>1,500 activos).",
+      "Reducción del 60% en discrepancias de inventario durante auditorías anuales.",
+      "Interfaz 100% responsiva utilizada tanto en estaciones de trabajo como en dispositivos móviles de campo."
+    ],
+    "enlaceDemo": "#",
+    "enlaceGitHub": "https://github.com/jose-cespedes/it-asset-management-portal",
+    "destacado": true,
+    "metricasImpacto": [
+      { "indicador": "Activos Gestionados", "valor": "+1,500" },
+      { "indicador": "Reducción Discrepancias", "valor": "-60%" },
+      { "indicador": "Score de Rendimiento", "valor": "98/100" }
+    ]
+  },
+  {
+    "idProyecto": "proy-04",
+    "titulo": "Framework de Auditoría de Vulnerabilidades y Cumplimiento",
+    "subtitulo": "Herramienta automatizada de evaluación de postura de seguridad y análisis de riesgos",
+    "categoria": "Seguridad y Control",
+    "descripcionBreve": "Suite de scripts y matriz interactiva de riesgos para evaluar el cumplimiento de políticas de seguridad física y lógica bajo estándares internacionales.",
+    "descripcionDetallada": "Desarrollo de un marco analítico estructurado que automatiza la recolección de evidencias, cuantificación de riesgos por impacto/probabilidad y generación de planes de remediación priorizados.",
+    "tecnologiasUtilizadas": ["Python", "JavaScript", "Markdown Automation", "JSON Schema", "PowerShell"],
+    "imagenRepresentativa": "public/images/projects/project-04.svg",
+    "resultadosObtenidos": [
+      "Ejecución de más de 30 auditorías de seguridad con entrega de reportes en menos de 24 horas.",
+      "Identificación y mitigación proactiva de más de 80 vulnerabilidades y brechas operativas.",
+      "Adopción del marco como estándar operativo en la organización."
+    ],
+    "enlaceDemo": "#",
+    "enlaceGitHub": "https://github.com/jose-cespedes/security-audit-framework",
+    "destacado": false,
+    "metricasImpacto": [
+      { "indicador": "Auditorías Realizadas", "valor": "+30" },
+      { "indicador": "Vulnerabilidades Mitigadas", "valor": "+80" }
+    ]
+  }
+]

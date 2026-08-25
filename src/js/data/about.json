@@ -1,0 +1,50 @@
+{
+  "biografiaProfesional": "Soy un profesional apasionado por la innovación técnica y la resolución estructurada de problemas complejos. Con una sólida trayectoria que integra el desarrollo de software moderno, la ciencia de datos y la seguridad integral, me especializo en diseñar e implementar arquitecturas resilientes y sistemas de analítica orientados a resultados medibles. Mi enfoque combina rigor metodológico, pensamiento analítico y un liderazgo colaborativo capaz de tender puentes efectivos entre los requerimientos de negocio y la ejecución técnica de alto nivel.",
+  "parrafos": [
+    "Con más de 8 años de experiencia transversal, he liderado iniciativas tecnológicas que abarcan desde el desarrollo de plataformas web empresariales y canalizaciones de datos para inteligencia de negocios, hasta la implementación de centros de control y protocolos de seguridad física y lógica.",
+    "Mi propuesta de valor radica en la capacidad única de armonizar tres pilares críticos: la precisión técnica del desarrollo de software, la visión prospectiva que otorgan los datos analizados y la rigurosidad preventiva de la seguridad integral. Esto me permite entregar soluciones holísticas, escalables y orientadas a la maximización del retorno de inversión tecnológica.",
+    "Comprometido con las mejores prácticas de la industria, promuevo la arquitectura limpia, la automatización de procesos, la accesibilidad universal y la gobernanza estricta de datos en cada proyecto que asumo."
+  ],
+  "areasEspecializacion": [
+    {
+      "titulo": "Tecnologías de la Información",
+      "descripcion": "Desarrollo de software full-stack, arquitecturas web escalables, integración de APIs y modernización de sistemas legacy.",
+      "icono": "public/images/icons/code.svg"
+    },
+    {
+      "titulo": "Análisis de Datos y BI",
+      "descripcion": "Modelado predictivo, dashboards ejecutivos en tiempo real, ingeniería de datos ETL y automatización analítica.",
+      "icono": "public/images/icons/chart.svg"
+    },
+    {
+      "titulo": "Seguridad y Monitoreo",
+      "descripcion": "Auditorías de seguridad, diseño de centros de monitoreo CCTV/control de accesos y gestión de incidentes críticos.",
+      "icono": "public/images/icons/shield.svg"
+    }
+  ],
+  "valoresProfesionales": [
+    {
+      "valor": "Excelencia Técnica",
+      "descripcion": "Compromiso intransigente con estándares de calidad, código limpio, documentación y pruebas exhaustivas."
+    },
+    {
+      "valor": "Integridad y Confidencialidad",
+      "descripcion": "Manejo ético y seguro de información sensible y activos críticos corporativos."
+    },
+    {
+      "valor": "Orientación a Resultados",
+      "descripcion": "Enfoque en métricas cuantificables de impacto, optimización de costos y valor tangible para el usuario final."
+    },
+    {
+      "valor": "Aprendizaje Continuo",
+      "descripcion": "Adaptabilidad y actualización constante ante la evolución tecnológica y nuevas metodologías."
+    }
+  ],
+  "estadisticasClave": [
+    { "cifra": "+8", "etiqueta": "Años de Experiencia" },
+    { "cifra": "+25", "etiqueta": "Proyectos Completados" },
+    { "cifra": "99.9%", "etiqueta": "Disponibilidad en Sistemas" },
+    { "cifra": "+15", "etiqueta": "Certificaciones Profesionales" }
+  ],
+  "imagenComplementaria": "public/images/profile/about-illustration.svg"
+}
