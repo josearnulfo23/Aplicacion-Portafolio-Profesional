@@ -2,6 +2,7 @@
  * ==========================================================================
  * PUNTO DE ENTRADA PRINCIPAL: main.js
  * FUENTE: §2.6, §2.7, §4.2 (PaginaPrincipal) del pseudocódigo
+ * Versión 2.0: Datos dinámicos SQLite, Panel Admin y Selector de Temas
  * ==========================================================================
  */
 
@@ -22,10 +23,11 @@ import { Education } from "./components/Education.js";
 import { Testimonials } from "./components/Testimonials.js";
 import { Contact } from "./components/Contact.js";
 import { Footer } from "./components/Footer.js";
+import { AdminPanel } from "./components/AdminPanel.js";
 
-class App {
+export class App {
   static async inicializar() {
-    console.log("🚀 Inicializando Portafolio Profesional (PS-009)...");
+    console.log("🚀 Inicializando Portafolio Profesional v2.0...");
 
     const appContainer = document.getElementById("app");
     if (!appContainer) {
@@ -33,8 +35,15 @@ class App {
       return;
     }
 
+    // Restaurar preferencia de tema
+    const savedTheme = localStorage.getItem("portafolio_theme") || "dark";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+
     try {
-      // 1. Cargar datos estructurados de forma asíncrona
+      // 1. Cargar bundle unificado desde SQLite (con fallback resiliente)
+      await RepositorioContenido.cargarTodo();
+
+      // 2. Cargar datos estructurados
       const [
         perfil,
         bio,
@@ -55,7 +64,7 @@ class App {
         RepositorioContenido.cargarTestimonios()
       ]);
 
-      // 2. Renderizar las 9 secciones en el orden exacto del mapa de navegación (§2.7)
+      // 3. Renderizar las secciones de la Landing Page + Panel Admin
       appContainer.innerHTML = `
         ${Header.renderizar(perfil)}
         <main id="main-content">
@@ -70,22 +79,25 @@ class App {
           ${Contact.renderizar()}
         </main>
         ${Footer.renderizar(perfil)}
+        ${AdminPanel.renderizar()}
       `;
 
-      // 3. Inyectar Metadatos Estructurados Schema.org para SEO
+      // 4. Inyectar Metadatos Estructurados Schema.org para SEO
       ServicioSEO.inyectarStructuredData(perfil, bio, servicios);
 
-      // 4. Vincular eventos de componentes interactivos
+      // 5. Vincular eventos de componentes interactivos
       Header.vincularEventos();
       Projects.vincularEventos();
       Contact.vincularEventos();
+      AdminPanel.vincularEventos();
+      AdminPanel.setUpdateCallback(() => App.inicializar());
 
-      // 5. Inicializar servicios transversales
+      // 6. Inicializar servicios transversales
       ServicioNavegacion.inicializar();
       ServicioAnimaciones.inicializar();
       ServicioAccesibilidad.inicializar();
 
-      console.log("✅ Aplicación renderizada y lista con 100% de cobertura.");
+      console.log("✅ Aplicación v2.0 renderizada con SQLite dinámico y Panel Admin.");
     } catch (error) {
       console.error("Error crítico al inicializar la aplicación:", error);
       appContainer.innerHTML = `
@@ -104,8 +116,10 @@ class App {
 }
 
 // Arrancar cuando el DOM esté listo
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => App.inicializar());
-} else {
-  App.inicializar();
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => App.inicializar());
+  } else {
+    App.inicializar();
+  }
 }

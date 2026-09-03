@@ -52,6 +52,7 @@ async function ejecutarPruebas() {
   console.log('─'.repeat(60));
 
   const requiredDirs = [
+    'data',
     'src/css',
     'src/js/components',
     'src/js/components/ui',
@@ -72,8 +73,12 @@ async function ejecutarPruebas() {
   const requiredFiles = [
     'index.html',
     'package.json',
-    'README.md',
+    'server.js',
+    'data/schema.sql',
+    'data/init-db.js',
+    'data/portafolio.db',
     'src/js/main.js',
+    'src/js/components/AdminPanel.js',
     'src/css/variables.css',
     'src/css/base.css',
     'src/js/services/ServicioNavegacion.js',

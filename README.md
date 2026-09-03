@@ -1,84 +1,62 @@
 # Portafolio Profesional — José Arnulfo Céspedes Albornoz
 
+[![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue.svg)](docs/CHANGELOG.md)
+[![Database: SQLite3](https://img.shields.io/badge/Database-SQLite%203-lightgrey.svg)](docs/DATABASE_SCHEMA.md)
+[![Backend: Express.js](https://img.shields.io/badge/Backend-Express.js%205-green.svg)](server.js)
+[![Frontend: Vanilla JS ES6+](https://img.shields.io/badge/Frontend-Vanilla%20JS%20ES6%2B-yellow.svg)](src/js/main.js)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![HTML5](https://img.shields.io/badge/HTML5-Semántico-orange.svg)](https://developer.mozilla.org/es/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-Modern%20Design%20System-blue.svg)](https://developer.mozilla.org/es/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B%20Modular-yellow.svg)](https://developer.mozilla.org/es/docs/Web/JavaScript)
-[![WCAG](https://img.shields.io/badge/Accessibility-WCAG%202.1%20AA-green.svg)](https://www.w3.org/WAI/standards-guidelines/wcag/)
+[![Accessibility: WCAG 2.1 AA](https://img.shields.io/badge/Accessibility-WCAG%202.1%20AA-success.svg)](https://www.w3.org/WAI/standards-guidelines/wcag/)
 
-> **Landing Page web interactiva, moderna y orientada a datos (Data-Driven)** para el posicionamiento profesional de **José Arnulfo Céspedes Albornoz**, especialista interdisciplinario en Tecnologías de la Información, Análisis de Datos y Sistemas de Seguridad.
+> **Landing Page web dinámica, moderna y relacional** para el posicionamiento profesional de **José Arnulfo Céspedes Albornoz**, especialista interdisciplinario en Tecnologías de la Información, Análisis de Datos y Sistemas de Seguridad.
 
 ---
 
-## 🌟 Características Principales
+## 🌟 Novedades de la Versión 2.0
 
-- ⚡ **Rendimiento Excepcional**: Arquitectura ligera sin sobrecarga de frameworks (FCP < 0.8s, LCP < 1.2s, Lighthouse > 90).
-- 🎨 **Estética Visual Premium**: Tema Dark Mode refinado con glassmorphism, paleta HSL balanceada, tipografía Google Fonts (*Outfit* y *Inter*) y micro-interacciones suaves.
-- 📊 **Arquitectura Data-Driven**: Todo el contenido se gestiona desde archivos JSON regulados por **JSON Schemas Draft-07** formales.
-- 📱 **Diseño 100% Responsivo**: Adaptación fluida para Mobile (320px-767px), Tablet (768px-1023px), Desktop (1024px-1440px) y Large Desktop (>1440px).
-- ♿ **Accesibilidad WCAG 2.1 AA**: Contraste 5.2:1+, navegación completa por teclado, ARIA roles, focus trapping en modales y textos alternativos.
-- 🔍 **SEO & Social Share Ready**: Estructura semántica HTML5, metadatos OpenGraph, Twitter Cards, Schema.org JSON-LD para `Person` y `ProfessionalService`.
-- 📬 **Formulario de Contacto Seguro**: Validación en cliente y servidor simulada, sanitización anti-XSS y protección CSRF.
-- 📄 **Descarga Directa de CV**: Acceso optimizado al currículum en PDF en múltiples ubicaciones estratégicas.
+- 🗄️ **Base de Datos Dinámica SQLite 3**: Persistencia relacional en `/data/portafolio.db` con tablas normalizadas, vistas e índices de alta velocidad.
+- 🔐 **Panel de Administración con Autenticación**: Gestión completa en tiempo real de proyectos, experiencias, habilidades, servicios, educación, testimonios y buzón de mensajes (Credenciales por defecto: `Admin` / `Admin123`).
+- ☁️ **Integración Multimedia en la Nube**: Soporte para fotos, diplomas y capturas en **Google Drive, OneDrive y Dropbox**, y videos en **YouTube y Vimeo**.
+- 🔗 **Enlaces a Repositorios**: Campos y visualización para repositorios en **GitHub, GitLab** y demos en vivo.
+- 🌓 **Selector de Temas (Dark / Light Mode)**: Paletas de color accesibles con persistencia en `localStorage`.
+- ⚡ **Rendimiento Excepcional**: Arquitectura ligera sin sobrecarga de frameworks pesados (Lighthouse > 95).
+- ♿ **Accesibilidad WCAG 2.1 AA**: Navegación por teclado, contraste alto, atributos ARIA y textos alternativos.
+- 📬 **Buzón de Contacto Seguro**: Recepción y almacenamiento de mensajes de visitantes en SQLite.
 
 ---
 
-## 🏗️ Estructura del Proyecto
+## 📚 Documentación Completa del Proyecto
 
-```
-proyecto-landig-page/
-├── index.html                   # Punto de entrada semántico HTML5
-├── src/
-│   ├── css/                     # Sistema de diseño CSS modular
-│   │   ├── variables.css        # Tokens de diseño y variables HSL
-│   │   ├── base.css             # Resets, tipografía y accesibilidad
-│   │   ├── layout.css           # Header sticky, grid, footer
-│   │   ├── components.css       # Tarjetas, botones, modal, timeline, tabs
-│   │   ├── sections.css         # Estilos específicos de las 9 secciones
-│   │   └── animations.css       # Animaciones CSS aceleradas por GPU
-│   └── js/
-│       ├── main.js              # Punto de entrada y orquestador JS
-│       ├── config/              # Constantes de configuración
-│       ├── data/                # Datos estructurados JSON
-│       ├── schemas/             # JSON Schemas Draft-07
-│       ├── domain/              # Entidades del modelo de negocio
-│       ├── services/            # Servicios transversales (Validación, SEO, etc.)
-│       └── components/          # Renderizadores de componentes de UI
-├── public/                      # Assets públicos (imágenes, documentos, iconos)
-├── tests/                       # Suites de pruebas automatizadas y unitarias
-├── MANUAL_DE_USO.md             # Manual completo de personalización
-├── JUSTIFICACION_TECNOLOGICA.md # Argumentación técnica del stack
-├── INFORME_DESARROLLO.md        # Reporte de desarrollo y code review
-├── INFORME_PRUEBAS.md           # Informe de QA y criterios de aceptación
-├── LICENSE                      # Licencia Open Source MIT
-└── package.json                 # Scripts de desarrollo y pruebas
-```
+Toda la documentación técnica y de usuario se encuentra centralizada en la carpeta [**`/docs`**](docs/):
+
+1. 📘 [**Manual de Uso y Administración**](docs/MANUAL_DE_USO.md)
+2. 🗄️ [**Diseño y Esquema de Base de Datos SQLite**](docs/DATABASE_SCHEMA.md)
+3. 📝 [**Control de Cambios (Changelog)**](docs/CHANGELOG.md)
+4. 🏗️ [**Informe de Desarrollo y Arquitectura**](docs/INFORME_DESARROLLO.md)
+5. 🧪 [**Informe de Pruebas y QA**](docs/INFORME_PRUEBAS.md)
+6. 💡 [**Justificación Tecnológica del Stack**](docs/JUSTIFICACION_TECNOLOGICA.md)
 
 ---
 
 ## 🚀 Inicio Rápido
 
-### Opción 1: Con scripts automáticos
-- **Windows**: Ejecutar `.\init.bat`
-- **Linux/macOS**: Ejecutar `./init.sh`
-
-### Opción 2: Con NPM
 ```bash
-# Instalar dependencias para el servidor de desarrollo local y pruebas
+# 1. Instalar dependencias
 npm install
 
-# Iniciar servidor local
-npm run dev
+# 2. Inicializar o migrar la base de datos
+node data/init-db.js
 
-# Ejecutar pruebas automatizadas de QA
-npm test
+# 3. Iniciar el servidor
+npm start
+
+# 4. Abrir en el navegador:
+# http://localhost:3000
 ```
 
 ---
 
-## 🧪 Pruebas y Validación de Calidad
+## 🧪 Pruebas Automatizadas
 
-Ejecuta la suite de pruebas unitarias y de validación de esquemas:
 ```bash
 npm test
 ```

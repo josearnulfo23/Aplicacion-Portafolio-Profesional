@@ -2,6 +2,7 @@
  * ==========================================================================
  * COMPONENTE: Header
  * FUENTE: RF-012, HU-008, §2.7 (§5.2 del pseudocódigo)
+ * Versión 2.0: Incluye selector de tema dinámico (Dark/Light Mode)
  * ==========================================================================
  */
 
@@ -13,6 +14,7 @@ export class Header {
   static renderizar(perfil) {
     const navItemsDesktop = Navigation.renderizar(false);
     const navItemsMobile = Navigation.renderizar(true);
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
 
     return `
       <header class="site-header" role="banner">
@@ -31,9 +33,14 @@ export class Header {
             ${navItemsDesktop}
           </nav>
 
-          <!-- Acciones del Header (CTA CV y Contacto) -->
+          <!-- Acciones del Header (Theme Toggle, CV y Contacto) -->
           <div class="header-actions">
-            <a href="${perfil.botonCV.archivo}" class="btn btn-outline btn-sm desktop-only js-cv-download" download aria-label="Descargar currículum vitae en PDF">
+            <!-- Selector de Tema (Dark / Light Mode) -->
+            <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Alternar tema oscuro y claro" title="Cambiar tema">
+              <span class="theme-icon-dark">${currentTheme === 'light' ? '☀️' : '🌙'}</span>
+            </button>
+
+            <a href="${perfil.botonCV?.archivo || '#'}" class="btn btn-outline btn-sm desktop-only js-cv-download" download aria-label="Descargar currículum vitae en PDF">
               <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               Descargar CV
             </a>
@@ -53,7 +60,7 @@ export class Header {
         <div class="mobile-drawer" id="mobile-drawer-menu" role="navigation" aria-label="Navegación móvil">
           ${navItemsMobile}
           <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px;">
-            <a href="${perfil.botonCV.archivo}" class="btn btn-outline js-cv-download" download>
+            <a href="${perfil.botonCV?.archivo || '#'}" class="btn btn-outline js-cv-download" download>
               <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               Descargar Currículum (PDF)
             </a>
@@ -74,6 +81,18 @@ export class Header {
       toggle.addEventListener("click", () => {
         const isOpen = drawer.classList.toggle("open");
         toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+
+    // Toggle de Tema (Dark / Light)
+    const themeBtn = document.getElementById("theme-toggle-btn");
+    if (themeBtn) {
+      themeBtn.addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-theme") || "dark";
+        const nextTheme = current === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", nextTheme);
+        localStorage.setItem("portafolio_theme", nextTheme);
+        themeBtn.innerHTML = `<span class="theme-icon-dark">${nextTheme === 'light' ? '☀️' : '🌙'}</span>`;
       });
     }
 
