@@ -1,7 +1,7 @@
 # Informe de Desarrollo y Arquitectura — Portafolio Profesional v2.0.1
 
 > **Proyecto:** Portafolio Profesional José Arnulfo Céspedes Albornoz  
-> **Versión:** 2.0.1  
+> **Versión:** 2.0.2  
 > **Fecha:** 03/09/2026  
 > **Equipo Agentic:** Architect_Agent, Coder_Agent, QA_Agent  
 > **Coordinador:** Agentic Team Coordinator  
@@ -63,6 +63,9 @@ Este informe documenta la evolución v2.0 → v2.0.1 del portafolio. La v2.0 int
 
 ---
 
-## 5. Próximos Pasos
+## 5. Fix v2.0.2 — Refresco reactivo
+Se refactorizó `main.js` (App.recargarTrasEdicionAdmin), `RepositorioContenido` (no-store), `server.js` (no-store headers), `PerfilProfesional` y `Contact` (datos dinámicos), y `AdminPanel` (await callback + dashboard reload). Ver CHANGELOG v2.0.2 y validación 8/8.
+
+## 6. Próximos Pasos
 
 Validación manual del usuario en `http://localhost:3000` (Admin → cada pestaña → crear/editar/eliminar) y, tras confirmación, `git push origin main`.

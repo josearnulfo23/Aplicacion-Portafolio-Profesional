@@ -2,6 +2,7 @@
  * ==========================================================================
  * COMPONENTE: Contact (Sección 9 - Formulario de Contacto)
  * FUENTE: HU-006, RF-009, CU-006, RNF-006 (§6.9 del pseudocódigo)
+ * v2.0.2: renderizar(perfil) — email/teléfono vienen de SQLite, fallback SITE_CONFIG
  * ==========================================================================
  */
 
@@ -12,7 +13,13 @@ import { Toast } from "./ui/Toast.js";
 import { ServicioAnalitica } from "../services/ServicioAnalitica.js";
 
 export class Contact {
-  static renderizar() {
+  static renderizar(perfil = null) {
+    const email = perfil?.email || SITE_CONFIG.EMAIL;
+    const telefono = perfil?.telefono || perfil?.numeroCelular || SITE_CONFIG.TELEFONO;
+    const ubicacion = SITE_CONFIG.UBICACION;
+    const waNumber = (telefono || "").replace(/[^0-9]/g, "");
+    const waLink = waNumber ? `https://wa.me/${waNumber}` : "https://wa.me/573001234567";
+
     return `
       <section id="contacto" class="contact-section" aria-labelledby="contact-title">
         <div class="container">
@@ -23,7 +30,7 @@ export class Contact {
           </div>
 
           <div class="contact-grid">
-            <!-- Información de Contacto Directo (HU-006) -->
+            <!-- Información de Contacto Directo (HU-006) — datos dinámicos desde SQLite -->
             <div class="card contact-info-card reveal-on-scroll">
               <h3 style="font-size:var(--fs-xl); color:var(--text-primary); margin-bottom:var(--spacing-sm);">
                 Canales de Comunicación
@@ -38,7 +45,7 @@ export class Contact {
                 </div>
                 <div>
                   <div class="channel-label">Correo Electrónico</div>
-                  <a href="mailto:${SITE_CONFIG.EMAIL}" class="channel-value">${SITE_CONFIG.EMAIL}</a>
+                  <a href="mailto:${email}" class="channel-value">${email}</a>
                 </div>
               </div>
 
@@ -48,7 +55,7 @@ export class Contact {
                 </div>
                 <div>
                   <div class="channel-label">Teléfono / WhatsApp</div>
-                  <a href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer" class="channel-value">${SITE_CONFIG.TELEFONO}</a>
+                  <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="channel-value">${telefono}</a>
                 </div>
               </div>
 
@@ -58,7 +65,7 @@ export class Contact {
                 </div>
                 <div>
                   <div class="channel-label">Ubicación y Disponibilidad</div>
-                  <div class="channel-value">${SITE_CONFIG.UBICACION} (Remoto / Presencial)</div>
+                  <div class="channel-value">${ubicacion} (Remoto / Presencial)</div>
                 </div>
               </div>
 
@@ -144,7 +151,6 @@ export class Contact {
 
       const mensajeObj = new MensajeContacto(formData);
 
-      // Validación en cliente
       const errores = mensajeObj.validar();
       if (errores.length > 0) {
         errores.forEach(err => {
@@ -160,7 +166,6 @@ export class Contact {
         return;
       }
 
-      // Estado de carga (Loading State)
       btnSubmit.disabled = true;
       btnText.innerHTML = `<span class="spinner"></span> Enviando mensaje...`;
 

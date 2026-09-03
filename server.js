@@ -37,6 +37,17 @@ app.use(helmet({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Evitar caché en todas las respuestas de API (fix refresco tras edición admin)
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api/')) {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+    res.set('Surrogate-Control', 'no-store');
+  }
+  next();
+});
+
 // Servir estáticos
 app.use(express.static(BASE_DIR));
 app.use('/public', express.static(join(BASE_DIR, 'public')));
@@ -214,7 +225,7 @@ app.get('/api/content/all', (req, res) => {
         // 3. Experiencias
         const experiencesRows = db.prepare(`
             SELECT * FROM experiences 
-            ORDER BY CASE WHEN esta_vigente = 1 THEN 0 ELSE 1 END, periodo_inicio DESC
+            ORDER BY CASE WHEN esta_vigente = 1 THEN 0 ELSE 1 END, substr(periodo_inicio, 4, 4) DESC, substr(periodo_inicio, 1, 2) DESC, id DESC
         `).all();
 
         const experiencesData = [];

@@ -4,6 +4,24 @@ Todas las modificaciones notables realizadas en este proyecto se documentan en e
 
 ---
 
+## [2.0.2] - 2026-09-03 — Fix refresco reactivo de la landing tras edición admin
+
+### 🐛 Corregido (Fixed) — Información e imágenes no se refrescaban en la landing
+**Causa raíz:** `RepositorioContenido._bundle` quedaba en caché entre ediciones; `AdminPanel` llamaba `invalidarCache()` + `this._onUpdateCallback()` **sin `await`**, y `App.inicializar()` reconstruía todo el `#app` (incluido el modal), cerrando el panel y haciendo parecer que nada cambió. Además, `GET /api/content/all` era cacheable por el navegador/proxy. `Contact.js` usaba `SITE_CONFIG` hardcodeado en lugar de los datos de SQLite, y `PerfilProfesional` no exponía `profesion/edad/email/telefono/numeroCelular/fotoComplementaria`.
+
+**Solución:**
+- `src/js/services/RepositorioContenido.js`: `fetch('/api/content/all', {cache:'no-store'})` y `fetch(rutaRelativa, {cache:'no-store'})`; añadido `getBundle()`; `invalidarCache()` documentado como único invalidante.
+- `src/js/main.js` **refactorizado**: `App.inicializar()` con guard `_isInitializing` y `_lastData`; nuevo `App.recargarTrasEdicionAdmin()` que hace `invalidarCache() → cargarTodo() → recargar todas las entidades → _renderLanding()` preservando `admin-modal` abierto (display + scrollTop) y re-vinculando `Header/Projects/Contact/AdminPanel` sin destruir estado del dashboard. Callback del panel ahora apunta a `recargarTrasEdicionAdmin` en vez de `inicializar`.
+- `src/js/components/AdminPanel.js`: 19 ocurrencias de `if(this._onUpdateCallback) this._onUpdateCallback();` → `await this._onUpdateCallback();` (todos los submit/delete); perfil ahora también hace `this.cargarYRenderDashboard()` tras el callback para mantener el tab. Esto garantiza que el `await` complete el re-render de la landing **antes** de refrescar el dashboard.
+- `server.js`: middleware global `Cache-Control: no-store, no-cache, must-revalidate` + `Pragma: no-cache` para toda ruta `/api/*`, eliminando caché de intermediarios.
+- `src/js/domain/PerfilProfesional.js`: constructor extendido con `profesion, edad, email, telefono, numeroCelular, fotoComplementaria`.
+- `src/js/components/Contact.js`: firma `renderizar(perfil=null)` — email/teléfono vienen de SQLite con fallback `SITE_CONFIG`; `wa.me` derivado dinámicamente.
+
+### ✅ Validado
+- Script E2E `_e2e_refresh.mjs`: crea registro con prefijo `REFRESH-` en cada entidad (experiencia, perfil/foto, proyecto destacado, categoría/habilidad, servicio, título, cert con imagen, testimonio con foto), verifica en `GET /api/content/all` que **aparece y en orden correcto** (experiencia vigente primero — `REFRESH-TEST Senior E2E 2026` queda `experience[0]`), luego revierte perfil y borra los 8 registros. **8/8 refrescos validados**, limpieza OK.
+- Orden garantizado: `experiences ORDER BY esta_vigente DESC, periodo_inicio DESC` en server + `compararPorFecha` en dominio; proyectos `ORDER BY destacado DESC`; educación `ORDER BY anio DESC` — la más reciente aparece primero tras agregar, tal como pediste.
+- `npm test` 57/57 siguen pasando; `GET /health` OK; headers `Cache-Control: no-store` verificados con `curl -D`.
+
 ## [2.0.1] - 2026-09-03 — Formularios CRUD completos para todas las secciones
 
 ### ✅ Corregido (Fixed)

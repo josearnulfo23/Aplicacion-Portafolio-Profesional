@@ -96,7 +96,11 @@ Tras la instalación se crean 6 registros con sufijo **“— Demo”** (1 exper
 
 ---
 
-## 5. Solución de Problemas
+## 5. Refresco instantáneo tras editar (v2.0.2)
+
+Tras guardar, editar o borrar en cualquier pestaña, la **landing se actualiza al instante sin recargar la página ni cerrar el panel**. La experiencia nueva aparece **primero** (más reciente → antigua), y las imágenes/credenciales cloud (Drive/OneDrive/Dropbox) y email/teléfono se reflejan en Hero/Contacto en el mismo segundo. Si no ves el cambio, verifica que el Toast diga `¡... guardado!` y que el servidor siga en `http://localhost:3000`.
+
+## 6. Solución de Problemas
 
 - **Pantalla blanca / SyntaxError AdminPanel.js:1023**: recarga con `Ctrl+F5`; el bug de `try/catch` ya está corregido en v2.0.1.
 - **Login falla**: verifica que el servidor esté corriendo `npm start` en `http://localhost:3000` y que uses `Admin` / `Admin123` (case-sensitive).

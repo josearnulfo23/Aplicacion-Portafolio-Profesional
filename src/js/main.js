@@ -2,7 +2,9 @@
  * ==========================================================================
  * PUNTO DE ENTRADA PRINCIPAL: main.js
  * FUENTE: §2.6, §2.7, §4.2 (PaginaPrincipal) del pseudocódigo
- * Versión 2.0: Datos dinámicos SQLite, Panel Admin y Selector de Temas
+ * Versión 2.0.2: Fix refresco — landing re-renderiza tras cada edición admin.
+ * El panel ya no reconstruye toda la app de forma que cierre el modal;
+ * en su lugar invalida caché → recarga bundle → re-renderiza secciones.
  * ==========================================================================
  */
 
@@ -26,24 +28,26 @@ import { Footer } from "./components/Footer.js";
 import { AdminPanel } from "./components/AdminPanel.js";
 
 export class App {
+  static _isInitializing = false;
+  static _lastData = null;
+
   static async inicializar() {
-    console.log("🚀 Inicializando Portafolio Profesional v2.0...");
+    if (this._isInitializing) return;
+    this._isInitializing = true;
+    console.log("🚀 Inicializando Portafolio Profesional v2.0.2...");
 
     const appContainer = document.getElementById("app");
     if (!appContainer) {
       console.error("No se encontró el contenedor #app en el DOM.");
+      this._isInitializing = false;
       return;
     }
 
-    // Restaurar preferencia de tema
     const savedTheme = localStorage.getItem("portafolio_theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
 
     try {
-      // 1. Cargar bundle unificado desde SQLite (con fallback resiliente)
       await RepositorioContenido.cargarTodo();
-
-      // 2. Cargar datos estructurados
       const [
         perfil,
         bio,
@@ -63,41 +67,24 @@ export class App {
         RepositorioContenido.cargarEducacion(),
         RepositorioContenido.cargarTestimonios()
       ]);
+      this._lastData = { perfil, bio, experiencias, habilidades, proyectos, servicios, educacion, testimonios };
 
-      // 3. Renderizar las secciones de la Landing Page + Panel Admin
-      appContainer.innerHTML = `
-        ${Header.renderizar(perfil)}
-        <main id="main-content">
-          ${Hero.renderizar(perfil)}
-          ${About.renderizar(bio)}
-          ${Experience.renderizar(experiencias)}
-          ${Skills.renderizar(habilidades)}
-          ${Projects.renderizar(proyectos)}
-          ${Services.renderizar(servicios)}
-          ${Education.renderizar(educacion)}
-          ${Testimonials.renderizar(testimonios)}
-          ${Contact.renderizar()}
-        </main>
-        ${Footer.renderizar(perfil)}
-        ${AdminPanel.renderizar()}
-      `;
+      this._renderLanding(appContainer, this._lastData);
 
-      // 4. Inyectar Metadatos Estructurados Schema.org para SEO
-      ServicioSEO.inyectarStructuredData(perfil, bio, servicios);
-
-      // 5. Vincular eventos de componentes interactivos
       Header.vincularEventos();
       Projects.vincularEventos();
       Contact.vincularEventos();
       AdminPanel.vincularEventos();
-      AdminPanel.setUpdateCallback(() => App.inicializar());
+      AdminPanel.setUpdateCallback(() => App.recargarTrasEdicionAdmin());
 
-      // 6. Inicializar servicios transversales
       ServicioNavegacion.inicializar();
       ServicioAnimaciones.inicializar();
       ServicioAccesibilidad.inicializar();
 
-      console.log("✅ Aplicación v2.0 renderizada con SQLite dinámico y Panel Admin.");
+      // Re-inyectar SEO con datos frescos
+      ServicioSEO.inyectarStructuredData(perfil, bio, servicios);
+
+      console.log("✅ Aplicación v2.0.2 renderizada con datos dinámicos SQLite.");
     } catch (error) {
       console.error("Error crítico al inicializar la aplicación:", error);
       appContainer.innerHTML = `
@@ -111,7 +98,90 @@ export class App {
           </div>
         </div>
       `;
+    } finally {
+      this._isInitializing = false;
     }
+  }
+
+  /**
+   * Refresca SOLO la landing (Header/Hero/About...Footer) sin destruir el modal Admin.
+   * Se llama tras cada POST/PUT/DELETE exitoso del panel.
+   */
+  static async recargarTrasEdicionAdmin() {
+    // Invalida y recarga bundle fresco con cache-bust
+    RepositorioContenido.invalidarCache();
+    await RepositorioContenido.cargarTodo();
+    const [
+      perfil,
+      bio,
+      experiencias,
+      habilidades,
+      proyectos,
+      servicios,
+      educacion,
+      testimonios
+    ] = await Promise.all([
+      RepositorioContenido.cargarPerfil(),
+      RepositorioContenido.cargarBiografia(),
+      RepositorioContenido.cargarExperiencia(),
+      RepositorioContenido.cargarHabilidades(),
+      RepositorioContenido.cargarProyectos(),
+      RepositorioContenido.cargarServicios(),
+      RepositorioContenido.cargarEducacion(),
+      RepositorioContenido.cargarTestimonios()
+    ]);
+    this._lastData = { perfil, bio, experiencias, habilidades, proyectos, servicios, educacion, testimonios };
+
+    const appContainer = document.getElementById("app");
+    if (!appContainer) return;
+
+    // Guardar estado del modal Admin para no cerrarlo
+    const adminModal = document.getElementById("admin-modal");
+    const adminWasOpen = adminModal && adminModal.style.display !== "none";
+    const adminScrollTop = adminModal ? adminModal.scrollTop : 0;
+
+    this._renderLanding(appContainer, this._lastData);
+
+    // Re-vincular eventos (Header, Projects, Contact, Admin)
+    Header.vincularEventos();
+    Projects.vincularEventos();
+    Contact.vincularEventos();
+    // AdminPanel ya existe: re-vincular flotante y si estaba abierto, mantenerlo
+    AdminPanel.vincularEventos();
+    // El Dashboard se recarga por separado en AdminPanel.cargarYRenderDashboard() después de este callback
+    // Restaurar apertura del modal si el usuario estaba editando
+    if (adminWasOpen) {
+      const restored = document.getElementById("admin-modal");
+      if (restored) {
+        restored.style.display = "flex";
+        document.body.style.overflow = "hidden";
+        restored.scrollTop = adminScrollTop;
+      }
+    }
+    ServicioNavegacion.inicializar();
+    ServicioAnimaciones.inicializar();
+    ServicioSEO.inyectarStructuredData(perfil, bio, servicios);
+    console.log("🔄 Landing refrescada tras edición admin — secciones actualizadas desde SQLite.");
+  }
+
+  static _renderLanding(appContainer, data) {
+    const { perfil, bio, experiencias, habilidades, proyectos, servicios, educacion, testimonios } = data;
+    appContainer.innerHTML = `
+        ${Header.renderizar(perfil)}
+        <main id="main-content">
+          ${Hero.renderizar(perfil)}
+          ${About.renderizar(bio)}
+          ${Experience.renderizar(experiencias)}
+          ${Skills.renderizar(habilidades)}
+          ${Projects.renderizar(proyectos)}
+          ${Services.renderizar(servicios)}
+          ${Education.renderizar(educacion)}
+          ${Testimonials.renderizar(testimonios)}
+          ${Contact.renderizar(perfil)}
+        </main>
+        ${Footer.renderizar(perfil)}
+        ${AdminPanel.renderizar()}
+      `;
   }
 }
 

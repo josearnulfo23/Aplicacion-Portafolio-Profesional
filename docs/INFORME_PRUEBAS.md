@@ -1,7 +1,7 @@
 # Informe de Pruebas y Control de Calidad (QA) — Portafolio Profesional v2.0.1
 
 > **Proyecto:** Portafolio Profesional José Arnulfo Céspedes Albornoz  
-> **Versión:** 2.0.1  
+> **Versión:** 2.0.2  
 > **Fecha:** 03/09/2026  
 > **Responsable QA:** QA_Agent  
 > **Resultado Global:** 100% Aprobado (57/57 runner + 14/14 CRUD integrales)
@@ -95,3 +95,7 @@ Adicionalmente, se sembraron **6 registros demo persistentes** etiquetados “�
 ## 4. Certificación Final
 
 El **QA_Agent** certifica que el software **Portafolio Profesional v2.0.1** supera el **100% de los criterios de aceptación**. Los 5 tabs que previamente solo renderizaban listados ahora cuentan con **formularios CRUD completos, validados con datos reales persistidos en SQLite y verificados como editables/eliminables** (`content/all` refleja los cambios). Estado **ÓPTIMO Y LISTO PARA PRODUCCIÓN**. Pendiente confirmación del usuario para `git push`.
+
+
+### 🧩 Grupo 7: Refresco reactivo landing tras edición (8/8 — NUEVO v2.0.2)
+Script `_e2e_refresh.mjs`: crea `REFRESH-` en experiencia (vigente → queda primera), perfil/foto/ email/tel, proyecto destacado, categoría/habilidad, servicio, título, cert con `credencialUrl` cloud, testimonio con `foto` cloud; verifica cada uno en `GET /api/content/all` con `cache:no-store` y headers `no-store` en server; revierte perfil y borra. **8/8 pasaron**. Orden `esta_vigente DESC, periodo_inicio DESC` validado.

@@ -1145,7 +1145,8 @@ export class AdminPanel {
 
             Toast.mostrar("¡Perfil actualizado con éxito!", "success");
             RepositorioContenido.invalidarCache();
-            if (this._onUpdateCallback) this._onUpdateCallback();
+            if (this._onUpdateCallback) await this._onUpdateCallback();
+            this.cargarYRenderDashboard();
           } else {
             Toast.mostrar(data.message || "Error al actualizar", "error");
           }
@@ -1211,7 +1212,7 @@ export class AdminPanel {
             Toast.mostrar("¡Proyecto guardado exitosamente!", "success");
             projBox.style.display = "none";
             RepositorioContenido.invalidarCache();
-            if (this._onUpdateCallback) this._onUpdateCallback();
+            if (this._onUpdateCallback) await this._onUpdateCallback();
             this.cargarYRenderDashboard();
           } else {
             Toast.mostrar(data.message || "Error al guardar", "error");
@@ -1237,7 +1238,7 @@ export class AdminPanel {
             if (data.success) {
               Toast.mostrar("Proyecto eliminado", "info");
               RepositorioContenido.invalidarCache();
-              if (this._onUpdateCallback) this._onUpdateCallback();
+              if (this._onUpdateCallback) await this._onUpdateCallback();
               this.cargarYRenderDashboard();
             }
           } catch (err) {
@@ -1284,7 +1285,7 @@ export class AdminPanel {
         try {
           const res = await fetch(url, { method, headers: { "Content-Type":"application/json","Authorization":`Bearer ${this._token}` }, body: JSON.stringify(payload)});
           const data = await res.json();
-          if (data.success) { Toast.mostrar("¡Experiencia guardada!","success"); expBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard(); }
+          if (data.success) { Toast.mostrar("¡Experiencia guardada!","success"); expBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard(); }
           else Toast.mostrar(data.message||"Error al guardar","error");
         } catch(err){ Toast.mostrar("Error: "+err.message,"error"); }
       });
@@ -1312,7 +1313,7 @@ export class AdminPanel {
     document.querySelectorAll(".admin-btn-delete-exp").forEach(btn => {
       btn.addEventListener("click", async () => {
         if(!confirm("¿Eliminar esta experiencia?")) return;
-        try{ const r=await fetch(`/api/experiences/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Experiencia eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}
+        try{ const r=await fetch(`/api/experiences/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Experiencia eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}
       });
     });
 
@@ -1329,7 +1330,7 @@ export class AdminPanel {
         const id=catForm.catId.value;
         const payload={ nombreCategoria: catForm.nombreCategoria.value.trim(), descripcion: catForm.descripcionCategoria.value.trim(), icono: catForm.iconoCategoria.value.trim()||"public/images/icons/code.svg" };
         const url=id?`/api/skill-categories/${id}`:"/api/skill-categories"; const method=id?"PUT":"POST";
-        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Categoría guardada!","success"); catBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Categoría guardada!","success"); catBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
       });
     }
     document.querySelectorAll(".admin-btn-edit-cat").forEach(btn=>{
@@ -1345,7 +1346,7 @@ export class AdminPanel {
     document.querySelectorAll(".admin-btn-del-cat").forEach(btn=>{
       btn.addEventListener("click", async()=>{
         if(!confirm("¿Eliminar categoría? Se eliminarán también sus habilidades.")) return;
-        try{ const r=await fetch(`/api/skill-categories/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Categoría eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}
+        try{ const r=await fetch(`/api/skill-categories/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Categoría eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}
       });
     });
     // Skill form
@@ -1368,7 +1369,7 @@ export class AdminPanel {
         const id=skillForm.skillId.value;
         const payload={ categoriaId: parseInt(skillForm.categoriaId.value,10), nombre: skillForm.nombre.value.trim(), icono: skillForm.icono.value.trim()||"public/images/icons/code.svg", nivelDominio: parseInt(skillForm.nivelDominio.value,10)||80, aniosExperiencia: parseInt(skillForm.aniosExperiencia.value,10)||1 };
         const url=id?`/api/skills/${id}`:"/api/skills"; const method=id?"PUT":"POST";
-        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Habilidad guardada!","success"); skillBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Habilidad guardada!","success"); skillBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
       });
     }
     document.querySelectorAll(".admin-btn-edit-skill").forEach(btn=>{
@@ -1384,7 +1385,7 @@ export class AdminPanel {
     document.querySelectorAll(".admin-btn-del-skill").forEach(btn=>{
       btn.addEventListener("click", async()=>{
         if(!confirm("¿Eliminar esta habilidad?")) return;
-        try{ const r=await fetch(`/api/skills/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Habilidad eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}
+        try{ const r=await fetch(`/api/skills/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Habilidad eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}
       });
     });
 
@@ -1401,7 +1402,7 @@ export class AdminPanel {
         const id=srvForm.srvId.value;
         const payload={ nombreServicio: srvForm.nombreServicio.value.trim(), categoria: srvForm.categoria.value.trim()||"Consultoría", descripcion: srvForm.descripcion.value.trim(), icono: srvForm.icono.value.trim()||"public/images/icons/services/gear.svg", entregables: srvForm.entregables.value.split("\n").map(s=>s.trim()).filter(Boolean), ctaTexto: srvForm.ctaTexto.value.trim()||"Solicitar Cotización", ctaDestino: srvForm.ctaDestino.value.trim()||"#contacto" };
         const url=id?`/api/services/${id}`:"/api/services"; const method=id?"PUT":"POST";
-        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Servicio guardado!","success"); srvBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Servicio guardado!","success"); srvBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
       });
     }
     document.querySelectorAll(".admin-btn-edit-srv").forEach(btn=>{
@@ -1412,7 +1413,7 @@ export class AdminPanel {
       });
     });
     document.querySelectorAll(".admin-btn-del-srv").forEach(btn=>{
-      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar este servicio?")) return; try{ const r=await fetch(`/api/services/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Servicio eliminado","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
+      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar este servicio?")) return; try{ const r=await fetch(`/api/services/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Servicio eliminado","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
     });
 
     // ===== EDUCACIÓN =====
@@ -1427,7 +1428,7 @@ export class AdminPanel {
         e.preventDefault(); const id=degreeForm.degreeId.value;
         const payload={ tituloAcademico: degreeForm.tituloAcademico.value.trim(), institucion: degreeForm.institucion.value.trim(), anio: degreeForm.anio.value.trim(), estado: degreeForm.estado.value, descripcion: degreeForm.descripcionDegree.value.trim() };
         const url=id?`/api/education/degree/${id}`:"/api/education/degree"; const method=id?"PUT":"POST";
-        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Título guardado!","success"); degreeBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Título guardado!","success"); degreeBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
       });
     }
     document.querySelectorAll(".admin-btn-edit-degree").forEach(btn=>{
@@ -1438,7 +1439,7 @@ export class AdminPanel {
       });
     });
     document.querySelectorAll(".admin-btn-del-degree").forEach(btn=>{
-      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar este título?")) return; try{ const r=await fetch(`/api/education/degree/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Título eliminado","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
+      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar este título?")) return; try{ const r=await fetch(`/api/education/degree/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Título eliminado","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
     });
     const btnAddCert=document.getElementById("btn-add-cert");
     const certBox=document.getElementById("cert-form-modal");
@@ -1451,7 +1452,7 @@ export class AdminPanel {
         e.preventDefault(); const id=certForm.certId.value;
         const payload={ nombre: certForm.nombre.value.trim(), entidadCertificadora: certForm.entidadCertificadora.value.trim(), anio: certForm.anio.value.trim(), credencialUrl: certForm.credencialUrl.value.trim(), badgeDigital: certForm.badgeDigital.value.trim()||"public/images/icons/badge.svg"};
         const url=id?`/api/education/cert/${id}`:"/api/education/cert"; const method=id?"PUT":"POST";
-        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Certificación guardada!","success"); certBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Certificación guardada!","success"); certBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
       });
     }
     document.querySelectorAll(".admin-btn-edit-cert").forEach(btn=>{
@@ -1462,7 +1463,7 @@ export class AdminPanel {
       });
     });
     document.querySelectorAll(".admin-btn-del-cert").forEach(btn=>{
-      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar esta certificación?")) return; try{ const r=await fetch(`/api/education/cert/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Certificación eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
+      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar esta certificación?")) return; try{ const r=await fetch(`/api/education/cert/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Certificación eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
     });
 
     // ===== TESTIMONIOS =====
@@ -1477,7 +1478,7 @@ export class AdminPanel {
         e.preventDefault(); const id=testForm.testimonioId.value;
         const payload={ nombreRecomendador: testForm.nombreRecomendador.value.trim(), cargo: testForm.cargo.value.trim(), empresa: testForm.empresa.value.trim(), foto: testForm.foto.value.trim()||"public/images/testimonials/avatar-default.svg", valoracion: parseInt(testForm.valoracion.value,10)||5, relacionProfesional: testForm.relacionProfesional.value.trim(), textoTestimonio: testForm.textoTestimonio.value.trim() };
         const url=id?`/api/testimonials/${id}`:"/api/testimonials"; const method=id?"PUT":"POST";
-        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Testimonio guardado!","success"); testBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Testimonio guardado!","success"); testBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
       });
     }
     document.querySelectorAll(".admin-btn-edit-testimonio").forEach(btn=>{
@@ -1488,7 +1489,7 @@ export class AdminPanel {
       });
     });
     document.querySelectorAll(".admin-btn-del-testimonio").forEach(btn=>{
-      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar este testimonio?")) return; try{ const r=await fetch(`/api/testimonials/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Testimonio eliminado","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
+      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar este testimonio?")) return; try{ const r=await fetch(`/api/testimonials/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Testimonio eliminado","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) await this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
     });
 
     // Cargar mensajes si está en pestaña de mensajes
@@ -1532,7 +1533,7 @@ export class AdminPanel {
             // Hide the modal
             document.getElementById("user-form-modal").style.display = "none";
             RepositorioContenido.invalidarCache();
-            if (this._onUpdateCallback) this._onUpdateCallback();
+            if (this._onUpdateCallback) await this._onUpdateCallback();
             this.cargarYRenderDashboard();
           } else {
             Toast.mostrar(data.message || "Error al guardar", "error");
@@ -1580,7 +1581,7 @@ export class AdminPanel {
             if (data.success) {
               Toast.mostrar("Usuario eliminado", "info");
               RepositorioContenido.invalidarCache();
-              if (this._onUpdateCallback) this._onUpdateCallback();
+              if (this._onUpdateCallback) await this._onUpdateCallback();
               this.cargarYRenderDashboard();
             }
           } catch (err) {
