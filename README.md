@@ -1,6 +1,6 @@
 # Portafolio Profesional — José Arnulfo Céspedes Albornoz
 
-[![Version: 2.0.2](https://img.shields.io/badge/Version-2.0.2-blue.svg)](docs/CHANGELOG.md)
+[![Version: 2.0.3](https://img.shields.io/badge/Version-2.0.3-blue.svg)](docs/CHANGELOG.md)
 [![Database: SQLite3](https://img.shields.io/badge/Database-SQLite%203-lightgrey.svg)](docs/DATABASE_SCHEMA.md)
 [![Backend: Express.js](https://img.shields.io/badge/Backend-Express.js%205-green.svg)](server.js)
 [![Frontend: Vanilla JS ES6+](https://img.shields.io/badge/Frontend-Vanilla%20JS%20ES6%2B-yellow.svg)](src/js/main.js)

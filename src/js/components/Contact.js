@@ -19,6 +19,9 @@ export class Contact {
     const ubicacion = SITE_CONFIG.UBICACION;
     const waNumber = (telefono || "").replace(/[^0-9]/g, "");
     const waLink = waNumber ? `https://wa.me/${waNumber}` : "https://wa.me/573001234567";
+    const linkedInRed = (perfil?.redesSociales || []).find(r => (r.nombreRed || "").toLowerCase().includes("linkedin"));
+    const linkedInUrl = linkedInRed?.urlPerfil || "https://linkedin.com/in/jose-arnulfo-cespedes";
+    const linkedInLabel = linkedInUrl.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
     return `
       <section id="contacto" class="contact-section" aria-labelledby="contact-title">
@@ -75,7 +78,7 @@ export class Contact {
                 </div>
                 <div>
                   <div class="channel-label">Red Profesional</div>
-                  <a href="https://linkedin.com/in/jose-arnulfo-cespedes" target="_blank" rel="noopener noreferrer" class="channel-value">linkedin.com/in/jose-arnulfo-cespedes</a>
+                  <a href="${linkedInUrl}" target="_blank" rel="noopener noreferrer" class="channel-value">${linkedInLabel}</a>
                 </div>
               </div>
             </div>

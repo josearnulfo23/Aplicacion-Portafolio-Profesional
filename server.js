@@ -403,6 +403,7 @@ app.put('/api/profile', authenticateToken, authorizeAdmin, (req, res) => {
             numeroCelular,
             fotoPerfil,
             cvArchivo,
+            linkedinUrl,
             redesSociales
         } = req.body;
 
@@ -422,6 +423,16 @@ app.put('/api/profile', authenticateToken, authorizeAdmin, (req, res) => {
                 updated_at = datetime('now')
             WHERE id = 1
         `).run(nombreCompleto, tituloProfesional, tagline, descripcionBreve, profesion, edad, email, telefono, numeroCelular, fotoPerfil, cvArchivo);
+
+        if (typeof linkedinUrl === 'string' && linkedinUrl.trim() !== '') {
+            const liUrl = linkedinUrl.trim();
+            const existing = db.prepare("SELECT id FROM social_networks WHERE perfil_id = 1 AND lower(nombre_red) LIKE '%linkedin%'").get();
+            if (existing) {
+                db.prepare("UPDATE social_networks SET url_perfil = ? WHERE id = ?").run(liUrl, existing.id);
+            } else {
+                db.prepare("INSERT INTO social_networks (perfil_id, nombre_red, url_perfil, icono, etiqueta, orden) VALUES (1, 'LinkedIn', ?, 'public/images/icons/linkedin.svg', 'Perfil de LinkedIn', 0)").run(liUrl);
+            }
+        }
 
         if (Array.isArray(redesSociales)) {
             db.prepare('DELETE FROM social_networks WHERE perfil_id = 1').run();

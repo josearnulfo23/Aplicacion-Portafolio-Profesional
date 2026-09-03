@@ -4,6 +4,17 @@ Todas las modificaciones notables realizadas en este proyecto se documentan en e
 
 ---
 
+## [2.0.3] - 2026-09-03 — Campo LinkedIn editable en Sobre Mí & Hero
+
+### ✨ Añadido / Corregido
+- **Formulario Sobre Mí & Hero**: nuevo campo **"🔗 URL Perfil LinkedIn (Red Profesional en Contacto)"** (`<input type="url" name="linkedinUrl">`) precargado desde `social_networks` (LinkedIn) y con placeholder `https://linkedin.com/in/tu-usuario`. Alimenta la sección **Contacto > Red Profesional** (antes hardcodeado a `linkedin.com/in/jose-arnulfo-cespedes`) y Hero/Footer.
+- `Contact.js`: `renderizar(perfil)` ahora deriva `linkedInUrl`/`linkedInLabel` desde `perfil.redesSociales` (find LinkedIn) con fallback. Ya no está hardcodeado.
+- `server.js` `PUT /api/profile`: nuevo campo `linkedinUrl` en body; si viene no vacío hace **upsert** en `social_networks` (UPDATE si existe LinkedIn, INSERT si no) sin borrar las otras redes (GitHub/Twitter/Medium). `Array redesSociales` sigue funcionando como antes si se envía.
+- `data/schema.sql`: `social_networks` añade `updated_at TEXT NOT NULL DEFAULT (datetime('now'))` (mejora auditoría).
+
+### ✅ Validado
+- E2E `_test_linkedin.mjs`: `GET /api/content/all` antes → `PUT /api/profile {linkedinUrl:"https://linkedin.com/in/test-usuario-linkedin-2025"}` → `GET /api/content/all` después verifica **URL actualizada, count 4→4 sin perder redes, label Contact correcto** → revert. **4/4 OK**. `npm test` 57/57.
+
 ## [2.0.2] - 2026-09-03 — Fix refresco reactivo de la landing tras edición admin
 
 ### 🐛 Corregido (Fixed) — Información e imágenes no se refrescaban en la landing

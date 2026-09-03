@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS social_networks (
     orden           INTEGER NOT NULL DEFAULT 0,
     is_active       INTEGER NOT NULL DEFAULT 1,
     created_at      TEXT    NOT NULL DEFAULT (datetime('now')),
+    updated_at      TEXT    NOT NULL DEFAULT (datetime('now')),
     FOREIGN KEY (perfil_id) REFERENCES profiles(id) ON DELETE CASCADE
 );
 

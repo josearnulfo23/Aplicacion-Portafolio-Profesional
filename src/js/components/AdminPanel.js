@@ -426,7 +426,6 @@ export class AdminPanel {
             <label>Número Celular</label>
             <input type="tel" name="numeroCelular" class="admin-input" value="${p.numeroCelular || ''}">
           </div>
-          </div>
 
           <div class="admin-form-group">
             <label>Biografía Profesional Completa (Sobre Mí)</label>
@@ -442,6 +441,12 @@ export class AdminPanel {
               <label>URL Archivo CV / Hoja de Vida (PDF en la Nube)</label>
               <input type="text" name="cvArchivo" class="admin-input" value="${p.botonCV?.archivo || ''}">
             </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label>🔗 URL Perfil LinkedIn (Red Profesional en Contacto)</label>
+            <input type="url" name="linkedinUrl" class="admin-input" value="${(p.redesSociales || []).find(r => (r.nombreRed || '').toLowerCase().includes('linkedin'))?.urlPerfil || ''}" placeholder="https://linkedin.com/in/tu-usuario">
+            <small class="admin-help-text" style="display:block; margin-top:4px; color:var(--text-muted); font-size:var(--fs-xs);">Este enlace alimenta el ícono de Red Profesional en la sección Contacto y también el Hero/Footer.</small>
           </div>
 
           <div class="admin-form-actions">
@@ -1106,6 +1111,7 @@ export class AdminPanel {
       profileForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         try {
+          const linkedinRaw = profileForm.linkedinUrl ? profileForm.linkedinUrl.value.trim() : "";
           const payload = {
             nombreCompleto: profileForm.nombreCompleto.value.trim(),
             tituloProfesional: profileForm.tituloProfesional.value.trim(),
@@ -1117,9 +1123,12 @@ export class AdminPanel {
             telefono: profileForm.telefono.value.trim(),
             numeroCelular: profileForm.numeroCelular.value.trim(),
             fotoPerfil: profileForm.fotoPerfil.value.trim(),
-            cvArchivo: profileForm.cvArchivo.value.trim()
+            cvArchivo: profileForm.cvArchivo.value.trim(),
+            linkedinUrl: linkedinRaw
           };
 
+          const submitBtn = profileForm.querySelector('button[type="submit"]');
+          if(submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "⏳ Guardando..."; }
           const res = await fetch("/api/profile", {
             method: "PUT",
             headers: {
@@ -1129,29 +1138,35 @@ export class AdminPanel {
             body: JSON.stringify(payload)
           });
 
-          const data = await res.json();
-          if (data.success) {
-            // Guardar bio
-            await fetch("/api/about", {
+          let data;
+          try { data = await res.json(); } catch(e) { data = { success: res.ok }; }
+          if (!res.ok) throw new Error(data.message || `Error HTTP ${res.status} al guardar perfil`);
+          if (data.success !== false) {
+            const bioText = profileForm.biografiaProfesional ? profileForm.biografiaProfesional.value.trim() : "";
+            const resBio = await fetch("/api/about", {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${this._token}`
               },
-              body: JSON.stringify({
-                biografiaProfesional: profileForm.biografiaProfesional.value.trim()
-              })
+              body: JSON.stringify({ biografiaProfesional: bioText })
             });
+            let bioData; try { bioData = await resBio.json(); } catch(e) { bioData = { success: resBio.ok }; }
+            if (!resBio.ok) throw new Error(bioData.message || `Error HTTP ${resBio.status} al guardar biografía`);
 
-            Toast.mostrar("¡Perfil actualizado con éxito!", "success");
+            Toast.mostrar("¡Perfil y biografía actualizados con éxito!", "success");
             RepositorioContenido.invalidarCache();
             if (this._onUpdateCallback) await this._onUpdateCallback();
-            this.cargarYRenderDashboard();
+            await this.cargarYRenderDashboard();
           } else {
-            Toast.mostrar(data.message || "Error al actualizar", "error");
+            Toast.mostrar(data.message || "Error al actualizar perfil", "error");
           }
         } catch (err) {
-          Toast.mostrar("Error de red: " + err.message, "error");
+          console.error("[AdminPanel] Error guardando perfil/bio:", err);
+          Toast.mostrar("Error: " + err.message, "error");
+        } finally {
+          const sb = profileForm.querySelector('button[type="submit"]');
+          if(sb) { sb.disabled = false; sb.textContent = "💾 Guardar Cambios de Perfil"; }
         }
       });
     }

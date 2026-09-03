@@ -38,7 +38,7 @@ La Landing Page ofrece una experiencia fluida, rápida y accesible estructurada 
 ### 2.2 Gestión por Pestaña
 
 #### 👤 Sobre Mí & Hero
-- Edita nombre, título profesional, tagline, descripción breve, **profesión, edad, email, teléfono, celular**, biografía completa, **foto de perfil** y **CV** (URLs locales o cloud: Google Drive / OneDrive / Dropbox).
+- Edita nombre, título profesional, tagline, descripción breve, **profesión, edad, email, teléfono, celular**, biografía completa, **foto de perfil** y **CV** (URLs locales o cloud: Drive/OneDrive/Dropbox) y **🔗 URL LinkedIn** (alimenta Contacto > Red Profesional): Google Drive / OneDrive / Dropbox).
 - **Guardar Cambios de Perfil** → `PUT /api/profile` + `PUT /api/about` → refresco reactivo de la landing.
 
 #### 💼 Experiencia
