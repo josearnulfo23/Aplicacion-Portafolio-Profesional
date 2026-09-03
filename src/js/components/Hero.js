@@ -9,7 +9,7 @@ export class Hero {
   static renderizar(perfil) {
     const redesHtml = (perfil.redesSociales || []).map(red => `
       <a href="${red.urlPerfil}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="${red.etiqueta || red.nombreRed}">
-        <img src="${red.icono}" alt="${red.nombreRed}" width="20" height="20">
+        <img src="${red.icono}" alt="${red.nombreRed}" width="20" height="20" loading="lazy">
       </a>
     `).join("");
 
@@ -66,7 +66,7 @@ export class Hero {
 
           <!-- Columna Derecha: Imagen Profesional Vectorial de Alto Impacto -->
           <div class="hero-image-wrap reveal-on-scroll stagger-2">
-            <img src="${perfil.fotoProfesional}" alt="Fotografía Profesional de ${perfil.nombreCompleto}" width="380" height="380" loading="eager">
+            <img src="${perfil.fotoProfesional}" alt="Fotografía Profesional de ${perfil.nombreCompleto}" width="380" height="380" loading="lazy">
           </div>
         </div>
       </section>

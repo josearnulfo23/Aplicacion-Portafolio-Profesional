@@ -24,7 +24,7 @@ export class Education {
 
     const certsHtml = dataEducacion.certificaciones.map((cert, idx) => `
       <div class="cert-card reveal-on-scroll stagger-${(idx % 4) + 1}">
-        <img class="cert-badge" src="${cert.badgeDigital}" alt="Badge de ${cert.nombre}" width="48" height="48">
+        <img class="cert-badge" src="${cert.badgeDigital}" alt="Badge de ${cert.nombre}" width="48" height="48" loading="lazy">
         <div>
           <div class="cert-name">${cert.nombre}</div>
           <div class="cert-issuer">${cert.entidadCertificadora} · <span style="color:var(--text-muted);">${cert.anio}</span></div>

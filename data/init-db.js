@@ -70,8 +70,8 @@ async function main() {
     if (profile) {
         const stmt = db.prepare(`
             INSERT OR REPLACE INTO profiles 
-            (id, nombre_completo, titulo_profesional, tagline, descripcion_breve, foto_perfil, cv_archivo)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            (id, nombre_completo, titulo_profesional, tagline, descripcion_breve, profesion, edad, email, telefono, numeroCelular, foto_perfil, cv_archivo)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `);
         stmt.run([
             1,
@@ -79,6 +79,11 @@ async function main() {
             profile.tituloProfesional,
             profile.tagline,
             profile.descripcionBreve,
+            profile.profesion,
+            profile.edad,
+            profile.email,
+            profile.telefono,
+            profile.numeroCelular,
             profile.fotoProfesional,
             profile.botonCV?.archivo || null
         ]);

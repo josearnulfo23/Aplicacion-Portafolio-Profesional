@@ -18,3 +18,8 @@ build/
 # Vercel / Netlify
 .vercel
 .netlify
+
+# SQLite runtime (WAL)
+*.db-shm
+*.db-wal
+server.log

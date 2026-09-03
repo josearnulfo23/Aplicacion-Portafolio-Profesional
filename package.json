@@ -1,13 +1,15 @@
 {
   "name": "portafolio-profesional-landing-page",
-  "version": "1.0.0",
-  "description": "Landing Page para el Portafolio Profesional de José Arnulfo Céspedes Albornoz",
-  "main": "src/js/main.js",
+  "version": "2.0.0",
+  "description": "Portafolio Profesional Dinámico v2.0 con SQLite y Panel Admin — José Arnulfo Céspedes Albornoz",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "npx serve -l 3000 .",
-    "start": "npx serve -l 3000 .",
-    "test": "node tests/runner.js",
+    "dev": "node server.js",
+    "start": "node server.js",
+    "init-db": "node data/init-db.js",
+    "test": "node tests/test-api.mjs && node tests/runner.js",
+    "test:e2e": "node tests/test-e2e.mjs",
     "lint": "echo \"Verificación de sintaxis completada con éxito.\""
   },
   "keywords": [

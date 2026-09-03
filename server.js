@@ -139,10 +139,14 @@ app.post('/api/auth/login', (req, res) => {
 
         res.json({
             success: true,
-            message: 'Autenticación exitosa',
             data: {
-                token,
-                user: { id: user.id, username: user.username, role: user.role }
+                token: token,
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    role: user.role
+                }
             }
         });
     } catch (error) {
@@ -172,6 +176,11 @@ app.get('/api/content/all', (req, res) => {
             tituloProfesional: profile.titulo_profesional,
             tagline: profile.tagline,
             descripcionBreve: profile.descripcion_breve,
+            profesion: profile.profesion,
+            edad: profile.edad,
+            email: profile.email,
+            telefono: profile.telefono,
+            numeroCelular: profile.numeroCelular,
             fotoProfesional: profile.foto_perfil,
             fotoComplementaria: profile.foto_complementaria,
             ctaPrimario: { texto: profile.cta_primario_texto, destino: profile.cta_primario_destino },
@@ -329,6 +338,9 @@ app.get('/api/content/all', (req, res) => {
             relacionProfesional: t.relacion_profesional
         }));
 
+        // 10. Usuarios
+        const users = db.prepare('SELECT id, username, email, role, is_active, created_at, updated_at FROM users ORDER BY id ASC').all();
+
         // 9. Tema
         const themeConfig = db.prepare('SELECT * FROM theme_config ORDER BY id DESC LIMIT 1').get();
 
@@ -343,6 +355,7 @@ app.get('/api/content/all', (req, res) => {
                 services: servicesData,
                 education: educationData,
                 testimonials: testimonialsData,
+                users: users,
                 theme: themeConfig || { tema_activo: 'dark' }
             }
         });
@@ -372,6 +385,11 @@ app.put('/api/profile', authenticateToken, authorizeAdmin, (req, res) => {
             tituloProfesional,
             tagline,
             descripcionBreve,
+            profesion,
+            edad,
+            email,
+            telefono,
+            numeroCelular,
             fotoPerfil,
             cvArchivo,
             redesSociales
@@ -383,11 +401,16 @@ app.put('/api/profile', authenticateToken, authorizeAdmin, (req, res) => {
                 titulo_profesional = ?,
                 tagline = ?,
                 descripcion_breve = ?,
+                profesion = ?,
+                edad = ?,
+                email = ?,
+                telefono = ?,
+                numeroCelular = ?,
                 foto_perfil = COALESCE(?, foto_perfil),
                 cv_archivo = COALESCE(?, cv_archivo),
                 updated_at = datetime('now')
             WHERE id = 1
-        `).run(nombreCompleto, tituloProfesional, tagline, descripcionBreve, fotoPerfil, cvArchivo);
+        `).run(nombreCompleto, tituloProfesional, tagline, descripcionBreve, profesion, edad, email, telefono, numeroCelular, fotoPerfil, cvArchivo);
 
         if (Array.isArray(redesSociales)) {
             db.prepare('DELETE FROM social_networks WHERE perfil_id = 1').run();
@@ -810,6 +833,108 @@ app.get('/api/admin/stats', authenticateToken, authorizeAdmin, (req, res) => {
         res.json({ success: true, data: stats });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
+    }
+});
+// ===========================================================================
+// USERS ENDPOINTS
+// ===========================================================================
+app.get('/api/users', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const users = db.prepare('SELECT id, username, email, role, is_active, created_at, updated_at FROM users ORDER BY id ASC').all();
+        res.json({ success: true, data: users });
+    } catch (error) {
+        console.error('Error en /api/users:', error);
+        res.status(500).json({ success: false, message: 'Error obteniendo usuarios.' });
+    }
+});
+
+app.get('/api/users/:id', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const user = db.prepare('SELECT id, username, email, role, is_active, created_at, updated_at FROM users WHERE id = ?').get(req.params.id);
+        if (!user) return res.status(404).json({ success: false, message: 'Usuario no encontrado.' });
+        res.json({ success: true, data: user });
+    } catch (error) {
+        console.error('Error en /api/users/:id:', error);
+        res.status(500).json({ success: false, message: 'Error obteniendo usuario.' });
+    }
+});
+
+app.post('/api/users', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const { username, email, password, role, is_active } = req.body;
+        if (!username || !email || !password) {
+            return res.status(400).json({ success: false, message: 'Usuario, email y contraseña son requeridos.' });
+        }
+        const userRole = role || 'admin';
+        const userIsActive = is_active !== undefined ? is_active : 1;
+        const existing = db.prepare('SELECT id FROM users WHERE username = ? OR email = ?').get(username, email);
+        if (existing) {
+            return res.status(400).json({ success: false, message: 'El usuario o email ya existe.' });
+        }
+        const salt = bcrypt.genSaltSync(10);
+        const passwordHash = bcrypt.hashSync(password, salt);
+        const result = db.prepare(`
+            INSERT INTO users (username, email, password_hash, role, is_active, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+        `).run(username, email, passwordHash, userRole, userIsActive);
+        const newUserId = result.lastInsertRowid;
+        const newUser = db.prepare('SELECT id, username, email, role, is_active, created_at, updated_at FROM users WHERE id = ?').get(newUserId);
+        res.json({ success: true, data: newUser, message: 'Usuario creado exitosamente' });
+    } catch (error) {
+        console.error('Error en POST /api/users:', error);
+        res.status(500).json({ success: false, message: 'Error creando usuario.' });
+    }
+});
+
+app.put('/api/users/:id', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const userId = req.params.id;
+        const { username, email, password, role, is_active } = req.body;
+        if (!username || !email) {
+            return res.status(400).json({ success: false, message: 'Usuario y email son requeridos.' });
+        }
+        const existing = db.prepare('SELECT id FROM users WHERE (username = ? OR email = ?) AND id <> ?').get(username, email, userId);
+        if (existing) {
+            return res.status(400).json({ success: false, message: 'El usuario o email ya existe.' });
+        }
+        let updateQuery = "UPDATE users SET username = ?, email = ?, role = COALESCE(?, role), is_active = COALESCE(?, is_active), updated_at = datetime('now')";
+        const params = [username, email, role || null, is_active !== undefined ? is_active : null];
+        if (password && password.trim() !== '') {
+            const salt = bcrypt.genSaltSync(10);
+            const passwordHash = bcrypt.hashSync(password, salt);
+            updateQuery += ', password_hash = ?';
+            params.push(passwordHash);
+        }
+        updateQuery += ' WHERE id = ?';
+        params.push(userId);
+        db.prepare(updateQuery).run(...params);
+        const updated = db.prepare('SELECT id, username, email, role, is_active, created_at, updated_at FROM users WHERE id = ?').get(userId);
+        res.json({ success: true, data: updated, message: 'Usuario actualizado exitosamente' });
+    } catch (error) {
+        console.error('Error en PUT /api/users/:id:', error);
+        res.status(500).json({ success: false, message: 'Error actualizando usuario.' });
+    }
+});
+
+app.delete('/api/users/:id', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const userId = req.params.id;
+        const adminCount = db.prepare('SELECT COUNT(*) as count FROM users WHERE role = "admin" AND is_active = 1').get().count;
+        if (adminCount <= 1) {
+            const user = db.prepare('SELECT role, is_active FROM users WHERE id = ?').get(userId);
+            if (user && user.role === 'admin' && user.is_active === 1) {
+                return res.status(400).json({ success: false, message: 'No se puede eliminar el último usuario administrador activo.' });
+            }
+        }
+        const result = db.prepare('DELETE FROM users WHERE id = ?').run(userId);
+        if (result.changes > 0) {
+            res.json({ success: true, message: 'Usuario eliminado exitosamente' });
+        } else {
+            res.status(404).json({ success: false, message: 'Usuario no encontrado.' });
+        }
+    } catch (error) {
+        console.error('Error en DELETE /api/users/:id:', error);
+        res.status(500).json({ success: false, message: 'Error eliminando usuario.' });
     }
 });
 

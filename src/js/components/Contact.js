@@ -34,7 +34,7 @@ export class Contact {
 
               <div class="contact-channel">
                 <div class="channel-icon">
-                  <img src="public/images/icons/email.svg" alt="Email" width="22" height="22">
+                  <img src="public/images/icons/email.svg" alt="Email" width="22" height="22" loading="lazy">
                 </div>
                 <div>
                   <div class="channel-label">Correo Electrónico</div>
@@ -44,7 +44,7 @@ export class Contact {
 
               <div class="contact-channel">
                 <div class="channel-icon">
-                  <img src="public/images/icons/phone.svg" alt="Teléfono" width="22" height="22">
+                  <img src="public/images/icons/phone.svg" alt="Teléfono" width="22" height="22" loading="lazy">
                 </div>
                 <div>
                   <div class="channel-label">Teléfono / WhatsApp</div>
@@ -54,7 +54,7 @@ export class Contact {
 
               <div class="contact-channel">
                 <div class="channel-icon">
-                  <img src="public/images/icons/location.svg" alt="Ubicación" width="22" height="22">
+                  <img src="public/images/icons/location.svg" alt="Ubicación" width="22" height="22" loading="lazy">
                 </div>
                 <div>
                   <div class="channel-label">Ubicación y Disponibilidad</div>
@@ -64,7 +64,7 @@ export class Contact {
 
               <div class="contact-channel">
                 <div class="channel-icon">
-                  <img src="public/images/icons/linkedin.svg" alt="LinkedIn" width="22" height="22">
+                  <img src="public/images/icons/linkedin.svg" alt="LinkedIn" width="22" height="22" loading="lazy">
                 </div>
                 <div>
                   <div class="channel-label">Red Profesional</div>

@@ -19,6 +19,28 @@ export class AdminPanel {
     this._onUpdateCallback = cb;
   }
 
+  static getApiUrl(endpoint) {
+    if (typeof window !== 'undefined') {
+      const port = window.location.port;
+      if (window.location.protocol === 'file:' || (port !== '3000' && port !== '')) {
+        return `http://localhost:3000${endpoint}`;
+      }
+    }
+    return endpoint;
+  }
+
+  static async apiFetch(endpoint, options = {}) {
+    const url = this.getApiUrl(endpoint);
+    try {
+      return await fetch(url, options);
+    } catch (err) {
+      if (!url.startsWith('http://localhost:3000')) {
+        return await fetch(`http://localhost:3000${endpoint}`, options);
+      }
+      throw err;
+    }
+  }
+
   static renderizar() {
     return `
       <!-- Botón flotante de acceso Admin -->
@@ -56,6 +78,77 @@ export class AdminPanel {
       </div>
     `;
   }
+  static renderUsersTab(users) {
+    return `
+      <div class="admin-panel-section">
+        <div class="admin-section-header">
+          <div>
+            <h3>👥 Gestión de Usuarios</h3>
+            <p class="admin-help-text">Administra los usuarios del sistema, sus roles y permisos.</p>
+          </div>
+          <button id="btn-add-user" class="admin-btn-accent">+ Agregar Usuario</button>
+        </div>
+
+        <div class="admin-cards-list">
+          ${users.map((user, idx) => `
+            <div class="admin-data-card" data-user-id="${user.id}">
+              <div class="admin-card-header">
+                <div>
+                  <strong>${user.username}</strong>
+                  <div class="admin-card-sub">${user.email} &bull; ${user.role} &bull; ${user.is_active ? 'Activo' : 'Inactivo'}</div>
+                </div>
+                <div class="admin-card-actions">
+                  <button class="admin-btn-edit-user btn-small" data-id="${user.id}">✏️ Editar</button>
+                  <button class="admin-btn-del-user btn-small btn-danger" data-id="${user.id}">🗑️ Borrar</button>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Subformulario Usuario -->
+        <div id="user-form-modal" class="admin-subform-box" style="display:none;">
+          <h4 id="user-form-title">Nuevo Usuario</h4>
+          <form id="form-user-item" class="admin-form">
+            <input type="hidden" name="userId" value="">
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Nombre de Usuario</label>
+                <input type="text" name="username" class="admin-input" required>
+              </div>
+              <div class="admin-form-group">
+                <label>Email</label>
+                <input type="email" name="email" class="admin-input" required>
+              </div>
+            </div>
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Rol</label>
+                <select name="role" class="admin-input">
+                  <option value="admin">Administrador</option>
+                  <option value="editor">Editor</option>
+                </select>
+              </div>
+              <div class="admin-form-group">
+                <label>Contraseña (dejar en blanco para no cambiar)</label>
+                <input type="password" name="password" class="admin-input" placeholder="••••••••">
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label>
+                <input type="checkbox" name="is_active" value="1"> Usuario Activo
+              </label>
+            </div>
+            <div class="admin-form-actions">
+              <button type="submit" class="admin-btn-primary">💾 Guardar Usuario</button>
+              <button type="button" class="admin-btn-secondary" id="btn-cancel-user">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+  }
+
 
   static vincularEventos() {
     const floatBtn = document.getElementById("btn-toggle-admin");
@@ -162,7 +255,7 @@ export class AdminPanel {
         submitBtn.innerText = "Verificando...";
 
         try {
-          const res = await fetch("/api/auth/login", {
+          const res = await AdminPanel.apiFetch("/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })
@@ -170,12 +263,12 @@ export class AdminPanel {
           const data = await res.json();
 
           if (data.success && data.data.token) {
-            this._token = data.data.token;
-            this._user = data.data.user;
-            localStorage.setItem("portafolio_admin_token", this._token);
-            localStorage.setItem("portafolio_admin_user", JSON.stringify(this._user));
+            AdminPanel._token = data.data.token;
+            AdminPanel._user = data.data.user;
+            localStorage.setItem("portafolio_admin_token", AdminPanel._token);
+            localStorage.setItem("portafolio_admin_user", JSON.stringify(AdminPanel._user));
             Toast.mostrar("¡Bienvenido al Panel de Administración!", "success");
-            this.actualizarVistaModal();
+            AdminPanel.actualizarVistaModal();
           } else {
             if (errorBanner) {
               errorBanner.innerText = data.message || "Usuario o contraseña incorrectos.";
@@ -184,7 +277,7 @@ export class AdminPanel {
           }
         } catch (err) {
           if (errorBanner) {
-            errorBanner.innerText = "Error de conexión con el servidor backend.";
+            errorBanner.innerHTML = "<strong>Error de conexión con el backend:</strong><br>Por favor asegúrate de haber iniciado el servidor ejecutando <code>npm start</code> en la terminal.";
             errorBanner.style.display = "block";
           }
         } finally {
@@ -201,7 +294,7 @@ export class AdminPanel {
   static async cargarYRenderDashboard() {
     const body = document.getElementById("admin-modal-body");
     try {
-      const res = await fetch("/api/content/all");
+      const res = await AdminPanel.apiFetch("/api/content/all");
       const resJson = await res.json();
       const content = resJson.data || {};
 
@@ -230,7 +323,10 @@ export class AdminPanel {
               </button>
               <button class="admin-tab-btn ${this._activeTab === 'testimonials' ? 'active' : ''}" data-tab="testimonials">
                 💬 Testimonios
+              </button>              <button class="admin-tab-btn ${this._activeTab === 'users' ? 'active' : ''}" data-tab="users">
+                👥 Usuarios
               </button>
+
               <button class="admin-tab-btn ${this._activeTab === 'messages' ? 'active' : ''}" data-tab="messages">
                 📬 Mensajes & Redes
               </button>
@@ -273,6 +369,8 @@ export class AdminPanel {
         return this.renderTestimonialsTab(content.testimonials || []);
       case "messages":
         return this.renderMessagesTab(content.profile?.redesSociales || []);
+      case "users":
+        return this.renderUsersTab(content.users || []);
       default:
         return `<p>Selecciona una pestaña.</p>`;
     }
@@ -307,6 +405,27 @@ export class AdminPanel {
           <div class="admin-form-group">
             <label>Descripción Breve (Hero)</label>
             <textarea name="descripcionBreve" rows="3" class="admin-input">${p.descripcionBreve || ''}</textarea>
+          </div>
+          <div class="admin-form-group">
+            <label>Profesión</label>
+            <input type="text" name="profesion" class="admin-input" value="${p.profesion || ''}" required>
+          </div>
+          <div class="admin-form-group">
+            <label>Edad</label>
+            <input type="number" name="edad" class="admin-input" value="${p.edad || ''}" min="0" max="120">
+          </div>
+          <div class="admin-form-group">
+            <label>Email</label>
+            <input type="email" name="email" class="admin-input" value="${p.email || ''}" required>
+          </div>
+          <div class="admin-form-group">
+            <label>Teléfono</label>
+            <input type="tel" name="telefono" class="admin-input" value="${p.telefono || ''}">
+          </div>
+          <div class="admin-form-group">
+            <label>Número Celular</label>
+            <input type="tel" name="numeroCelular" class="admin-input" value="${p.numeroCelular || ''}">
+          </div>
           </div>
 
           <div class="admin-form-group">
@@ -722,6 +841,11 @@ export class AdminPanel {
             tituloProfesional: profileForm.tituloProfesional.value.trim(),
             tagline: profileForm.tagline.value.trim(),
             descripcionBreve: profileForm.descripcionBreve.value.trim(),
+            profesion: profileForm.profesion.value.trim(),
+            edad: parseInt(profileForm.edad.value, 10) || 0,
+            email: profileForm.email.value.trim(),
+            telefono: profileForm.telefono.value.trim(),
+            numeroCelular: profileForm.numeroCelular.value.trim(),
             fotoPerfil: profileForm.fotoPerfil.value.trim(),
             cvArchivo: profileForm.cvArchivo.value.trim()
           };
@@ -857,6 +981,133 @@ export class AdminPanel {
     if (this._activeTab === "messages") {
       this.cargarMensajesBuzon();
     }
+
+    // Tab Usuarios Form
+    const userForm = document.getElementById("form-user-item");
+    if (userForm) {
+      userForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          const id = userForm.userId.value;
+          const isActive = userForm.is_active.checked ? 1 : 0;
+          const payload = {
+            username: userForm.username.value.trim(),
+            email: userForm.email.value.trim(),
+            role: userForm.role.value,
+            is_active: isActive
+          };
+          const password = userForm.password.value;
+          if (password && password.trim() !== '') {
+            payload.password = password;
+          }
+
+          const url = id ? `/api/users/${id}` : "/api/users";
+          const method = id ? "PUT" : "POST";
+
+          const res = await fetch(url, {
+            method,
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${this._token}`
+            },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json();
+          if (data.success) {
+            Toast.mostrar("¡Usuario guardado exitosamente!", "success");
+            // Hide the modal
+            document.getElementById("user-form-modal").style.display = "none";
+            RepositorioContenido.invalidarCache();
+            if (this._onUpdateCallback) this._onUpdateCallback();
+            this.cargarYRenderDashboard();
+          } else {
+            Toast.mostrar(data.message || "Error al guardar", "error");
+          }
+        } catch (err) {
+          Toast.mostrar("Error: " + err.message, "error");
+        }
+      });
+    }
+
+    // Botón para mostrar el formulario de nuevo usuario
+    const btnAddUser = document.getElementById("btn-add-user");
+    const userBox = document.getElementById("user-form-modal");
+    const btnCancelUser = document.getElementById("btn-cancel-user");
+    const userFormEl = document.getElementById("form-user-item");
+
+    if (btnAddUser && userBox) {
+      btnAddUser.addEventListener("click", () => {
+        userFormEl.reset();
+        userFormEl.userId.value = "";
+        document.getElementById("user-form-title").innerText = "Nuevo Usuario";
+        userBox.style.display = "block";
+        userBox.scrollIntoView({ behavior: "smooth" });
+      });
+    }
+
+    if (btnCancelUser && userBox) {
+      btnCancelUser.addEventListener("click", () => {
+        userBox.style.display = "none";
+      });
+    }
+
+    // Borrar Usuario
+    const deleteUserBtns = document.querySelectorAll(".admin-btn-del-user");
+    deleteUserBtns.forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (confirm("¿Estás seguro de eliminar este usuario?\nEsta acción no se puede deshacer.")) {
+          const id = btn.dataset.id;
+          try {
+            const res = await fetch(`/api/users/${id}`, {
+              method: "DELETE",
+              headers: { "Authorization": `Bearer ${this._token}` }
+            });
+            const data = await res.json();
+            if (data.success) {
+              Toast.mostrar("Usuario eliminado", "info");
+              RepositorioContenido.invalidarCache();
+              if (this._onUpdateCallback) this._onUpdateCallback();
+              this.cargarYRenderDashboard();
+            }
+          } catch (err) {
+            Toast.mostrar("Error al eliminar", "error");
+          }
+        }
+      });
+    });
+
+    // Editar Usuario (cargar datos en el formulario)
+    const editUserBtns = document.querySelectorAll(".admin-btn-edit-user");
+    editUserBtns.forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.id;
+        try {
+          const res = await fetch(`/api/users/${id}`, {
+            headers: { "Authorization": `Bearer ${this._token}` }
+          });
+          const data = await res.json();
+          if (data.success && data.data) {
+            const user = data.data;
+            // Populate the form
+            document.getElementById("user-form-title").innerText = "Editar Usuario";
+            document.getElementById("form-user-item").userId.value = user.id;
+            document.getElementById("form-user-item").username.value = user.username;
+            document.getElementById("form-user-item").email.value = user.email;
+            document.getElementById("form-user-item").role.value = user.role;
+            document.getElementById("form-user-item").is_active.checked = user.is_active === 1;
+            // Clear password field
+            document.getElementById("form-user-item").password.value = "";
+            // Show the modal
+            document.getElementById("user-form-modal").style.display = "block";
+            document.getElementById("user-form-modal").scrollIntoView({ behavior: "smooth" });
+          } else {
+            Toast.mostrar("Error al cargar usuario para edición", "error");
+          }
+        } catch (err) {
+          Toast.mostrar("Error: " + err.message, "error");
+        }
+      });
+    });
   }
 
   static async cargarMensajesBuzon() {

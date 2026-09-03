@@ -13,7 +13,7 @@ export class Footer {
 
     const redesHtml = (perfil.redesSociales || []).map(red => `
       <a href="${red.urlPerfil}" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="${red.etiqueta || red.nombreRed}">
-        <img src="${red.icono}" alt="${red.nombreRed}" width="20" height="20">
+        <img src="${red.icono}" alt="${red.nombreRed}" width="20" height="20" loading="lazy">
       </a>
     `).join("");
 

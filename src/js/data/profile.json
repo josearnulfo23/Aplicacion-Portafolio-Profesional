@@ -1,20 +1,20 @@
 {
-  "nombreCompleto": "José Arnulfo Céspedes Albornoz",
-  "tituloProfesional": "Especialista en Tecnologías de la Información, Análisis de Datos y Seguridad",
-  "tagline": "Convergencia estratégica entre ingeniería de software, analítica avanzada de datos y gestión de seguridad integral.",
-  "descripcionBreve": "Profesional multidisciplinario con sólida trayectoria transformando datos complejos en decisiones estratégicas, desarrollando soluciones tecnológicas robustas y diseñando protocolos de seguridad y monitoreo de alta disponibilidad.",
+  "nombreCompleto": "Jos\u00e9 Arnulfo C\u00e9spedes Albornoz",
+  "tituloProfesional": "Especialista en Tecnolog\u00edas de la Informaci\u00f3n, An\u00e1lisis de Datos y Seguridad",
+  "tagline": "Convergencia estrat\u00e9gica entre ingenier\u00eda de software, anal\u00edtica avanzada de datos y gesti\u00f3n de seguridad integral.",
+  "descripcionBreve": "Profesional multidisciplinario con s\u00f3lida trayectoria transformando datos complejos en decisiones estrat\u00e9gicas, desarrollando soluciones tecnol\u00f3gicas robustas y dise\u00f1ando protocolos de seguridad y monitoreo de alta disponibilidad.",
   "fotoProfesional": "public/images/profile/hero-photo.svg",
   "ctaPrimario": {
     "texto": "Ver Proyectos",
     "destino": "#proyectos"
   },
   "ctaSecundario": {
-    "texto": "Contáctame",
+    "texto": "Cont\u00e1ctame",
     "destino": "#contacto"
   },
   "botonCV": {
     "texto": "Descargar CV",
-    "archivo": "public/documents/CV_Jose_Cespedes_2024.pdf"
+    "archivo": "/documents/CV_Jose_Cespedes_2024.pdf"
   },
   "redesSociales": [
     {
@@ -39,7 +39,12 @@
       "nombreRed": "Medium/Blog",
       "urlPerfil": "https://medium.com/@josecespedes",
       "icono": "public/images/icons/medium.svg",
-      "etiqueta": "Artículos técnicos en Medium"
+      "etiqueta": "Art\u00edculos t\u00e9cnicos en Medium"
     }
-  ]
+  ],
+  "profesion": "Especialista en Tecnolog\u00edas de la Informaci\u00f3n",
+  "edad": 30,
+  "email": "jose.cespedes@example.com",
+  "telefono": "+56 9 1234 5678",
+  "numeroCelular": "+56 9 1234 5678"
 }

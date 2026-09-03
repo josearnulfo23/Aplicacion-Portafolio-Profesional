@@ -16,7 +16,7 @@ export class Skills {
         <div class="skills-category-card reveal-on-scroll stagger-${idx + 1}">
           <div class="skills-category-header">
             <div class="category-icon">
-              <img src="${cat.icono}" alt="${cat.nombreCategoria}" width="24" height="24">
+              <img src="${cat.icono}" alt="${cat.nombreCategoria}" width="24" height="24" loading="lazy">
             </div>
             <div>
               <h3 class="category-title">${cat.nombreCategoria}</h3>

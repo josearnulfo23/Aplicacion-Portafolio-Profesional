@@ -18,7 +18,7 @@ export class Services {
       return `
         <div class="card service-card reveal-on-scroll stagger-${idx + 1}">
           <div class="service-icon-wrap">
-            <img src="${srv.icono}" alt="${srv.nombreServicio}" width="28" height="28">
+            <img src="${srv.icono}" alt="${srv.nombreServicio}" width="28" height="28" loading="lazy">
           </div>
 
           <span class="tag" style="margin-bottom:0.75rem; width:fit-content;">${srv.categoria}</span>
