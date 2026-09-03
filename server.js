@@ -634,9 +634,13 @@ app.put('/api/skills/:id', authenticateToken, authorizeAdmin, (req, res) => {
         db.prepare(`
             UPDATE skills SET
                 categoria_id = COALESCE(?, categoria_id),
-                nombre = ?, icono = ?, nivel_dominio = ?, anios_experiencia = ?, certificaciones = ?
+                nombre = COALESCE(?, nombre),
+                icono = COALESCE(?, icono),
+                nivel_dominio = COALESCE(?, nivel_dominio),
+                anios_experiencia = COALESCE(?, anios_experiencia),
+                certificaciones = COALESCE(?, certificaciones)
             WHERE id = ?
-        `).run(categoriaId, nombre, icono, nivelDominio, aniosExperiencia, certificaciones ? JSON.stringify(certificaciones) : null, req.params.id);
+        `).run(categoriaId || null, nombre || null, icono || null, nivelDominio ?? null, aniosExperiencia ?? null, certificaciones ? JSON.stringify(certificaciones) : null, req.params.id);
 
         res.json({ success: true, message: 'Habilidad actualizada' });
     } catch (error) {
@@ -651,6 +655,25 @@ app.delete('/api/skills/:id', authenticateToken, authorizeAdmin, (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
+});
+
+app.post('/api/skill-categories', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const { nombreCategoria, descripcion, icono } = req.body;
+        if (!nombreCategoria) return res.status(400).json({ success: false, message: 'Nombre de categoría requerido.' });
+        const r = db.prepare(`INSERT INTO skill_categories (nombre_categoria, descripcion, icono) VALUES (?,?,?)`).run(nombreCategoria, descripcion || '', icono || 'public/images/icons/code.svg');
+        res.json({ success: true, message: 'Categoría creada', data: { id: r.lastInsertRowid } });
+    } catch (e) { res.status(500).json({ success: false, message: e.message }); }
+});
+app.put('/api/skill-categories/:id', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const { nombreCategoria, descripcion, icono } = req.body;
+        db.prepare(`UPDATE skill_categories SET nombre_categoria=?, descripcion=?, icono=? WHERE id=?`).run(nombreCategoria, descripcion, icono, req.params.id);
+        res.json({ success: true, message: 'Categoría actualizada' });
+    } catch (e) { res.status(500).json({ success: false, message: e.message }); }
+});
+app.delete('/api/skill-categories/:id', authenticateToken, authorizeAdmin, (req, res) => {
+    try { db.prepare('DELETE FROM skill_categories WHERE id=?').run(req.params.id); res.json({ success: true, message: 'Categoría eliminada' }); } catch (e) { res.status(500).json({ success: false, message: e.message }); }
 });
 
 // ============================================================================
@@ -757,6 +780,42 @@ app.delete('/api/testimonials/:id', authenticateToken, authorizeAdmin, (req, res
     try {
         db.prepare('DELETE FROM testimonials WHERE id = ?').run(req.params.id);
         res.json({ success: true, message: 'Testimonio eliminado' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+app.put('/api/testimonials/:id', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const { textoTestimonio, nombreRecomendador, cargo, empresa, foto, valoracion, relacionProfesional } = req.body;
+        db.prepare(`
+            UPDATE testimonials SET texto_testimonio=?, nombre_recomendador=?, cargo=?, empresa=?, foto=?, valoracion=?, relacion_profesional=?, updated_at=datetime('now') WHERE id=?
+        `).run(textoTestimonio, nombreRecomendador, cargo, empresa, foto, valoracion || 5, relacionProfesional || '', req.params.id);
+        res.json({ success: true, message: 'Testimonio actualizado' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+app.put('/api/education/degree/:id', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const { tituloAcademico, institucion, anio, estado, descripcion } = req.body;
+        db.prepare(`
+            UPDATE academic_degrees SET titulo_academico=?, institucion=?, anio=?, estado=?, descripcion=?, updated_at=datetime('now') WHERE id=?
+        `).run(tituloAcademico, institucion, anio, estado, descripcion || '', req.params.id);
+        res.json({ success: true, message: 'Título actualizado' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+app.put('/api/education/cert/:id', authenticateToken, authorizeAdmin, (req, res) => {
+    try {
+        const { nombre, entidadCertificadora, anio, credencialUrl, badgeDigital } = req.body;
+        db.prepare(`
+            UPDATE certifications SET nombre=?, entidad_certificadora=?, anio=?, credencial_url=?, badge_digital=?, updated_at=datetime('now') WHERE id=?
+        `).run(nombre, entidadCertificadora, anio, credencialUrl || '', badgeDigital || 'public/images/icons/badge.svg', req.params.id);
+        res.json({ success: true, message: 'Certificación actualizada' });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }

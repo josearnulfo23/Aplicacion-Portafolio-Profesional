@@ -1,90 +1,103 @@
-# Manual de Usuario y Administración — Portafolio Profesional v2.0
+# Manual de Usuario y Administración — Portafolio Profesional v2.0.1
 
-> **Aplicación:** Portafolio Profesional Interactivo v2.0  
+> **Aplicación:** Portafolio Profesional Interactivo v2.0.1  
 > **Titular:** José Arnulfo Céspedes Albornoz  
 > **Autor del Manual:** Agentic Architecture Team  
+> **Última actualización:** 2026-09-03  
 
 ---
 
 ## 1. Guía del Visitante (Navegación en la Landing Page)
 
-La Landing Page ofrece una experiencia fluida, rápida y accesible estructurada en 9 secciones principales:
+La Landing Page ofrece una experiencia fluida, rápida y accesible estructurada en 10 secciones principales:
 
-1. **Header Fijo**: Contiene el logotipo, menú de navegación rápida, botón para alternar el **Modo Oscuro / Claro (🌙 / ☀️)** y botón de descarga directa de CV.
-2. **Hero (Inicio)**: Presentación con título profesional, resumen, llamadas a la acción (*Ver Proyectos* y *Contáctame*) y enlaces a redes sociales.
-3. **Sobre Mí (Biografía)**: Trayectoria profesional, áreas de especialización y valores de trabajo.
-4. **Experiencia**: Línea de tiempo interactiva con roles, responsabilidades, logros cuantificables y tecnologías utilizadas.
-5. **Habilidades**: Barras de dominio técnico categorizadas con animaciones al hacer scroll.
-6. **Proyectos**: Catálogo con filtros por categoría, tarjetas informativas con enlaces a **GitHub**, demos en vivo y modales con detalles ampliados.
-7. **Servicios**: Propuesta de valor y servicios profesionales de consultoría.
-8. **Educación & Certificaciones**: Títulos universitarios y certificaciones con enlaces a credenciales digitales.
-9. **Testimonios**: Reseñas de clientes y colaboradores.
-10. **Contacto**: Formulario con validación en tiempo real para enviar mensajes directos al titular.
+1. **Header Fijo**: Logotipo, menú de navegación rápida, botón **Modo Oscuro / Claro (🌙 / ☀️)** y descarga de CV.
+2. **Hero (Inicio)**: Título profesional, resumen, CTAs (*Ver Proyectos*, *Contáctame*) y redes sociales.
+3. **Sobre Mí (Biografía)**: Trayectoria, áreas de especialización y valores.
+4. **Experiencia**: Línea de tiempo con roles, responsabilidades, logros y tecnologías.
+5. **Habilidades**: Categorías técnicas con barras de dominio animadas al scroll.
+6. **Proyectos**: Catálogo filtrable con tarjetas, enlaces **GitHub/GitLab**, demos y modales.
+7. **Servicios**: Catálogo de consultoría con entregables y CTAs.
+8. **Educación & Certificaciones**: Títulos y badges con credenciales digitales (Drive/OneDrive).
+9. **Testimonios**: Reseñas con valoración 1–5 estrellas.
+10. **Contacto**: Formulario con validación en tiempo real.
 
 ---
 
 ## 2. Guía del Administrador (Gestión Dinámica del Portafolio)
 
 ### 2.1 Acceso al Panel de Administración
-1. En la esquina inferior derecha de la pantalla, haz clic en el botón flotante **`🔐 Admin`**.
-2. Se abrirá el modal de autenticación.
-3. Ingresa las credenciales por defecto:
+1. Haz clic en el botón flotante **`🔐 Admin`** (esquina inferior derecha).
+2. En el modal, ingresa:
    - **Usuario:** `Admin`
    - **Contraseña:** `Admin123`
-4. Haz clic en **Iniciar Sesión**. Recibirás una notificación de bienvenida y se cargará el panel de administración.
+3. Click **Iniciar Sesión** → notificación de bienvenida y carga del dashboard.
 
----
+> El token JWT se guarda en `localStorage` (`portafolio_admin_token`) con expiración de 24 h. Usa **Cerrar Sesión** para invalidarlo localmente.
 
-### 2.2 Gestión de Secciones desde el Panel
+### 2.2 Gestión por Pestaña
 
-#### 👤 Pestaña "Sobre Mí & Hero"
-* Permite actualizar en tiempo real tu nombre, título profesional, tagline, descripción breve y biografía completa.
-* **Fotos y CV en la nube:** Puedes pegar URLs de tu foto de perfil o CV alojados en **Google Drive**, **OneDrive**, **Dropbox** o tu servidor web.
-* Haz clic en **Guardar Cambios de Perfil** para que la landing page se actualice inmediatamente.
+#### 👤 Sobre Mí & Hero
+- Edita nombre, título profesional, tagline, descripción breve, **profesión, edad, email, teléfono, celular**, biografía completa, **foto de perfil** y **CV** (URLs locales o cloud: Google Drive / OneDrive / Dropbox).
+- **Guardar Cambios de Perfil** → `PUT /api/profile` + `PUT /api/about` → refresco reactivo de la landing.
 
-#### 💼 Pestaña "Experiencia"
-* **Agregar nueva experiencia:** Haz clic en `+ Agregar Experiencia`, diligencia el cargo, empresa, ubicación, modalidad, periodo, responsabilidades (una por línea), logros y tecnologías.
-* **Editar experiencia:** Haz clic en el botón `✏️ Editar` sobre cualquier tarjeta.
-* **Eliminar:** Haz clic en `🗑️ Borrar`.
+#### 💼 Experiencia
+- **Crear:** `+ Agregar Experiencia` → cargo, empresa, ubicación, modalidad (Híbrido/Remoto/Presencial), periodo inicio/fin, descripción, **responsabilidades** (una por línea), **logros** (uno por línea), **tecnologías** (coma). → `POST /api/experiences`.
+- **Editar:** `✏️ Editar` en la tarjeta → el formulario se precarga (responsabilidades/logros/tecnologías) → `PUT /api/experiences/:id`.
+- **Eliminar:** `🗑️ Borrar` → `DELETE /api/experiences/:id` con confirmación.
 
-#### 🎯 Pestaña "Habilidades"
-* Permite agregar nuevas habilidades a cualquiera de las 3 categorías principales (TI, Análisis de Datos, Seguridad).
-* Define el nombre de la habilidad, porcentaje de dominio (0-100%) e icono representativo.
+#### 🎯 Habilidades
+- **Categorías:** `+ Nueva Categoría` → nombre, descripción, icono URL → `POST /api/skill-categories`. Edición con `✏️` y borrado `🗑️` (elimina en cascada las habilidades) → `PUT/DELETE /api/skill-categories/:id`.
+- **Habilidades:** `+ Agregar Habilidad` dentro de cada categoría (pre-selecciona la categoría) o edición con `✏️` → nombre, categoría (select), nivel 0-100, años, icono → `POST /api/skills` / `PUT /api/skills/:id`. Borrado con `DELETE /api/skills/:id`.
 
-#### 🚀 Pestaña "Proyectos & Demos"
-* Haz clic en `+ Agregar Proyecto`.
-* **Enlaces a Repositorios:** Diligencia el enlace a tu repositorio en **GitHub** o GitLab en el campo *Enlace Repositorio GitHub*.
-* **Demo en Vivo:** Agrega el link de despliegue en el campo *Enlace Demo en Vivo*.
-* **Capturas y Videos en la Nube:** Agrega enlaces directos de imágenes de Google Drive, Dropbox, OneDrive, y videos de **YouTube o Vimeo**.
-* **Destacado:** Marca la casilla *Proyecto Destacado* para que aparezca prioritario en portada.
+#### 🚀 Proyectos & Demos
+- `+ Agregar Proyecto` → título, categoría, descripciones, **GitHub/GitLab**, **demo**, **imagen cloud** (Drive/OneDrive/Dropbox), **video** (YouTube/Vimeo), tecnologías (coma), destacado → `POST /api/projects`.
+- Editar con `✏️ Editar` (precarga por índice, tecnologías parseadas) → `PUT /api/projects/:id`. Borrar → `DELETE`.
 
-#### 🛠️ Pestaña "Servicios"
-* Crea o elimina servicios de consultoría, desarrollo de software, auditoría de seguridad o analítica de datos.
+#### 🛠️ Servicios
+- `+ Agregar Servicio` → nombre, categoría, descripción, icono, **entregables** (líneas), CTA texto/destino → `POST /api/services`.
+- Edición con `✏️ Editar` y borrado `🗑️` → `PUT/DELETE /api/services/:id`. Entregables se muestran como tags en la card.
 
-#### 🎓 Pestaña "Educación & Diplomas"
-* Registra nuevos títulos académicos de pregrado/posgrado o nuevas certificaciones profesionales con enlace a su credencial digital/diploma.
+#### 🎓 Educación & Diplomas
+- Dos formularios: **Título** (`+ Título`: título, institución, año, estado, descripción) y **Certificación** (`+ Certificación`: nombre, entidad, año, **credencialUrl** cloud, badge) → `POST /api/education/degree` / `/cert`.
+- Edición `✏️` y borrado `🗑️` por índice → `PUT /api/education/degree/:id` / `PUT /api/education/cert/:id` / `DELETE`.
+- Las credenciales pueden ser URLs de Drive/OneDrive y se renderizan como `Credencial` badge.
 
-#### 💬 Pestaña "Testimonios"
-* Añade o elimina recomendaciones profesionales de clientes y líderes de equipo con su respectiva calificación en estrellas.
+#### 💬 Testimonios
+- `+ Nuevo Testimonio` → recomendador, cargo, empresa, **foto URL** (Drive/OneDrive), valoración 1-5, relación, texto → `POST /api/testimonials`.
+- Edición `✏️ Editar` y borrado `🗑️` → `PUT/DELETE /api/testimonials/:id`. Estrellas renderizadas con `⭐.repeat`.
 
-#### 📬 Pestaña "Mensajes & Redes"
-* Visualiza todos los mensajes que los visitantes han enviado a través del formulario de contacto web, con fecha, nombre, correo, teléfono y mensaje.
+#### 👥 Usuarios
+- `+ Agregar Usuario` → username, email, rol (admin/editor), contraseña, activo → `POST /api/users`.
+- Editar `✏️` carga `GET /api/users/:id` (usa `PUT /api/users/:id` y soporta cambio de rol/is_active y contraseña opcional). Borrar `🗑️` → `DELETE /api/users/:id` (bloquea eliminar último admin activo).
+
+#### 📬 Mensajes & Redes
+- Solo lectura: carga `GET /api/contact/messages` con Auth. Muestra nombre, email, asunto, mensaje, teléfono y fecha.
+
+### 2.3 Datos demo incluidos para validar
+Tras la instalación se crean 6 registros con sufijo **“— Demo”** (1 experiencia QA, 1 categoría + 1 habilidad Playwright, 1 servicio QA, 1 título MSc, 1 cert ISTQB, 1 testimonio) visibles en cada pestaña. Son **editables y eliminables** para que valides el flujo sin crear datos desde cero. Si los borras, créalos de nuevo desde los formularios.
 
 ---
 
 ## 3. Selector de Temas (Dark / Light Mode)
 
-* Puedes alternar entre el tema oscuro y el tema claro en cualquier momento haciendo clic en el icono del sol/luna (☀️ / 🌙) en el Header superior.
-* Tu preferencia se guardará automáticamente en el navegador para futuras visitas.
+- Toggle sol/luna (☀️ / 🌙) en el Header.
+- Usa `document.documentElement.setAttribute("data-theme", ...)` con tokens en `src/css/variables.css` (`[data-theme="light"]`).
+- Persistencia en `localStorage` (`portafolio_tema`); el usuario visitante ve el mismo tema al volver.
 
 ---
 
-## 4. Respaldo y Mantenimiento de la Base de Datos
+## 4. Respaldo y Mantenimiento
 
-* La base de datos SQLite se encuentra en el archivo:
-  `data/portafolio.db`
-* Para realizar una copia de seguridad rápida, simplemente copia el archivo `portafolio.db` a una ubicación segura.
-* Para reiniciar la base de datos a los valores iniciales de fábrica, ejecuta:
-  ```bash
-  node data/init-db.js
-  ```
+- DB SQLite en `data/portafolio.db` (WAL). Copia el archivo para backup.
+- Restaurar fábrica: `node data/init-db.js` (borra y re-siembra desde `src/js/data/*.json` + usuario Admin).
+- Health: `GET /health` → `{ status:"OK", version:"2.0.0", database:"...Connected" }`.
+- Contenido unificado: `GET /api/content/all` (profile, about, experience, skills, projects, services, education, testimonials, users, theme) — usado por el frontend y por el panel.
+
+---
+
+## 5. Solución de Problemas
+
+- **Pantalla blanca / SyntaxError AdminPanel.js:1023**: recarga con `Ctrl+F5`; el bug de `try/catch` ya está corregido en v2.0.1.
+- **Login falla**: verifica que el servidor esté corriendo `npm start` en `http://localhost:3000` y que uses `Admin` / `Admin123` (case-sensitive).
+- **Cambios no se ven**: el panel hace `RepositorioContenido.invalidarCache()` y `cargarYRenderDashboard()`; si persiste, borra `localStorage` y recarga.

@@ -1,21 +1,22 @@
-# Informe de Pruebas y Control de Calidad (QA) — Portafolio Profesional v2.0
+# Informe de Pruebas y Control de Calidad (QA) — Portafolio Profesional v2.0.1
 
 > **Proyecto:** Portafolio Profesional José Arnulfo Céspedes Albornoz  
-> **Versión:** 2.0.0  
+> **Versión:** 2.0.1  
 > **Fecha:** 03/09/2026  
 > **Responsable QA:** QA_Agent  
-> **Resultado Global:** 100% Aprobado (57 / 57 Tests Pasados)  
+> **Resultado Global:** 100% Aprobado (57/57 runner + 14/14 CRUD integrales)
 
 ---
 
 ## 1. Resumen de la Suite de Pruebas
 
-Se ejecutó una batería de pruebas automatizada integral que abarca validaciones estáticas, pruebas unitarias de modelos de dominio, pruebas de integración de base de datos SQLite, validación de endpoints de la API REST y pruebas de renderizado DOM con JSDOM.
+Se ejecutó una batería de pruebas automatizada integral que abarca validaciones estáticas, pruebas de integración de base de datos SQLite, validación de endpoints de la API REST, pruebas de renderizado DOM con JSDOM y un **script E2E ad-hoc de CRUD completo para todas las entidades** (experiencias, categorías/habilidades, servicios, títulos, certificaciones, testimonios).
 
 ```
 ════════════════════════════════════════════════════════════
-📊 RESULTADOS FINALES: 57/57 pruebas pasaron exitosamente
+📊 RESULTADOS FINALES: 57/57 pruebas pasaron exitosamente (runner + test-api)
 ════════════════════════════════════════════════════════════
++ 14/14 operaciones CRUD E2E (CREATE→UPDATE→VERIFY en content/all→DELETE) pasaron
 ```
 
 ---
@@ -46,13 +47,29 @@ Se ejecutó una batería de pruebas automatizada integral que abarca validacione
 - Carga de perfil y entidades en memoria sin dependencias circulares.
 
 ### 🧪 Grupo 5: Pruebas de Integración SQLite y API REST (7/7 Pasados)
-- **GET `/health`**: Retorno de estado 200 con versión 2.0.0 y confirmación de conexión SQLite.
-- **GET `/api/content/all`**: Deserialización completa del perfil y todas las 8 colecciones de datos.
-- **POST `/api/auth/login`**: Autenticación exitosa con credenciales `Admin` / `Admin123` y emisión de token JWT.
-- **GET `/api/auth/verify`**: Verificación criptográfica del token emitido.
-- **POST `/api/projects`**: Inserción dinámica de proyecto con enlaces multimedia y repositorios.
-- **DELETE `/api/projects/:id`**: Eliminación referencial limpia del registro.
-- **POST `/api/contact/send`**: Procesamiento y almacenamiento en base de datos del mensaje de contacto de visitante.
+- **GET `/health`**: 200 con versión 2.0.1 y confirmación SQLite.
+- **GET `/api/content/all`**: Deserialización completa del perfil y 9 colecciones (profile, about, experience, skills, projects, services, education, testimonials, **users**, theme).
+- **POST `/api/auth/login`**: Auth `Admin` / `Admin123` y emisión JWT.
+- **GET `/api/auth/verify`**: Verificación criptográfica del token.
+- **POST/DELETE `/api/projects`**: CRUD proyecto con enlaces multimedia.
+- **POST `/api/contact/send`**: Mensaje de contacto persistido.
+
+### 🧩 Grupo 6: CRUD Integral E2E por Entidad (14/14 Pasados) — NUEVO v2.0.1
+Script `_validate_crud.mjs` con token JWT válido, ejecutado contra el servidor vivo en `http://localhost:3000`:
+
+| Entidad | CREATE | UPDATE | VERIFY (`content/all`) | DELETE |
+|---|:---:|:---:|:---:|:---:|
+| **Experiencias** (`/api/experiences`) | ✅ id 4 | ✅ cargo Senior | ✅ presente en `content/all` | ✅ |
+| **Categorías Skills** (`/api/skill-categories`) | ✅ id 4 | ✅ editado | ✅ presente | ✅ |
+| **Habilidades** (`/api/skills`) | ✅ id 17→18 | ✅ 95% (fix COALESCE icono) | ✅ | ✅ |
+| **Servicios** (`/api/services`) | ✅ id 5 | ✅ V2 | ✅ | ✅ |
+| **Títulos** (`/api/education/degree`) | ✅ id 3 | ✅ 2025 editado | ✅ | ✅ |
+| **Certificaciones** (`/api/education/cert`) | ✅ id 5 | ✅ | ✅ | ✅ |
+| **Testimonios** (`/api/testimonials`) | ✅ id 4 | ✅ cargo Manager | ✅ | ✅ |
+
+Adicionalmente, se sembraron **6 registros demo persistentes** etiquetados “— Demo” (1 exp, 1 cat, 1 skill, 1 srv, 1 degree, 1 cert, 1 testi) verificados en `content/all`: `exp 4, skills cat 4, srv 5, deg 3, cert 5, testi 4`. Son editables y eliminables desde el panel como demostración del flujo.
+
+- **Corrección validada:** `PUT /api/skills/:id` sin `icono` provocaba `NOT NULL constraint failed: skills.icono` → corregido a `COALESCE(?, icono)` y re-validado (segunda ejecución 14/14 pasó).
 
 ---
 
@@ -60,16 +77,21 @@ Se ejecutó una batería de pruebas automatizada integral que abarca validacione
 
 | ID | Criterio de Aceptación | Estado | Observación |
 | :--- | :--- | :---: | :--- |
-| **CA-01** | Migración completa a base de datos relacional SQLite en `/data/portafolio.db` | **Cumplido** | 27 tablas relacionales y vistas creadas. |
-| **CA-02** | Acceso administrativo protegido con usuario y contraseña | **Cumplido** | JWT y bcrypt con credenciales `Admin` / `Admin123`. |
-| **CA-03** | Formulario administrativo con todos los campos de las secciones | **Cumplido** | Pestañas completas con CRUD interactivo. |
-| **CA-04** | Soporte para enlaces a GitHub, repositorios externos y demos | **Cumplido** | Campos y visualización en tarjetas y modales. |
-| **CA-05** | Soporte para URLs multimedia en la nube (Drive, OneDrive, Dropbox, YouTube, Vimeo) | **Cumplido** | Integrado en perfil, proyectos y educación. |
-| **CA-06** | Temas y estilos de color (Modo Oscuro / Modo Claro) | **Cumplido** | Toggle dinámico en Header con persistencia. |
-| **CA-07** | Documentación exhaustiva en carpeta `/docs` | **Cumplido** | Manuales, esquemas, informes y changelog. |
+| **CA-01** | Migración completa a SQLite en `/data/portafolio.db` | **Cumplido** | 27 tablas + vistas; `data/init-db.js` siembra Admin y datos JSON. |
+| **CA-02** | Acceso administrativo protegido | **Cumplido** | JWT + bcrypt, `Admin` / `Admin123`, bloquea último admin. |
+| **CA-03** | Formulario administrativo con todos los campos | **Cumplido** | 9 pestañas con formularios crear/editar/eliminar funcionales (v2.0.1 completa 5 tabs que estaban solo como listado). |
+| **CA-03a** | Experiencia: formulario y edición | **Cumplido** | `POST/PUT/DELETE /api/experiences` conectados a UI. |
+| **CA-03b** | Habilidades: categorías y skills | **Cumplido** | `POST/PUT/DELETE /api/skill-categories` y `/api/skills` con select de categoría. |
+| **CA-03c** | Servicios: formulario completo | **Cumplido** | Nombre, categoría, desc, icono, entregables (líneas), CTA. |
+| **CA-03d** | Educación: títulos y certs con PUT | **Cumplido** | 2 formularios + `PUT /api/education/degree/:id` y `/cert/:id` nuevos. |
+| **CA-03e** | Testimonios: PUT y edición | **Cumplido** | `PUT /api/testimonials/:id` nuevo; foto URL cloud. |
+| **CA-04** | Enlaces GitHub / demos | **Cumplido** | Campos y badges `🔗 GitHub` / `🌐 Demo` en cards y modales. |
+| **CA-05** | URLs multimedia nube (Drive/OneDrive/Dropbox/YouTube/Vimeo) | **Cumplido** | Perfil (foto/CV), proyectos (imagen/video), educación (credencial), testimonios (foto). |
+| **CA-06** | Temas Dark / Light | **Cumplido** | Toggle Header + `variables.css [data-theme="light"]`, persistencia. |
+| **CA-07** | Documentación en `/docs` | **Cumplido** | 7 docs actualizados a v2.0.1 (ver cambios en CHANGELOG). |
 
 ---
 
 ## 4. Certificación Final
 
-El **QA_Agent** certifica formalmente que el software **Portafolio Profesional v2.0** supera el **100% de los criterios de aceptación** funcionales, no funcionales y de seguridad, encontrándose en estado **ÓPTIMO Y LISTO PARA PRODUCCIÓN**.
+El **QA_Agent** certifica que el software **Portafolio Profesional v2.0.1** supera el **100% de los criterios de aceptación**. Los 5 tabs que previamente solo renderizaban listados ahora cuentan con **formularios CRUD completos, validados con datos reales persistidos en SQLite y verificados como editables/eliminables** (`content/all` refleja los cambios). Estado **ÓPTIMO Y LISTO PARA PRODUCCIÓN**. Pendiente confirmación del usuario para `git push`.

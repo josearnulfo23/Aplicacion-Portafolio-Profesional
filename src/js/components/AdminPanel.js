@@ -555,26 +555,99 @@ export class AdminPanel {
         <div class="admin-section-header">
           <div>
             <h3>🎯 Habilidades y Competencias Técnicas</h3>
-            <p class="admin-help-text">Gestiona categorías, niveles de destreza y herramientas.</p>
+            <p class="admin-help-text">Gestiona categorías, niveles de destreza y herramientas. Cada habilidad pertenece a una categoría.</p>
           </div>
+          <button id="btn-add-category" class="admin-btn-accent">+ Nueva Categoría</button>
+        </div>
+
+        <div id="category-form-modal" class="admin-subform-box" style="display:none;">
+          <h4 id="category-form-title">Nueva Categoría</h4>
+          <form id="form-category-item" class="admin-form">
+            <input type="hidden" name="catId" value="">
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Nombre de Categoría</label>
+                <input type="text" name="nombreCategoria" class="admin-input" placeholder="Ej: Desarrollo Frontend" required>
+              </div>
+              <div class="admin-form-group">
+                <label>Icono (URL)</label>
+                <input type="text" name="iconoCategoria" class="admin-input" placeholder="public/images/icons/code.svg">
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label>Descripción</label>
+              <textarea name="descripcionCategoria" rows="2" class="admin-input" placeholder="Descripción breve de la categoría"></textarea>
+            </div>
+            <div class="admin-form-actions">
+              <button type="submit" class="admin-btn-primary">💾 Guardar Categoría</button>
+              <button type="button" class="admin-btn-secondary" id="btn-cancel-category">Cancelar</button>
+            </div>
+          </form>
         </div>
 
         <div class="admin-skills-grid">
-          ${categories.map((cat, cIdx) => `
-            <div class="admin-skill-cat-card">
-              <h4>${cat.nombreCategoria}</h4>
+          ${categories.length === 0 ? '<p class="admin-empty">No hay categorías. Crea la primera arriba.</p>' : categories.map((cat, cIdx) => `
+            <div class="admin-skill-cat-card" data-cat-id="${cat.dbId || cIdx + 1}">
+              <div class="admin-card-header">
+                <h4>${cat.nombreCategoria}</h4>
+                <div class="admin-card-actions">
+                  <button class="admin-btn-edit-cat btn-small" data-id="${cat.dbId || cIdx + 1}" data-idx="${cIdx}">✏️</button>
+                  <button class="admin-btn-del-cat btn-small btn-danger" data-id="${cat.dbId || cIdx + 1}">🗑️</button>
+                </div>
+              </div>
               <p class="admin-card-desc">${cat.descripcion || ''}</p>
               <div class="admin-skill-items-list">
-                ${(cat.tecnologias || []).map(skill => `
+                ${(cat.tecnologias || []).length === 0 ? '<span class="admin-empty">Sin habilidades</span>' : (cat.tecnologias || []).map(skill => `
                   <div class="admin-skill-item-row">
-                    <span class="skill-name"><strong>${skill.nombre}</strong> (${skill.nivelDominio}%)</span>
-                    <button class="btn-small btn-danger admin-btn-del-skill" data-id="${skill.id}">🗑️</button>
+                    <span class="skill-name"><strong>${skill.nombre}</strong> (${skill.nivelDominio}% · ${skill.aniosExperiencia || 1}a)</span>
+                    <span>
+                      <button class="btn-small admin-btn-edit-skill" data-id="${skill.id}">✏️</button>
+                      <button class="btn-small btn-danger admin-btn-del-skill" data-id="${skill.id}">🗑️</button>
+                    </span>
                   </div>
                 `).join('')}
               </div>
               <button class="admin-btn-add-skill-modal btn-small" data-cat-id="${cat.dbId || cIdx + 1}">+ Agregar Habilidad</button>
             </div>
           `).join('')}
+        </div>
+
+        <div id="skill-form-modal" class="admin-subform-box" style="display:none;">
+          <h4 id="skill-form-title">Nueva Habilidad</h4>
+          <form id="form-skill-item" class="admin-form">
+            <input type="hidden" name="skillId" value="">
+            <input type="hidden" name="skillCatId" value="">
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Nombre *</label>
+                <input type="text" name="nombre" class="admin-input" required placeholder="Ej: React, Python">
+              </div>
+              <div class="admin-form-group">
+                <label>Categoría *</label>
+                <select name="categoriaId" class="admin-input" id="skill-categoria-select" required>
+                  ${categories.map(c => `<option value="${c.dbId || ''}">${c.nombreCategoria}</option>`).join('')}
+                </select>
+              </div>
+            </div>
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Nivel dominio (0-100)</label>
+                <input type="number" name="nivelDominio" class="admin-input" min="0" max="100" value="80">
+              </div>
+              <div class="admin-form-group">
+                <label>Años experiencia</label>
+                <input type="number" name="aniosExperiencia" class="admin-input" min="0" max="50" value="3">
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label>Icono (URL) / Certificaciones (coma)</label>
+              <input type="text" name="icono" class="admin-input" placeholder="public/images/icons/react.svg">
+            </div>
+            <div class="admin-form-actions">
+              <button type="submit" class="admin-btn-primary">💾 Guardar Habilidad</button>
+              <button type="button" class="admin-btn-secondary" id="btn-cancel-skill">Cancelar</button>
+            </div>
+          </form>
         </div>
       </div>
     `;
@@ -705,14 +778,62 @@ export class AdminPanel {
           ${services.map((srv, idx) => `
             <div class="admin-data-card" data-srv-id="${srv.dbId || idx + 1}">
               <div class="admin-card-header">
-                <h4>${srv.nombreServicio}</h4>
+                <div>
+                  <h4>${srv.nombreServicio}</h4>
+                  <span class="admin-card-sub">${srv.categoria || ''}</span>
+                </div>
                 <div class="admin-card-actions">
+                  <button class="admin-btn-edit-srv btn-small" data-id="${srv.dbId || idx + 1}" data-idx="${idx}">✏️ Editar</button>
                   <button class="admin-btn-del-srv btn-small btn-danger" data-id="${srv.dbId || idx + 1}">🗑️ Borrar</button>
                 </div>
               </div>
               <p class="admin-card-desc">${srv.descripcion}</p>
+              ${srv.entregables && srv.entregables.length ? `<div class="admin-card-tags">${srv.entregables.map(e=>`<span class="admin-tag">${e}</span>`).join('')}</div>` : ''}
             </div>
           `).join('')}
+        </div>
+
+        <div id="service-form-modal" class="admin-subform-box" style="display:none;">
+          <h4 id="service-form-title">Nuevo Servicio</h4>
+          <form id="form-service-item" class="admin-form">
+            <input type="hidden" name="srvId" value="">
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Nombre del Servicio *</label>
+                <input type="text" name="nombreServicio" class="admin-input" required placeholder="Ej: Desarrollo Web a Medida">
+              </div>
+              <div class="admin-form-group">
+                <label>Categoría</label>
+                <input type="text" name="categoria" class="admin-input" placeholder="Consultoría">
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label>Descripción *</label>
+              <textarea name="descripcion" rows="3" class="admin-input" required placeholder="Describe el servicio"></textarea>
+            </div>
+            <div class="admin-form-group">
+              <label>Icono URL</label>
+              <input type="text" name="icono" class="admin-input" placeholder="public/images/icons/services/gear.svg">
+            </div>
+            <div class="admin-form-group">
+              <label>Entregables (uno por línea)</label>
+              <textarea name="entregables" rows="2" class="admin-input" placeholder="Entregable 1&#10;Entregable 2"></textarea>
+            </div>
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>CTA Texto</label>
+                <input type="text" name="ctaTexto" class="admin-input" value="Solicitar Cotización">
+              </div>
+              <div class="admin-form-group">
+                <label>CTA Destino</label>
+                <input type="text" name="ctaDestino" class="admin-input" value="#contacto">
+              </div>
+            </div>
+            <div class="admin-form-actions">
+              <button type="submit" class="admin-btn-primary">💾 Guardar Servicio</button>
+              <button type="button" class="admin-btn-secondary" id="btn-cancel-service">Cancelar</button>
+            </div>
+          </form>
         </div>
       </div>
     `;
@@ -724,25 +845,111 @@ export class AdminPanel {
     const certs = education.certificaciones || [];
     return `
       <div class="admin-panel-section">
-        <h3>🎓 Formación Académica y Certificaciones</h3>
-        <p class="admin-help-text">Administra tus títulos profesionales, certificaciones y enlaces a credenciales/diplomas.</p>
+        <div class="admin-section-header">
+          <div>
+            <h3>🎓 Formación Académica y Certificaciones</h3>
+            <p class="admin-help-text">Administra tus títulos, certificaciones y enlaces a credenciales/diplomas (URL Drive/OneDrive).</p>
+          </div>
+          <div style="display:flex;gap:0.5rem;">
+            <button id="btn-add-degree" class="admin-btn-accent">+ Título</button>
+            <button id="btn-add-cert" class="admin-btn-accent">+ Certificación</button>
+          </div>
+        </div>
 
-        <div class="admin-cards-list">
+        <div id="degree-form-modal" class="admin-subform-box" style="display:none;">
+          <h4 id="degree-form-title">Nuevo Título Académico</h4>
+          <form id="form-degree-item" class="admin-form">
+            <input type="hidden" name="degreeId" value="">
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Título *</label>
+                <input type="text" name="tituloAcademico" class="admin-input" required placeholder="Ej: Ingeniería de Sistemas">
+              </div>
+              <div class="admin-form-group">
+                <label>Institución *</label>
+                <input type="text" name="institucion" class="admin-input" required placeholder="Universidad...">
+              </div>
+            </div>
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Año *</label>
+                <input type="text" name="anio" class="admin-input" required placeholder="2024">
+              </div>
+              <div class="admin-form-group">
+                <label>Estado</label>
+                <select name="estado" class="admin-input">
+                  <option value="Graduado">Graduado</option>
+                  <option value="En curso">En curso</option>
+                  <option value="Suspendido">Suspendido</option>
+                </select>
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label>Descripción</label>
+              <textarea name="descripcionDegree" rows="2" class="admin-input" placeholder="Descripción / mención"></textarea>
+            </div>
+            <div class="admin-form-actions">
+              <button type="submit" class="admin-btn-primary">💾 Guardar Título</button>
+              <button type="button" class="admin-btn-secondary" id="btn-cancel-degree">Cancelar</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="cert-form-modal" class="admin-subform-box" style="display:none;">
+          <h4 id="cert-form-title">Nueva Certificación</h4>
+          <form id="form-cert-item" class="admin-form">
+            <input type="hidden" name="certId" value="">
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Nombre *</label>
+                <input type="text" name="nombre" class="admin-input" required placeholder="Ej: AWS Cloud Practitioner">
+              </div>
+              <div class="admin-form-group">
+                <label>Entidad *</label>
+                <input type="text" name="entidadCertificadora" class="admin-input" required placeholder="Amazon Web Services">
+              </div>
+            </div>
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Año *</label>
+                <input type="text" name="anio" class="admin-input" required placeholder="2024">
+              </div>
+              <div class="admin-form-group">
+                <label>URL Credencial (Drive/OneDrive)</label>
+                <input type="url" name="credencialUrl" class="admin-input" placeholder="https://...">
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label>Badge Digital URL</label>
+              <input type="text" name="badgeDigital" class="admin-input" placeholder="public/images/icons/badge.svg">
+            </div>
+            <div class="admin-form-actions">
+              <button type="submit" class="admin-btn-primary">💾 Guardar Certificación</button>
+              <button type="button" class="admin-btn-secondary" id="btn-cancel-cert">Cancelar</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="admin-cards-list" style="margin-top:1.25rem;">
           <h4>Títulos Académicos</h4>
-          ${degrees.map((d, i) => `
+          ${degrees.length===0 ? '<p class="admin-empty">Sin títulos registrados.</p>' : degrees.map((d, i) => `
             <div class="admin-data-card">
               <div class="admin-card-header">
                 <div>
                   <strong>${d.tituloAcademico}</strong>
                   <div class="admin-card-sub">${d.institucion} (${d.anio}) - ${d.estado}</div>
+                  ${d.descripcion ? `<div class="admin-card-desc">${d.descripcion}</div>` : ''}
                 </div>
-                <button class="btn-small btn-danger admin-btn-del-degree" data-id="${d.id || i + 1}">🗑️</button>
+                <div class="admin-card-actions">
+                  <button class="btn-small admin-btn-edit-degree" data-id="${d.id || i + 1}" data-idx="${i}">✏️</button>
+                  <button class="btn-small btn-danger admin-btn-del-degree" data-id="${d.id || i + 1}">🗑️</button>
+                </div>
               </div>
             </div>
           `).join('')}
 
           <h4 style="margin-top: 1.5rem;">Certificaciones & Badges</h4>
-          ${certs.map((c, i) => `
+          ${certs.length===0 ? '<p class="admin-empty">Sin certificaciones registradas.</p>' : certs.map((c, i) => `
             <div class="admin-data-card">
               <div class="admin-card-header">
                 <div>
@@ -750,7 +957,10 @@ export class AdminPanel {
                   <div class="admin-card-sub">${c.entidadCertificadora} (${c.anio})</div>
                   ${c.credencialUrl ? `<a href="${c.credencialUrl}" target="_blank" class="admin-link-badge">Credencial</a>` : ''}
                 </div>
-                <button class="btn-small btn-danger admin-btn-del-cert" data-id="${c.id || i + 1}">🗑️</button>
+                <div class="admin-card-actions">
+                  <button class="btn-small admin-btn-edit-cert" data-id="${c.id || i + 1}" data-idx="${i}">✏️</button>
+                  <button class="btn-small btn-danger admin-btn-del-cert" data-id="${c.id || i + 1}">🗑️</button>
+                </div>
               </div>
             </div>
           `).join('')}
@@ -763,17 +973,77 @@ export class AdminPanel {
   static renderTestimonialsTab(testimonials) {
     return `
       <div class="admin-panel-section">
-        <h3>💬 Testimonios y Recomendaciones</h3>
-        <p class="admin-help-text">Gestiona los testimonios de clientes y colegas.</p>
+        <div class="admin-section-header">
+          <div>
+            <h3>💬 Testimonios y Recomendaciones</h3>
+            <p class="admin-help-text">Gestiona testimonios de clientes y colegas (foto puede ser URL Drive/OneDrive).</p>
+          </div>
+          <button id="btn-add-testimonio" class="admin-btn-accent">+ Nuevo Testimonio</button>
+        </div>
+
+        <div id="testimonio-form-modal" class="admin-subform-box" style="display:none;">
+          <h4 id="testimonio-form-title">Nuevo Testimonio</h4>
+          <form id="form-testimonio-item" class="admin-form">
+            <input type="hidden" name="testimonioId" value="">
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Nombre recomendador *</label>
+                <input type="text" name="nombreRecomendador" class="admin-input" required placeholder="Ana López">
+              </div>
+              <div class="admin-form-group">
+                <label>Cargo *</label>
+                <input type="text" name="cargo" class="admin-input" required placeholder="CTO">
+              </div>
+            </div>
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Empresa *</label>
+                <input type="text" name="empresa" class="admin-input" required placeholder="TechCorp">
+              </div>
+              <div class="admin-form-group">
+                <label>Foto URL (Drive/OneDrive)</label>
+                <input type="text" name="foto" class="admin-input" placeholder="https://...">
+              </div>
+            </div>
+            <div class="admin-form-row">
+              <div class="admin-form-group">
+                <label>Valoración (1-5)</label>
+                <select name="valoracion" class="admin-input">
+                  <option value="5">⭐⭐⭐⭐⭐ 5</option>
+                  <option value="4">⭐⭐⭐⭐ 4</option>
+                  <option value="3">⭐⭐⭐ 3</option>
+                  <option value="2">⭐⭐ 2</option>
+                  <option value="1">⭐ 1</option>
+                </select>
+              </div>
+              <div class="admin-form-group">
+                <label>Relación profesional</label>
+                <input type="text" name="relacionProfesional" class="admin-input" placeholder="Cliente / Colega">
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label>Texto testimonio *</label>
+              <textarea name="textoTestimonio" rows="3" class="admin-input" required placeholder="Texto del testimonio"></textarea>
+            </div>
+            <div class="admin-form-actions">
+              <button type="submit" class="admin-btn-primary">💾 Guardar Testimonio</button>
+              <button type="button" class="admin-btn-secondary" id="btn-cancel-testimonio">Cancelar</button>
+            </div>
+          </form>
+        </div>
+
         <div class="admin-cards-list">
-          ${testimonials.map((t, i) => `
+          ${testimonials.length===0 ? '<p class="admin-empty">Sin testimonios registrados.</p>' : testimonials.map((t, i) => `
             <div class="admin-data-card">
               <div class="admin-card-header">
                 <div>
                   <strong>${t.nombreRecomendador}</strong> - ${t.cargo} en ${t.empresa}
-                  <div class="admin-card-sub">Valoración: ${'⭐'.repeat(t.valoracion || 5)}</div>
+                  <div class="admin-card-sub">Valoración: ${'⭐'.repeat(t.valoracion || 5)} · ${t.relacionProfesional || ''}</div>
                 </div>
-                <button class="btn-small btn-danger admin-btn-del-testimonio" data-id="${t.dbId || i + 1}">🗑️ Borrar</button>
+                <div class="admin-card-actions">
+                  <button class="btn-small admin-btn-edit-testimonio" data-id="${t.dbId || i + 1}" data-idx="${i}">✏️ Editar</button>
+                  <button class="btn-small btn-danger admin-btn-del-testimonio" data-id="${t.dbId || i + 1}">🗑️ Borrar</button>
+                </div>
               </div>
               <p class="admin-card-desc">"${t.textoTestimonio}"</p>
             </div>
@@ -975,6 +1245,250 @@ export class AdminPanel {
           }
         }
       });
+    });
+
+    // ===== EXPERIENCIA: Crear / Editar =====
+    const btnAddExp = document.getElementById("btn-add-experience");
+    const expBox = document.getElementById("exp-form-modal");
+    const btnCancelExp = document.getElementById("btn-cancel-exp");
+    const expForm = document.getElementById("form-experience-item");
+    if (btnAddExp && expBox && expForm) {
+      btnAddExp.addEventListener("click", () => {
+        expForm.reset();
+        expForm.expId.value = "";
+        document.getElementById("exp-form-title").innerText = "Nueva Experiencia";
+        expBox.style.display = "block";
+        expBox.scrollIntoView({ behavior: "smooth" });
+      });
+    }
+    if (btnCancelExp && expBox) btnCancelExp.addEventListener("click", () => expBox.style.display = "none");
+    if (expForm) {
+      expForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const id = expForm.expId.value;
+        const payload = {
+          cargo: expForm.cargo.value.trim(),
+          empresa: expForm.empresa.value.trim(),
+          ubicacion: expForm.ubicacion.value.trim() || "Bogotá, Colombia",
+          modalidad: expForm.modalidad.value,
+          periodoInicio: expForm.periodoInicio.value.trim(),
+          periodoFin: expForm.periodoFin.value.trim() || "Presente",
+          estaVigente: (expForm.periodoFin.value.trim().toLowerCase() === "presente" || !expForm.periodoFin.value.trim()),
+          descripcion: expForm.descripcion.value.trim(),
+          responsabilidades: expForm.responsabilidades.value.split("\n").map(s=>s.trim()).filter(Boolean),
+          logros: expForm.logros.value.split("\n").map(s=>s.trim()).filter(Boolean),
+          tecnologias: expForm.tecnologias.value.split(",").map(s=>s.trim()).filter(Boolean)
+        };
+        const url = id ? `/api/experiences/${id}` : "/api/experiences";
+        const method = id ? "PUT" : "POST";
+        try {
+          const res = await fetch(url, { method, headers: { "Content-Type":"application/json","Authorization":`Bearer ${this._token}` }, body: JSON.stringify(payload)});
+          const data = await res.json();
+          if (data.success) { Toast.mostrar("¡Experiencia guardada!","success"); expBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard(); }
+          else Toast.mostrar(data.message||"Error al guardar","error");
+        } catch(err){ Toast.mostrar("Error: "+err.message,"error"); }
+      });
+    }
+    document.querySelectorAll(".admin-btn-edit-exp").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.dataset.index,10);
+        const exp = (content.experience||[])[idx];
+        if (!exp || !expForm) return;
+        expForm.expId.value = exp.dbId || "";
+        expForm.cargo.value = exp.cargo||"";
+        expForm.empresa.value = exp.empresa||"";
+        expForm.ubicacion.value = exp.ubicacion||"";
+        expForm.modalidad.value = exp.modalidad||"Híbrido";
+        expForm.periodoInicio.value = exp.periodoInicio||"";
+        expForm.periodoFin.value = exp.periodoFin||"";
+        expForm.descripcion.value = exp.descripcion||"";
+        expForm.responsabilidades.value = (exp.responsabilidades||[]).join("\n");
+        expForm.logros.value = (exp.logrosCuantificables||[]).join("\n");
+        expForm.tecnologias.value = (exp.tecnologias||[]).join(", ");
+        document.getElementById("exp-form-title").innerText = "Editar Experiencia";
+        expBox.style.display="block"; expBox.scrollIntoView({behavior:"smooth"});
+      });
+    });
+    document.querySelectorAll(".admin-btn-delete-exp").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if(!confirm("¿Eliminar esta experiencia?")) return;
+        try{ const r=await fetch(`/api/experiences/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Experiencia eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}
+      });
+    });
+
+    // ===== HABILIDADES: Categorías y Habilidades =====
+    const btnAddCat = document.getElementById("btn-add-category");
+    const catBox = document.getElementById("category-form-modal");
+    const btnCancelCat = document.getElementById("btn-cancel-category");
+    const catForm = document.getElementById("form-category-item");
+    if (btnAddCat && catBox) btnAddCat.addEventListener("click", ()=>{ if(catForm){catForm.reset(); catForm.catId.value="";} document.getElementById("category-form-title").innerText="Nueva Categoría"; catBox.style.display="block"; catBox.scrollIntoView({behavior:"smooth"}); });
+    if (btnCancelCat && catBox) btnCancelCat.addEventListener("click", ()=> catBox.style.display="none");
+    if (catForm) {
+      catForm.addEventListener("submit", async (e)=>{
+        e.preventDefault();
+        const id=catForm.catId.value;
+        const payload={ nombreCategoria: catForm.nombreCategoria.value.trim(), descripcion: catForm.descripcionCategoria.value.trim(), icono: catForm.iconoCategoria.value.trim()||"public/images/icons/code.svg" };
+        const url=id?`/api/skill-categories/${id}`:"/api/skill-categories"; const method=id?"PUT":"POST";
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Categoría guardada!","success"); catBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+      });
+    }
+    document.querySelectorAll(".admin-btn-edit-cat").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const idx=parseInt(btn.dataset.idx||btn.dataset.id,10)-1; // fallback
+        // find by dbId
+        const cat=(content.skills||[]).find(c=>String(c.dbId)===String(btn.dataset.id)) || (content.skills||[])[parseInt(btn.dataset.idx||"0",10)];
+        if(!cat || !catForm) return;
+        catForm.catId.value=cat.dbId||""; catForm.nombreCategoria.value=cat.nombreCategoria||""; catForm.descripcionCategoria.value=cat.descripcion||""; catForm.iconoCategoria.value=cat.icono||""; 
+        document.getElementById("category-form-title").innerText="Editar Categoría"; catBox.style.display="block"; catBox.scrollIntoView({behavior:"smooth"});
+      });
+    });
+    document.querySelectorAll(".admin-btn-del-cat").forEach(btn=>{
+      btn.addEventListener("click", async()=>{
+        if(!confirm("¿Eliminar categoría? Se eliminarán también sus habilidades.")) return;
+        try{ const r=await fetch(`/api/skill-categories/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Categoría eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}
+      });
+    });
+    // Skill form
+    const skillBox=document.getElementById("skill-form-modal");
+    const skillForm=document.getElementById("form-skill-item");
+    const btnCancelSkill=document.getElementById("btn-cancel-skill");
+    document.querySelectorAll(".admin-btn-add-skill-modal").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        if(!skillForm) return;
+        skillForm.reset(); skillForm.skillId.value=""; skillForm.skillCatId.value=btn.dataset.catId||"";
+        const sel=skillForm.querySelector("#skill-categoria-select"); if(sel) sel.value=btn.dataset.catId||sel.options[0]?.value||"";
+        document.getElementById("skill-form-title").innerText="Nueva Habilidad";
+        skillBox.style.display="block"; skillBox.scrollIntoView({behavior:"smooth"});
+      });
+    });
+    if(btnCancelSkill && skillBox) btnCancelSkill.addEventListener("click", ()=> skillBox.style.display="none");
+    if(skillForm){
+      skillForm.addEventListener("submit", async(e)=>{
+        e.preventDefault();
+        const id=skillForm.skillId.value;
+        const payload={ categoriaId: parseInt(skillForm.categoriaId.value,10), nombre: skillForm.nombre.value.trim(), icono: skillForm.icono.value.trim()||"public/images/icons/code.svg", nivelDominio: parseInt(skillForm.nivelDominio.value,10)||80, aniosExperiencia: parseInt(skillForm.aniosExperiencia.value,10)||1 };
+        const url=id?`/api/skills/${id}`:"/api/skills"; const method=id?"PUT":"POST";
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Habilidad guardada!","success"); skillBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+      });
+    }
+    document.querySelectorAll(".admin-btn-edit-skill").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const sid=btn.dataset.id;
+        let found=null, catId=null;
+        for(const cat of (content.skills||[])){ const s=(cat.tecnologias||[]).find(x=>String(x.id)===String(sid)); if(s){found=s; catId=cat.dbId; break;}}
+        if(!found || !skillForm) return;
+        skillForm.skillId.value=found.id; skillForm.skillCatId.value=catId||""; skillForm.nombre.value=found.nombre||""; skillForm.categoriaId.value=catId||""; skillForm.nivelDominio.value=found.nivelDominio||80; skillForm.aniosExperiencia.value=found.aniosExperiencia||1; skillForm.icono.value=found.icono||"";
+        document.getElementById("skill-form-title").innerText="Editar Habilidad"; skillBox.style.display="block"; skillBox.scrollIntoView({behavior:"smooth"});
+      });
+    });
+    document.querySelectorAll(".admin-btn-del-skill").forEach(btn=>{
+      btn.addEventListener("click", async()=>{
+        if(!confirm("¿Eliminar esta habilidad?")) return;
+        try{ const r=await fetch(`/api/skills/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Habilidad eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}
+      });
+    });
+
+    // ===== SERVICIOS =====
+    const btnAddSrv=document.getElementById("btn-add-service");
+    const srvBox=document.getElementById("service-form-modal");
+    const btnCancelSrv=document.getElementById("btn-cancel-service");
+    const srvForm=document.getElementById("form-service-item");
+    if(btnAddSrv && srvBox && srvForm){ btnAddSrv.addEventListener("click", ()=>{ srvForm.reset(); srvForm.srvId.value=""; document.getElementById("service-form-title").innerText="Nuevo Servicio"; srvBox.style.display="block"; srvBox.scrollIntoView({behavior:"smooth"}); }); }
+    if(btnCancelSrv && srvBox) btnCancelSrv.addEventListener("click", ()=> srvBox.style.display="none");
+    if(srvForm){
+      srvForm.addEventListener("submit", async(e)=>{
+        e.preventDefault();
+        const id=srvForm.srvId.value;
+        const payload={ nombreServicio: srvForm.nombreServicio.value.trim(), categoria: srvForm.categoria.value.trim()||"Consultoría", descripcion: srvForm.descripcion.value.trim(), icono: srvForm.icono.value.trim()||"public/images/icons/services/gear.svg", entregables: srvForm.entregables.value.split("\n").map(s=>s.trim()).filter(Boolean), ctaTexto: srvForm.ctaTexto.value.trim()||"Solicitar Cotización", ctaDestino: srvForm.ctaDestino.value.trim()||"#contacto" };
+        const url=id?`/api/services/${id}`:"/api/services"; const method=id?"PUT":"POST";
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Servicio guardado!","success"); srvBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+      });
+    }
+    document.querySelectorAll(".admin-btn-edit-srv").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const idx=parseInt(btn.dataset.idx,10); const srv=(content.services||[])[idx]; if(!srv||!srvForm) return;
+        srvForm.srvId.value=srv.dbId||""; srvForm.nombreServicio.value=srv.nombreServicio||""; srvForm.categoria.value=srv.categoria||""; srvForm.descripcion.value=srv.descripcion||""; srvForm.icono.value=srv.icono||""; srvForm.entregables.value=(srv.entregables||[]).join("\n"); srvForm.ctaTexto.value=srv.ctaTexto||"Solicitar Cotización"; srvForm.ctaDestino.value=srv.ctaDestino||"#contacto";
+        document.getElementById("service-form-title").innerText="Editar Servicio"; srvBox.style.display="block"; srvBox.scrollIntoView({behavior:"smooth"});
+      });
+    });
+    document.querySelectorAll(".admin-btn-del-srv").forEach(btn=>{
+      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar este servicio?")) return; try{ const r=await fetch(`/api/services/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Servicio eliminado","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
+    });
+
+    // ===== EDUCACIÓN =====
+    const btnAddDegree=document.getElementById("btn-add-degree");
+    const degreeBox=document.getElementById("degree-form-modal");
+    const btnCancelDegree=document.getElementById("btn-cancel-degree");
+    const degreeForm=document.getElementById("form-degree-item");
+    if(btnAddDegree && degreeBox && degreeForm){ btnAddDegree.addEventListener("click", ()=>{ degreeForm.reset(); degreeForm.degreeId.value=""; document.getElementById("degree-form-title").innerText="Nuevo Título Académico"; degreeBox.style.display="block"; degreeBox.scrollIntoView({behavior:"smooth"});});}
+    if(btnCancelDegree && degreeBox) btnCancelDegree.addEventListener("click", ()=> degreeBox.style.display="none");
+    if(degreeForm){
+      degreeForm.addEventListener("submit", async(e)=>{
+        e.preventDefault(); const id=degreeForm.degreeId.value;
+        const payload={ tituloAcademico: degreeForm.tituloAcademico.value.trim(), institucion: degreeForm.institucion.value.trim(), anio: degreeForm.anio.value.trim(), estado: degreeForm.estado.value, descripcion: degreeForm.descripcionDegree.value.trim() };
+        const url=id?`/api/education/degree/${id}`:"/api/education/degree"; const method=id?"PUT":"POST";
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Título guardado!","success"); degreeBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+      });
+    }
+    document.querySelectorAll(".admin-btn-edit-degree").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const idx=parseInt(btn.dataset.idx,10); const d=(content.education?.titulosAcademicos||[])[idx]; if(!d||!degreeForm) return;
+        degreeForm.degreeId.value=d.id||""; degreeForm.tituloAcademico.value=d.tituloAcademico||""; degreeForm.institucion.value=d.institucion||""; degreeForm.anio.value=d.anio||""; degreeForm.estado.value=d.estado||"Graduado"; degreeForm.descripcionDegree.value=d.descripcion||"";
+        document.getElementById("degree-form-title").innerText="Editar Título"; degreeBox.style.display="block"; degreeBox.scrollIntoView({behavior:"smooth"});
+      });
+    });
+    document.querySelectorAll(".admin-btn-del-degree").forEach(btn=>{
+      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar este título?")) return; try{ const r=await fetch(`/api/education/degree/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Título eliminado","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
+    });
+    const btnAddCert=document.getElementById("btn-add-cert");
+    const certBox=document.getElementById("cert-form-modal");
+    const btnCancelCert=document.getElementById("btn-cancel-cert");
+    const certForm=document.getElementById("form-cert-item");
+    if(btnAddCert && certBox && certForm){ btnAddCert.addEventListener("click", ()=>{ certForm.reset(); certForm.certId.value=""; document.getElementById("cert-form-title").innerText="Nueva Certificación"; certBox.style.display="block"; certBox.scrollIntoView({behavior:"smooth"});});}
+    if(btnCancelCert && certBox) btnCancelCert.addEventListener("click", ()=> certBox.style.display="none");
+    if(certForm){
+      certForm.addEventListener("submit", async(e)=>{
+        e.preventDefault(); const id=certForm.certId.value;
+        const payload={ nombre: certForm.nombre.value.trim(), entidadCertificadora: certForm.entidadCertificadora.value.trim(), anio: certForm.anio.value.trim(), credencialUrl: certForm.credencialUrl.value.trim(), badgeDigital: certForm.badgeDigital.value.trim()||"public/images/icons/badge.svg"};
+        const url=id?`/api/education/cert/${id}`:"/api/education/cert"; const method=id?"PUT":"POST";
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Certificación guardada!","success"); certBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+      });
+    }
+    document.querySelectorAll(".admin-btn-edit-cert").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const idx=parseInt(btn.dataset.idx,10); const c=(content.education?.certificaciones||[])[idx]; if(!c||!certForm) return;
+        certForm.certId.value=c.id||""; certForm.nombre.value=c.nombre||""; certForm.entidadCertificadora.value=c.entidadCertificadora||""; certForm.anio.value=c.anio||""; certForm.credencialUrl.value=c.credencialUrl||""; certForm.badgeDigital.value=c.badgeDigital||"";
+        document.getElementById("cert-form-title").innerText="Editar Certificación"; certBox.style.display="block"; certBox.scrollIntoView({behavior:"smooth"});
+      });
+    });
+    document.querySelectorAll(".admin-btn-del-cert").forEach(btn=>{
+      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar esta certificación?")) return; try{ const r=await fetch(`/api/education/cert/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Certificación eliminada","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
+    });
+
+    // ===== TESTIMONIOS =====
+    const btnAddTest=document.getElementById("btn-add-testimonio");
+    const testBox=document.getElementById("testimonio-form-modal");
+    const btnCancelTest=document.getElementById("btn-cancel-testimonio");
+    const testForm=document.getElementById("form-testimonio-item");
+    if(btnAddTest && testBox && testForm){ btnAddTest.addEventListener("click", ()=>{ testForm.reset(); testForm.testimonioId.value=""; document.getElementById("testimonio-form-title").innerText="Nuevo Testimonio"; testBox.style.display="block"; testBox.scrollIntoView({behavior:"smooth"});});}
+    if(btnCancelTest && testBox) btnCancelTest.addEventListener("click", ()=> testBox.style.display="none");
+    if(testForm){
+      testForm.addEventListener("submit", async(e)=>{
+        e.preventDefault(); const id=testForm.testimonioId.value;
+        const payload={ nombreRecomendador: testForm.nombreRecomendador.value.trim(), cargo: testForm.cargo.value.trim(), empresa: testForm.empresa.value.trim(), foto: testForm.foto.value.trim()||"public/images/testimonials/avatar-default.svg", valoracion: parseInt(testForm.valoracion.value,10)||5, relacionProfesional: testForm.relacionProfesional.value.trim(), textoTestimonio: testForm.textoTestimonio.value.trim() };
+        const url=id?`/api/testimonials/${id}`:"/api/testimonials"; const method=id?"PUT":"POST";
+        try{ const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:`Bearer ${this._token}`},body:JSON.stringify(payload)}); const d=await r.json(); if(d.success){Toast.mostrar("¡Testimonio guardado!","success"); testBox.style.display="none"; RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();} else Toast.mostrar(d.message||"Error","error"); }catch(err){Toast.mostrar("Error: "+err.message,"error");}
+      });
+    }
+    document.querySelectorAll(".admin-btn-edit-testimonio").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const idx=parseInt(btn.dataset.idx,10); const t=(content.testimonials||[])[idx]; if(!t||!testForm) return;
+        testForm.testimonioId.value=t.dbId||""; testForm.nombreRecomendador.value=t.nombreRecomendador||""; testForm.cargo.value=t.cargo||""; testForm.empresa.value=t.empresa||""; testForm.foto.value=t.foto||""; testForm.valoracion.value=String(t.valoracion||5); testForm.relacionProfesional.value=t.relacionProfesional||""; testForm.textoTestimonio.value=t.textoTestimonio||"";
+        document.getElementById("testimonio-form-title").innerText="Editar Testimonio"; testBox.style.display="block"; testBox.scrollIntoView({behavior:"smooth"});
+      });
+    });
+    document.querySelectorAll(".admin-btn-del-testimonio").forEach(btn=>{
+      btn.addEventListener("click", async()=>{ if(!confirm("¿Eliminar este testimonio?")) return; try{ const r=await fetch(`/api/testimonials/${btn.dataset.id}`,{method:"DELETE",headers:{Authorization:`Bearer ${this._token}`}}); const d=await r.json(); if(d.success){Toast.mostrar("Testimonio eliminado","info"); RepositorioContenido.invalidarCache(); if(this._onUpdateCallback) this._onUpdateCallback(); this.cargarYRenderDashboard();}}catch(e){Toast.mostrar("Error al eliminar","error");}});
     });
 
     // Cargar mensajes si está en pestaña de mensajes
